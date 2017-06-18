@@ -1,0 +1,38 @@
+{
+  "name": "react-native-common",
+  "version": "0.1.0",
+  "description": "React Native common components",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rghorbani/react-native-common"
+  },
+  "keyword": [
+    "react",
+    "react-native",
+    "ios",
+    "android"
+  ],
+  "author": {
+    "name": "Reza Ghorbani",
+    "email": "r.ghorbani.f@gmail.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rghorbani/react-native-common/issues"
+  },
+  "homepage": "https://github.com/rghorbani/react-native-common",
+  "_npmUser": {
+    "name": "rghorbani",
+    "email": "r.ghorbani.f@gmail.com"
+  },
+  "maintainers": [
+    {
+      "name": "rghorbani",
+      "email": "r.ghorbani.f@gmail.com"
+    }
+  ]
+}
