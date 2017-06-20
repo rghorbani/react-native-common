@@ -95,7 +95,7 @@ class ListContainer extends React.Component {
         style={styles.addButton}
         onPress={this.props.onPress}>
         <Image
-          source={require('../views/img/add_transaction.png')}
+          source={require('./img/add.png')}
         />
       </TouchableOpacity>
     );
