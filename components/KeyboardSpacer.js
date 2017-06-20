@@ -5,8 +5,8 @@
  */
 'use strict';
 
-import React, { PropTypes } from 'react';
-var {
+const React = require('react');
+const {
   Keyboard,
   LayoutAnimation,
   View,
@@ -15,6 +15,7 @@ var {
   StyleSheet,
   ViewPropTypes,
 } = require('react-native');
+const PropTypes = require('prop-types');
 
 // From: https://medium.com/man-moon/writing-modern-react-native-ui-e317ff956f02
 const defaultAnimation = {

@@ -6,14 +6,15 @@
 'use strict';
 
 
-var React = require('react');
-var {
+const React = require('react');
+const {
   Platform,
   Image,
   NativeModules,
   TouchableOpacity,
   View,
 } = require('react-native');
+const PropTypes = require('prop-types');
 var RNCHeader = require('./RNCHeader');
 var {Text} = require('./RGFText');
 var StyleSheet = require('./RNCStyleSheet');
@@ -39,8 +40,8 @@ class ListContainer extends React.Component {
   };
 
   static contextTypes = {
-    openDrawer: React.PropTypes.func,
-    hasUnreadNotifications: React.PropTypes.number,
+    openDrawer: PropTypes.func,
+    hasUnreadNotifications: PropTypes.number,
   };
 
   constructor(props: Props) {

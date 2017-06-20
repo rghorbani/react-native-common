@@ -14,6 +14,7 @@ var {
   TouchableOpacity,
   View,
 } = require('react-native');
+const PropTypes = require('prop-types');
 var RGFColors = require('./RGFColors');
 var RNCHeader = require('./RNCHeader');
 var StyleSheet = require('./RNCStyleSheet');
@@ -35,8 +36,8 @@ class PageContainer extends React.Component {
   props: Props;
 
   static contextTypes = {
-    openDrawer: React.PropTypes.func,
-    hasUnreadNotifications: React.PropTypes.number,
+    openDrawer: PropTypes.func,
+    hasUnreadNotifications: PropTypes.number,
   };
 
   constructor(props: Props) {

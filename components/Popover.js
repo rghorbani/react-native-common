@@ -6,7 +6,7 @@
 
 'use strict';
 
-import React, { PropTypes } from 'react';
+import React from 'react';
 var {
   Animated,
   Dimensions,
@@ -17,6 +17,7 @@ var {
   View,
   ViewPropTypes,
 } = require('react-native');
+const PropTypes = require('prop-types');
 
 var noop = () => {};
 

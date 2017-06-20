@@ -1,6 +1,6 @@
 {
   "name": "react-native-common",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "React Native common components",
   "main": "index.js",
   "scripts": {
@@ -34,5 +34,8 @@
       "name": "rghorbani",
       "email": "r.ghorbani.f@gmail.com"
     }
-  ]
+  ],
+  "dependencies": {
+    "prop-types": "^15.5.10"
+  }
 }

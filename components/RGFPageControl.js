@@ -5,14 +5,13 @@
  */
 'use strict';
 
-var React = require('react');
-var {
+const React = require('react');
+const {
   StyleSheet,
   View,
   ViewPropTypes,
 } = require('react-native');
-
-var PropTypes = React.PropTypes;
+const PropTypes = require('prop-types');
 
 class RGFPageControl extends React.Component {
   props: {
