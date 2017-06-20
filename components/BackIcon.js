@@ -6,10 +6,4 @@
 
 'use strict';
 
-var Platform = require('Platform');
-
-if (Platform.OS === 'ios') {
-  module.exports = require('./img/back.png');
-} else {
-  module.exports = require('./img/back.png');
-}
+module.exports = require('./img/back.png');

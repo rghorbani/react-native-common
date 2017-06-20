@@ -8,8 +8,8 @@
 'use strict';
 
 module.exports = {
-  get BackIcon() { return require('./BackIcon')},
-  get BackWhiteIcon() { return require('./BackWhiteIcon')},
+  get BackIcon() { return require('./components/BackIcon')},
+  get BackWhiteIcon() { return require('./components/BackWhiteIcon')},
   get Carousel() { return require('./components/Carousel')},
   get InfiniteScrollView() { return require('./components/InfiniteScrollView')},
   get ItemsWithSeperator() { return require('./components/ItemsWithSeperator')},
