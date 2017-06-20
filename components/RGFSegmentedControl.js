@@ -5,10 +5,12 @@
  */
 'use strict';
 
-var React = require('React');
-var Platform = require('Platform');
-var TouchableOpacity = require('TouchableOpacity');
-var View = require('View');
+var React = require('react');
+var {
+  Platform,
+  TouchableOpacity,
+  View,
+} = require('react-native');
 var StyleSheet = require('./RNCStyleSheet');
 var { Text } = require('./RGFText');
 

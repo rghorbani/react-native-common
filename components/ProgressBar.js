@@ -6,7 +6,7 @@
 
 'use strict';
 
-var React = require('React');
+var React = require('react');
 // import LinearGradient from 'react-native-linear-gradient';
 var {
   Image,

@@ -7,7 +7,7 @@
 
 'use strict';
 
-var React = require('React');
+var React = require('react');
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 var {

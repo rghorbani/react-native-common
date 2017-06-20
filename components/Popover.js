@@ -6,7 +6,7 @@
 
 'use strict';
 
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 var {
   Animated,
   Dimensions,

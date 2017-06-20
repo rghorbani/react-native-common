@@ -1,5 +1,5 @@
 
-var React = require('React');
+var React = require('react');
 
 var {
   Platform,

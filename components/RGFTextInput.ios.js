@@ -7,11 +7,8 @@
 
 'use strict';
 
-var React = require('React');
+var React = require('react');
 import Ionicons from 'react-native-vector-icons/Ionicons';
-var RGFColors = require('RGFColors');
-var env = require('Enviroment');
-
 var {
   View,
   Image,
@@ -21,7 +18,9 @@ var {
   StyleSheet,
   TouchableOpacity,
 } = require('react-native');
-var { Text } = require('RGFText');
+var { Text } = require('./RGFText');
+var RGFColors = require('./RGFColors');
+var env = {};
 
 export type Props = {
   rtl: boolean;

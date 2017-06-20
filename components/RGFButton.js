@@ -6,7 +6,7 @@
 
 'use strict';
 
-var React = require('React');
+var React = require('react');
 var Image = require('Image');
 var TouchableOpacity = require('TouchableOpacity');
 var StyleSheet = require('StyleSheet');

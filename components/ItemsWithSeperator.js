@@ -5,7 +5,7 @@
  */
 'use strict';
 
-var React = require('React');
+var React = require('react');
 var PixelRatio = require('PixelRatio');
 var StyleSheet = require('StyleSheet');
 var View = require('View');
