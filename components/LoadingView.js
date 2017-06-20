@@ -15,10 +15,8 @@ var {
   View,
   StyleSheet,
 } = require('react-native');
-var {
-  RGFColors,
-  Text,
-} = require('RGFCommon');
+var RGFColors = require('./RGFColors');
+var {Text} = require('./RGFText');
 
 class LoadingView extends React.Component {
   static defaultProps = {

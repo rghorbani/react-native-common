@@ -6,11 +6,11 @@
 'use strict';
 
 var React = require('React');
-var StyleSheet = require('RGFStyleSheet');
-var { Text } = require('RGFText');
+var Platform = require('Platform');
 var TouchableOpacity = require('TouchableOpacity');
 var View = require('View');
-var Platform = require('Platform');
+var StyleSheet = require('./RGFStyleSheet');
+var { Text } = require('./RGFText');
 
 class RGFSegmentedControl extends React.Component {
   props: {

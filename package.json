@@ -1,6 +1,6 @@
 {
   "name": "react-native-common",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "React Native common components",
   "main": "index.js",
   "scripts": {

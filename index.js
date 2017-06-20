@@ -1,7 +1,7 @@
 /**
  * Copyright 2016 Reza (github.com/rghorbani).
  *
- * @providesModule RGFCommon
+ * @providesModule RNCCommon
  * @flow
  */
 
@@ -22,10 +22,10 @@ module.exports = {
   get PureListView() { return require('./components/PureListView')},
   get RGFButton() { return require('./components/RGFButton')},
   get RGFDrawerLayout() { return require('./components/RGFDrawerLayout')},
-  get RGFHeader() { return require('./components/RGFHeader')},
+  get RNCHeader() { return require('./components/RNCHeader')},
   get RGFPageControl() { return require('./components/RGFPageControl')},
   get RGFSegmentedControl() { return require('./components/RGFSegmentedControl')},
-  get StyleSheet() { return require('./components/RGFStyleSheet')},
+  get StyleSheet() { return require('./components/RNCStyleSheet')},
   get RGFTouchable() { return require('./components/RGFTouchable')},
   get ViewPager() { return require('./components/ViewPager')},
   get XWhiteIcon() { return require('./components/XWhiteIcon')},

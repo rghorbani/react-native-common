@@ -14,13 +14,11 @@ var {
   TouchableOpacity,
   View,
 } = require('react-native');
-var {
-  RGFHeader,
-  Text,
-  StyleSheet,
-} = require('RGFCommon');
+var RGFColors = require('./RGFColors');
+var StyleSheet = require('./RGFStyleSheet');
+var {Text} = require('./RGFText');
 
-import type {Item as HeaderItem} from 'RGFHeader';
+import type {Item as HeaderItem} from './RGFHeader';
 
 type Props = {
   title: string;

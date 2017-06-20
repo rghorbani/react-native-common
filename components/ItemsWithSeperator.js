@@ -5,8 +5,8 @@
  */
 'use strict';
 
-var PixelRatio = require('PixelRatio');
 var React = require('React');
+var PixelRatio = require('PixelRatio');
 var StyleSheet = require('StyleSheet');
 var View = require('View');
 

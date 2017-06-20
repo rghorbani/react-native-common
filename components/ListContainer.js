@@ -18,7 +18,7 @@ var {
   RGFHeader,
   Text,
   StyleSheet,
-} = require('RGFCommon');
+} = require('RNCCommon');
 
 import type {Item as HeaderItem} from 'RGFHeader';
 

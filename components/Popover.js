@@ -8,13 +8,13 @@
 
 import React, { Component, PropTypes } from 'react';
 var {
-  StyleSheet,
-  Dimensions,
   Animated,
+  Dimensions,
+  Easing,
   Text,
   TouchableWithoutFeedback,
+  StyleSheet,
   View,
-  Easing
 } = require('react-native');
 
 var noop = () => {};

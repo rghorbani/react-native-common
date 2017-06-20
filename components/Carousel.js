@@ -6,8 +6,8 @@
 'use strict';
 
 const React = require('react');
+const StyleSheet = require('./RGFStyleSheet');
 const ViewPager = require('./ViewPager');
-const StyleSheet = require('RGFStyleSheet');
 
 type Props = {
   count: number;
