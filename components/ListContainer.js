@@ -14,11 +14,9 @@ var {
   TouchableOpacity,
   View,
 } = require('react-native');
-var {
-  RNCHeader,
-  Text,
-  StyleSheet,
-} = require('RNCCommon');
+var RNCHeader = require('./RNCHeader');
+var {Text} = require('./RGFText');
+var StyleSheet = require('./RNCStyleSheet');
 
 import type {Item as HeaderItem} from 'RNCHeader';
 

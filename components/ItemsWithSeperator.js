@@ -6,9 +6,11 @@
 'use strict';
 
 var React = require('react');
-var PixelRatio = require('PixelRatio');
-var StyleSheet = require('StyleSheet');
-var View = require('View');
+var {
+  PixelRatio,
+  StyleSheet,
+  View,
+} = require('react-native');
 
 class ItemsWithSeparator extends React.Component {
   props: {
