@@ -7,12 +7,14 @@
 'use strict';
 
 var React = require('react');
-var Image = require('Image');
-var TouchableOpacity = require('TouchableOpacity');
-var StyleSheet = require('StyleSheet');
-var View = require('View');
-var { Text } = require('./RGFText');
+var {
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  View,
+} = require('react-native');
 // import LinearGradient from 'react-native-linear-gradient';
+var { Text } = require('./RGFText');
 var RGFColors = require('./RGFColors');
 
 class RGFButton extends React.Component {

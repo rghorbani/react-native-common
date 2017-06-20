@@ -7,7 +7,9 @@
 'use strict';
 
 var React = require('react');
-var DrawerLayoutAndroid = require('DrawerLayoutAndroid');
+var {
+  DrawerLayoutAndroid,
+} = require('react-native');
 
 class RGFDrawerLayout extends React.Component {
   _drawer: ?DrawerLayoutAndroid;

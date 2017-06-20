@@ -9,7 +9,7 @@
 
 import React from 'react';
 import ReactNative, {StyleSheet, Dimensions} from 'react-native';
-import RGFColors from 'RGFColors';
+import RGFColors from './RGFColors';
 
 export function Text({style, ...props}: Object): ReactElement {
   return <ReactNative.Text style={[styles.font, style]} {...props} />;

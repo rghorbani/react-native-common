@@ -15,6 +15,7 @@ var {
   TouchableWithoutFeedback,
   StyleSheet,
   View,
+  ViewPropTypes,
 } = require('react-native');
 
 var noop = () => {};
@@ -41,7 +42,7 @@ function Rect(x, y, width, height) {
 
 class Popover extends React.Component {
   static propTypes = {
-    style: View.propTypes.style,
+    style: ViewPropTypes.style,
     isVisible: PropTypes.bool,
     onClose: PropTypes.func,
   };

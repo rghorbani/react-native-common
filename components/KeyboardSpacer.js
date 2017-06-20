@@ -12,7 +12,8 @@ var {
   View,
   Dimensions,
   Platform,
-  StyleSheet
+  StyleSheet,
+  ViewPropTypes,
 } = require('react-native');
 
 // From: https://medium.com/man-moon/writing-modern-react-native-ui-e317ff956f02
@@ -33,7 +34,7 @@ class KeyboardSpacer extends React.Component {
   static propTypes = {
     topSpacing: PropTypes.number,
     onToggle: PropTypes.func,
-    style: View.propTypes.style,
+    style: ViewPropTypes.style,
   };
 
   static defaultProps = {

@@ -6,19 +6,22 @@
 'use strict';
 
 var React = require('react');
-var StyleSheet = require('StyleSheet');
-var View = require('View');
+var {
+  StyleSheet,
+  View,
+  ViewPropTypes,
+} = require('react-native');
 
 var PropTypes = React.PropTypes;
 
-var RGFPageControl = React.createClass({
-  propTypes: {
-    style: View.propTypes.style,
+class RGFPageControl extends React.Component {
+  props: {
+    style: ViewPropTypes.style,
     count: PropTypes.number.isRequired,
     selectedIndex: PropTypes.number.isRequired,
-  },
+  }
 
-  render: function() {
+  render() {
     var images = [];
     for (var i = 0; i < this.props.count; i++) {
       var isSelected = this.props.selectedIndex === i;
@@ -32,10 +35,10 @@ var RGFPageControl = React.createClass({
       </View>
     );
   }
-});
+}
 
-var Circle = React.createClass({
-  render: function() {
+class Circle extends React.Component {
+  render() {
     let extraStyle = {};
     if (this.props.isSelected) {
       extraStyle = this.props.fullColor ? {backgroundColor: this.props.fullColor} : styles.full;
@@ -52,7 +55,7 @@ var Circle = React.createClass({
     }
     return <View style={[styles.circle, extraStyle]} />;
   }
-});
+}
 
 var CIRCLE_SIZE = 4;
 
