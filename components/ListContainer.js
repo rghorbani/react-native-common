@@ -15,12 +15,12 @@ var {
   View,
 } = require('react-native');
 var {
-  RGFHeader,
+  RNCHeader,
   Text,
   StyleSheet,
 } = require('RNCCommon');
 
-import type {Item as HeaderItem} from 'RGFHeader';
+import type {Item as HeaderItem} from 'RNCHeader';
 
 type Props = {
   title: string;
@@ -68,12 +68,12 @@ class ListContainer extends React.Component {
     return (
       <View style={[styles.container, this.props.style]}>
         <View style={styles.headerWrapper}>
-          <RGFHeader
+          <RNCHeader
             title={this.props.title}
             leftItem={leftItem}
             rightItem={this.props.rightItem}
             extraItems={this.props.extraItems}>
-          </RGFHeader>
+          </RNCHeader>
         </View>
         <View style={styles.content}>
           {this.props.children}

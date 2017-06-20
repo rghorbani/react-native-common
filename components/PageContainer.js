@@ -15,10 +15,11 @@ var {
   View,
 } = require('react-native');
 var RGFColors = require('./RGFColors');
-var StyleSheet = require('./RGFStyleSheet');
+var RNCHeader = require('./RNCHeader');
+var StyleSheet = require('./RNCStyleSheet');
 var {Text} = require('./RGFText');
 
-import type {Item as HeaderItem} from './RGFHeader';
+import type {Item as HeaderItem} from './RNCHeader';
 
 type Props = {
   title: string;
@@ -46,12 +47,12 @@ class PageContainer extends React.Component {
     return (
       <View style={[styles.container, this.props.style]}>
         <View style={styles.headerWrapper}>
-          <RGFHeader
+          <RNCHeader
             title={this.props.title}
             leftItem={this.props.leftItem}
             rightItem={this.props.rightItem}
             extraItems={this.props.extraItems}>
-          </RGFHeader>
+          </RNCHeader>
         </View>
         <View style={styles.content}>
           {this.props.children}

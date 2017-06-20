@@ -9,7 +9,7 @@ var React = require('React');
 var Platform = require('Platform');
 var TouchableOpacity = require('TouchableOpacity');
 var View = require('View');
-var StyleSheet = require('./RGFStyleSheet');
+var StyleSheet = require('./RNCStyleSheet');
 var { Text } = require('./RGFText');
 
 class RGFSegmentedControl extends React.Component {

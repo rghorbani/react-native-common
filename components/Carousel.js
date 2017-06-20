@@ -6,7 +6,7 @@
 'use strict';
 
 const React = require('react');
-const StyleSheet = require('./RGFStyleSheet');
+const StyleSheet = require('./RNCStyleSheet');
 const ViewPager = require('./ViewPager');
 
 type Props = {
