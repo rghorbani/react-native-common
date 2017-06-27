@@ -1,20 +1,19 @@
 /**
  * Copyright 2016 Reza (github.com/rghorbani)
  *
- * @providesModule RGFTouchable
  * @flow
  */
 
 'use strict';
 
-import React from 'react';
-import {
+const React = require('react');
+const {
   TouchableHighlight,
   TouchableNativeFeedback,
   Platform,
-} from 'react-native';
+} = require('react-native');
 
-function RGFTouchableIOS(props: Object): ReactElement {
+function RNCTouchableIOS(props: Object): ReactElement {
   return (
     <TouchableHighlight
       accessibilityTraits="button"
@@ -24,8 +23,8 @@ function RGFTouchableIOS(props: Object): ReactElement {
   );
 }
 
-const RGFTouchable = Platform.OS === 'android'
+const RNCTouchable = Platform.OS === 'android'
   ? TouchableNativeFeedback
-  : RGFTouchableIOS;
+  : RNCTouchableIOS;
 
-module.exports = RGFTouchable;
+module.exports = RNCTouchable;

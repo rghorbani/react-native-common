@@ -5,8 +5,8 @@
  */
 'use strict';
 
-var React = require('react');
-var {
+const React = require('react');
+const {
   PixelRatio,
   StyleSheet,
   View,

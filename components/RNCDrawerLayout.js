@@ -12,7 +12,7 @@ const {
 } = require('react-native');
 const PropTypes = require('prop-types');
 
-class RGFDrawerLayout extends React.Component {
+class RNCDrawerLayout extends React.Component {
   _drawer: ?DrawerLayoutAndroid;
 
   constructor(props: any, context: any) {
@@ -68,9 +68,9 @@ class RGFDrawerLayout extends React.Component {
   }
 }
 
-RGFDrawerLayout.contextTypes = {
+RNCDrawerLayout.contextTypes = {
   addBackButtonListener: PropTypes.func,
   removeBackButtonListener: PropTypes.func,
 };
 
-module.exports = RGFDrawerLayout;
+module.exports = RNCDrawerLayout;

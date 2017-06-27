@@ -13,7 +13,7 @@ const {
 } = require('react-native');
 const PropTypes = require('prop-types');
 
-class RGFPageControl extends React.Component {
+class RNCPageControl extends React.Component {
   props: {
     style: ViewPropTypes.style,
     count: PropTypes.number.isRequired,
@@ -80,8 +80,8 @@ var styles = StyleSheet.create({
   },
 });
 
-module.exports = RGFPageControl;
+module.exports = RNCPageControl;
 module.exports.__cards__ = (define) => {
-  define('Simple 2', () => <RGFPageControl count={2} selectedIndex={0} />);
-  define('Simple 5', () => <RGFPageControl count={5} selectedIndex={2} />);
+  define('Simple 2', () => <RNCPageControl count={2} selectedIndex={0} />);
+  define('Simple 5', () => <RNCPageControl count={5} selectedIndex={2} />);
 };

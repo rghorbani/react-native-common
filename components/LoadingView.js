@@ -2,15 +2,13 @@
 /**
  * Copyright 2016 Reza (github.com/rghorbani).
  *
- * @providesModule LoadingView
  * @flow
  */
 
 'use strict';
 
-var React = require('react');
-
-var {
+const React = require('react');
+const {
   ActivityIndicator,
   View,
   StyleSheet,

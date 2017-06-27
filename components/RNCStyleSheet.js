@@ -1,13 +1,15 @@
 /**
  * Copyright 2017 Reza (github.com/rghorbani)
  *
- * @providesModule RNCStyleSheet
  * @flow
  */
 
 'use strict';
 
-import {StyleSheet, Platform} from 'react-native';
+const {
+  Platform,
+  StyleSheet,
+} = require('react-native');
 
 export function create(styles: Object): {[name: string]: number} {
   const platformStyles = {};

@@ -1,7 +1,6 @@
 
-var React = require('react');
-
-var {
+const React = require('react');
+const {
   Platform,
   ScrollView,
   StyleSheet,

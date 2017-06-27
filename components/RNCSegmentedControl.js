@@ -5,8 +5,8 @@
  */
 'use strict';
 
-var React = require('react');
-var {
+const React = require('react');
+const {
   Platform,
   TouchableOpacity,
   View,
@@ -14,7 +14,7 @@ var {
 var StyleSheet = require('./RNCStyleSheet');
 var { Text } = require('./RGFText');
 
-class RGFSegmentedControl extends React.Component {
+class RNCSegmentedControl extends React.Component {
   props: {
     values: Array<string>;
     selectionColor: ?string;
@@ -124,4 +124,4 @@ var styles = StyleSheet.create({
   },
 });
 
-module.exports = RGFSegmentedControl;
+module.exports = RNCSegmentedControl;
