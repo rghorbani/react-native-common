@@ -29,6 +29,7 @@ module.exports = {
   get RNCSegmentedControl() { return require('./components/RNCSegmentedControl')},
   get StyleSheet() { return require('./components/RNCStyleSheet')},
   get RNCTouchable() { return require('./components/RNCTouchable')},
+  get SettingsList() { return require('./components/SettingsList')},
   get ViewPager() { return require('./components/ViewPager')},
   get XIcon() { return require('./components/XIcon')},
   get XWhiteIcon() { return require('./components/XWhiteIcon')},
