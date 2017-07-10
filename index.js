@@ -18,6 +18,7 @@ module.exports = {
   get KeyboardSpacer() { return require('./components/KeyboardSpacer')},
   get ListContainer() { return require('./components/ListContainer')},
   get LoadingView() { return require('./components/LoadingView')},
+  get Navigator() { return require('./components/Navigator/Navigator')},
   get PageContainer() { return require('./components/PageContainer')},
   get Popover() { return require('./components/Popover')},
   get ProgressBar() { return require('./components/ProgressBar')},

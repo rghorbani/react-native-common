@@ -1,6 +1,6 @@
 {
   "name": "react-native-common",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "description": "React Native common components",
   "main": "index.js",
   "scripts": {
@@ -36,7 +36,12 @@
     }
   ],
   "dependencies": {
-    "prop-types": "^15.5.10"
+    "fbjs": "~0.8.9",
+    "immutable": "~3.7.6",
+    "prop-types": "^15.5.10",
+    "react-native-vector-icons": "^4.2.0",
+    "react-timer-mixin": "^0.13.2",
+    "rebound": "^0.0.13"
   },
   "peerDependencies": {
     "react-native": "*"
