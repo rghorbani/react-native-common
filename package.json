@@ -1,6 +1,6 @@
 {
   "name": "react-native-common",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "description": "React Native common components",
   "main": "index.js",
   "scripts": {
@@ -13,6 +13,7 @@
   "keyword": [
     "react",
     "react-native",
+    "react-native-common",
     "ios",
     "android"
   ],

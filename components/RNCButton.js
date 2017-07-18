@@ -11,17 +11,20 @@ const {
   Image,
   TouchableOpacity,
   StyleSheet,
+  Text,
   View,
 } = require('react-native');
 // import LinearGradient from 'react-native-linear-gradient';
-var { Text } = require('./RGFText');
 var RGFColors = require('./RGFColors');
 
 class RGFButton extends React.Component {
   props: {
     type: 'primary' | 'secondary' | 'bordered';
     icon?: number;
+    iconStyle?: any;
     caption: string;
+    captionStyle?: any;
+    buttonStyle?: any;
     style?: any;
     onPress: () => mixed;
   };
@@ -31,18 +34,18 @@ class RGFButton extends React.Component {
   };
 
   render() {
-    const caption = this.props.caption.toUpperCase();
+    const caption = this.props.caption;
     let icon;
     if (this.props.icon) {
-      icon = <Image source={this.props.icon} style={styles.icon} />;
+      icon = <Image source={this.props.icon} style={[styles.icon, this.props.iconStyle]} />;
     }
     let content;
     if (this.props.type === 'primary') {
       content = (
         <View
-          style={[styles.button, styles.primaryButton]}>
+          style={[styles.button, styles.primaryButton, this.props.buttonStyle]}>
           {icon}
-          <Text style={[styles.caption, styles.primaryCaption]}>
+          <Text style={[styles.caption, styles.primaryCaption, this.props.captionStyle]}>
             {caption}
           </Text>
         </View>
@@ -50,9 +53,9 @@ class RGFButton extends React.Component {
     } else {
       var border = this.props.type === 'bordered' && styles.border;
       content = (
-        <View style={[styles.button, border]}>
+        <View style={[styles.button, border, this.props.buttonStyle]}>
           {icon}
-          <Text style={[styles.caption, styles.secondaryCaption]}>
+          <Text style={[styles.caption, styles.secondaryCaption, this.props.captionStyle]}>
             {caption}
           </Text>
         </View>
@@ -71,6 +74,7 @@ class RGFButton extends React.Component {
 }
 
 const HEIGHT = 50;
+RGFButton.HEIGHT = HEIGHT;
 
 var styles = StyleSheet.create({
   container: {

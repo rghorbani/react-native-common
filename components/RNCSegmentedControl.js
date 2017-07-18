@@ -20,6 +20,8 @@ class RNCSegmentedControl extends React.Component {
     selectionColor: ?string;
     selectedIndex: number;
     onChange: (newIndex: number) => void;
+    titleStyle?: any;
+    segmentStyle?: any;
     style?: any;
   };
 
@@ -29,6 +31,8 @@ class RNCSegmentedControl extends React.Component {
         <Segment
           key={value}
           value={value}
+          titleStyle={this.props.titleStyle}
+          segmentStyle={this.props.segmentStyle}
           isSelected={index === this.props.selectedIndex}
           selectionColor={this.props.selectionColor || 'white'}
           onPress={() => this.props.onChange(index)}
@@ -48,6 +52,8 @@ class Segment extends React.Component {
     value: string;
     isSelected: boolean;
     selectionColor: string;
+    segmentStyle?: any;
+    titleStyle?: any;
     onPress: () => void;
   };
 
@@ -72,8 +78,8 @@ class Segment extends React.Component {
         accessibilityTraits={accessibilityTraits}
         activeOpacity={0.8}
         onPress={this.props.onPress}
-        style={[styles.button, selectedButtonStyle]}>
-        <Text style={[styles.label, deselectedLabelStyle]}>
+        style={[styles.button, selectedButtonStyle, this.props.segmentStyle]}>
+        <Text style={[styles.label, deselectedLabelStyle, styles.titleStyle]}>
           {title}
         </Text>
       </TouchableOpacity>
