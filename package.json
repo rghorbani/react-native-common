@@ -1,6 +1,6 @@
 {
   "name": "react-native-common",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "description": "React Native common components",
   "main": "index.js",
   "scripts": {
@@ -37,6 +37,7 @@
     }
   ],
   "dependencies": {
+    "create-react-class": "^15.6.0",
     "fbjs": "~0.8.9",
     "immutable": "~3.7.6",
     "prop-types": "^15.5.10",
