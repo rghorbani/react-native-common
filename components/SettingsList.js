@@ -1,5 +1,5 @@
 /**
- * Copyright 2016 Reza (github.com/rghorbani)
+ * Copyright 2017 Reza (github.com/rghorbani)
  *
  * @flow
  */
@@ -7,6 +7,8 @@
 'use strict'
 
 const React = require('react');
+const PropTypes = require('prop-types');
+const ARROW_ICON = require('./img/disclosure.png');
 const {
   Image,
   Text,
@@ -19,8 +21,6 @@ const {
   ViewPropTypes,
   PixelRatio,
 } = require('react-native');
-const PropTypes = require('prop-types');
-const ARROW_ICON = require('./img/disclosure.png');
 
 class SettingsList extends React.Component {
   static propTypes = {
@@ -88,7 +88,7 @@ class SettingsList extends React.Component {
   }
 
   _groupView(group, index) {
-    if(group.header){
+    if(group.header) {
       return (
         <View key={'group_' + index}>
           {group.other}
@@ -244,30 +244,30 @@ class SettingsList extends React.Component {
 /**
  * Optional Header for groups
  */
-SettingsList.Header = React.createClass({
-  propTypes: {
+class Header extends React.Component {
+  static propTypes = {
     rtl: PropTypes.bool,
     headerText: PropTypes.string,
     headerStyle: Text.propTypes.style,
-  },
-  getDefaultProps() {
-    return {
-      rtl: false,
-    };
-  },
+  };
+
+  static defaultProps = {
+    rtl: false,
+  };
   /**
    * not directly rendered
    */
-  render(){
+  render() {
     return null;
   }
-});
+}
+SettingsList.Header = Header;
 
 /**
  * Individual Items in the Settings List
  */
-SettingsList.Item = React.createClass({
-  propTypes: {
+class Item extends React.Component {
+  static propTypes = {
     rtl: PropTypes.bool,
     /**
      * Title being displayed
@@ -360,21 +360,21 @@ SettingsList.Item = React.createClass({
      */
     rightSideContent: PropTypes.node,
     /* Gives opens to hide specific borders */
-    borderHide: PropTypes.oneOf(['Top', 'Bottom', 'Both'])
-  },
-  getDefaultProps() {
-    return {
-      rtl: false,
-      hasNavArrow: true
-    };
-  },
+    borderHide: PropTypes.oneOf(['Top', 'Bottom', 'Both']),
+  };
+
+  static defaultProps = {
+    rtl: false,
+    hasNavArrow: true
+  };
   /**
    * not directly rendered
    */
-  render(){
+  render() {
     return null;
-  },
-});
+  }
+}
+SettingsList.Item = Item;
 
 const styles = StyleSheet.create({
   itemBox: {
@@ -427,7 +427,7 @@ const styles = StyleSheet.create({
   arrow: {
   },
   arrowRTL: {
-    transform: [{ rotate: '180deg'}]
+    transform: [{ rotate: '180deg'}],
   },
 });
 

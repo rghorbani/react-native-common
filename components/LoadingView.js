@@ -10,11 +10,10 @@
 const React = require('react');
 const {
   ActivityIndicator,
+  Text,
   View,
   StyleSheet,
 } = require('react-native');
-var RGFColors = require('./RGFColors');
-var {Text} = require('./RGFText');
 
 class LoadingView extends React.Component {
   static defaultProps = {
@@ -32,10 +31,10 @@ class LoadingView extends React.Component {
       return (
         <View style={[styles.container, styles.primary]}>
           <ActivityIndicator
-            style={{transform: [{scale: 1.2}]}}
+            style={styles.indicator}
             color="#FFFFFF"
           />
-          <Text style={[styles.title, styles.primaryTitle]}>
+          <Text style={[styles.caption, styles.primaryTitle, this.props.captionStyle]}>
             {this.props.caption}
           </Text>
         </View>
@@ -45,10 +44,10 @@ class LoadingView extends React.Component {
     return (
       <View style={styles.container}>
         <ActivityIndicator
-          style={{transform: [{scale: 1.2}]}}
+          style={styles.indicator}
           color="black"
         />
-        <Text style={styles.title}>
+        <Text style={[styles.caption, this.props.captionStyle]}>
           {this.props.caption}
         </Text>
       </View>
@@ -64,6 +63,9 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 10,
   },
+  indicator: {
+    transform: [{scale: 1.2}],
+  },
   primary: {
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
     position: 'absolute',
@@ -72,14 +74,14 @@ var styles = StyleSheet.create({
     left: 0,
     right: 0,
   },
-  title: {
+  caption: {
     marginTop: 10,
     fontSize: 15,
     color: 'black',
   },
   primaryTitle: {
     color: '#FFFFFF',
-  }
+  },
 });
 
 module.exports = LoadingView;
