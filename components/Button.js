@@ -7,15 +7,16 @@
 'use strict';
 
 const React = require('react');
+// import LinearGradient from 'react-native-linear-gradient';
+const RGFColors = require('./RGFColors');
+
 const {
   Image,
-  TouchableOpacity,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } = require('react-native');
-// import LinearGradient from 'react-native-linear-gradient';
-var RGFColors = require('./RGFColors');
 
 class RGFButton extends React.Component {
   props: {
@@ -79,8 +80,6 @@ RGFButton.HEIGHT = HEIGHT;
 var styles = StyleSheet.create({
   container: {
     height: HEIGHT,
-    // borderRadius: HEIGHT / 2,
-    // borderWidth: 1 / PixelRatio.get(),
     backgroundColor: 'red',
   },
   button: {

@@ -6,9 +6,11 @@
 
 'use strict';
 
-var React = require('react');
+const React = require('react');
 // import LinearGradient from 'react-native-linear-gradient';
-var {
+const RGFColors = require('./RGFColors');
+
+const {
   Image,
   Animated,
   LayoutAnimation,
@@ -16,8 +18,6 @@ var {
   StyleSheet,
   View,
 } = require('react-native');
-var { Text } = require('./RGFText');
-var RGFColors = require('./RGFColors');
 
 class ProgressView extends React.Component {
   props: {

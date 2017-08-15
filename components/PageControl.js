@@ -6,14 +6,15 @@
 'use strict';
 
 const React = require('react');
+const PropTypes = require('prop-types');
+
 const {
   StyleSheet,
   View,
   ViewPropTypes,
 } = require('react-native');
-const PropTypes = require('prop-types');
 
-class RNCPageControl extends React.Component {
+class PageControl extends React.Component {
   props: {
     style: ViewPropTypes.style,
     count: PropTypes.number.isRequired,
@@ -80,8 +81,8 @@ var styles = StyleSheet.create({
   },
 });
 
-module.exports = RNCPageControl;
+module.exports = PageControl;
 module.exports.__cards__ = (define) => {
-  define('Simple 2', () => <RNCPageControl count={2} selectedIndex={0} />);
-  define('Simple 5', () => <RNCPageControl count={5} selectedIndex={2} />);
+  define('Simple 2', () => <PageControl count={2} selectedIndex={0} />);
+  define('Simple 5', () => <PageControl count={5} selectedIndex={2} />);
 };

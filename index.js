@@ -1,7 +1,7 @@
 /**
  * Copyright 2016 Reza (github.com/rghorbani).
  *
- * @providesModule RNCCommon
+ * @providesModule RNCommon
  * @flow
  */
 
@@ -10,7 +10,10 @@
 module.exports = {
   get BackIcon() { return require('./components/BackIcon')},
   get BackWhiteIcon() { return require('./components/BackWhiteIcon')},
+  get Button() { return require('./components/Button')},
   get Carousel() { return require('./components/Carousel')},
+  get Colors() { return require('./components/Colors')},
+  get DrawerLayout() { return require('./components/DrawerLayout')},
   get ForwardIcon() { return require('./components/ForwardIcon')},
   get ForwardWhiteIcon() { return require('./components/ForwardWhiteIcon')},
   get InfiniteScrollView() { return require('./components/InfiniteScrollView')},
@@ -20,17 +23,15 @@ module.exports = {
   get LoadingView() { return require('./components/LoadingView')},
   get Navigator() { return require('./components/Navigator/Navigator')},
   get PageContainer() { return require('./components/PageContainer')},
+  get PageControl() { return require('./components/PageControl')},
   get Popover() { return require('./components/Popover')},
   get ProgressBar() { return require('./components/ProgressBar')},
   get PureListView() { return require('./components/PureListView')},
-  get RNCButton() { return require('./components/RNCButton')},
-  get RNCDrawerLayout() { return require('./components/RNCDrawerLayout')},
-  get RNCHeader() { return require('./components/RNCHeader')},
-  get RNCPageControl() { return require('./components/RNCPageControl')},
-  get RNCSegmentedControl() { return require('./components/RNCSegmentedControl')},
-  get StyleSheet() { return require('./components/RNCStyleSheet')},
-  get RNCTouchable() { return require('./components/RNCTouchable')},
+  get Header() { return require('./components/Header')},
+  get SegmentedControl() { return require('./components/SegmentedControl')},
   get SettingsList() { return require('./components/SettingsList')},
+  get StyleSheet() { return require('./components/StyleSheet')},
+  get Touchable() { return require('./components/Touchable')},
   get ViewPager() { return require('./components/ViewPager')},
   get XIcon() { return require('./components/XIcon')},
   get XWhiteIcon() { return require('./components/XWhiteIcon')},

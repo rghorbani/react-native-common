@@ -11,7 +11,7 @@ const {
   TouchableOpacity,
   View,
 } = require('react-native');
-var StyleSheet = require('./RNCStyleSheet');
+var StyleSheet = require('./StyleSheet');
 var { Text } = require('./RGFText');
 
 class RNCSegmentedControl extends React.Component {

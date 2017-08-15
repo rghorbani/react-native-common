@@ -17,7 +17,7 @@ const {
 const PropTypes = require('prop-types');
 var RGFColors = require('./RGFColors');
 var RNCHeader = require('./RNCHeader');
-var StyleSheet = require('./RNCStyleSheet');
+var StyleSheet = require('./StyleSheet');
 var {Text} = require('./RGFText');
 
 import type {Item as HeaderItem} from './RNCHeader';

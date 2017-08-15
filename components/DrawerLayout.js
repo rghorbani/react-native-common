@@ -7,12 +7,13 @@
 'use strict';
 
 const React = require('react');
+const PropTypes = require('prop-types');
+
 const {
   DrawerLayoutAndroid,
 } = require('react-native');
-const PropTypes = require('prop-types');
 
-class RNCDrawerLayout extends React.Component {
+class DrawerLayout extends React.Component {
   _drawer: ?DrawerLayoutAndroid;
 
   constructor(props: any, context: any) {
@@ -68,9 +69,9 @@ class RNCDrawerLayout extends React.Component {
   }
 }
 
-RNCDrawerLayout.contextTypes = {
+DrawerLayout.contextTypes = {
   addBackButtonListener: PropTypes.func,
   removeBackButtonListener: PropTypes.func,
 };
 
-module.exports = RNCDrawerLayout;
+module.exports = DrawerLayout;

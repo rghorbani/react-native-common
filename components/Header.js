@@ -17,7 +17,7 @@ const {
 } = require('react-native');
 import Ionicons from 'react-native-vector-icons/Ionicons';
 // import LinearGradient from 'react-native-linear-gradient';
-var StyleSheet = require('./RNCStyleSheet');
+var StyleSheet = require('./StyleSheet');
 var RGFColors = require('./RGFColors');
 var { Text, NumText } = require('./RGFText');
 
