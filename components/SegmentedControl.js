@@ -8,11 +8,11 @@
 const React = require('react');
 const {
   Platform,
+  Text,
   TouchableOpacity,
   View,
 } = require('react-native');
 var StyleSheet = require('./StyleSheet');
-var { Text } = require('./RGFText');
 
 class RNCSegmentedControl extends React.Component {
   props: {
