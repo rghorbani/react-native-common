@@ -7,6 +7,11 @@
 
 
 const React = require('react');
+const PropTypes = require('prop-types');
+const RGFColors = require('./RGFColors');
+const Header = require('./Header');
+const StyleSheet = require('./StyleSheet');
+
 const {
   Platform,
   Image,
@@ -14,13 +19,8 @@ const {
   TouchableOpacity,
   View,
 } = require('react-native');
-const PropTypes = require('prop-types');
-var RGFColors = require('./RGFColors');
-var RNCHeader = require('./RNCHeader');
-var StyleSheet = require('./StyleSheet');
-var {Text} = require('./RGFText');
 
-import type {Item as HeaderItem} from './RNCHeader';
+import type {Item as HeaderItem} from './Header';
 
 type Props = {
   title: string;
@@ -48,12 +48,12 @@ class PageContainer extends React.Component {
     return (
       <View style={[styles.container, this.props.style]}>
         <View style={styles.headerWrapper}>
-          <RNCHeader
+          <Header
             title={this.props.title}
             leftItem={this.props.leftItem}
             rightItem={this.props.rightItem}
             extraItems={this.props.extraItems}>
-          </RNCHeader>
+          </Header>
         </View>
         <View style={styles.content}>
           {this.props.children}

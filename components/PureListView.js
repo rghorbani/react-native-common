@@ -31,6 +31,7 @@ class PureListView extends React.Component {
   state: State;
 
   static defaultProps = {
+    type: 'flat',
     data: [],
     // renderSeparator: (sectionID, rowID) => <View style={styles.separator} key={rowID} />,
   };
@@ -39,7 +40,6 @@ class PureListView extends React.Component {
     super(props);
 
     this.state = {
-      // data: this.props.type === 'flat' ? props.data : props.sections,
       data: props.data,
     };
   }
@@ -51,23 +51,24 @@ class PureListView extends React.Component {
   }
 
   render() {
+    const { renderEmptyList, ...props } = this.props;
     if (this.state.data.length === 0) {
-      return this.props.renderEmptyList && this.props.renderEmptyList();
+      return renderEmptyList && renderEmptyList();
     }
 
-    if (this.props.type === 'flat') {
+    if (this.props.type === 'section') {
       return (
-        <FlatList
-          {...this.props}
-          data={this.state.data}
+        <SectionList
+          {...props}
+          sections={this.state.data}
         />
       );
     }
 
     return (
-      <SectionList
-        {...this.props}
-        sections={this.state.data}
+      <FlatList
+        {...props}
+        data={this.state.data}
       />
     );
   }

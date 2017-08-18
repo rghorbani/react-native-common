@@ -7,6 +7,10 @@
 
 
 const React = require('react');
+const PropTypes = require('prop-types');
+const Header = require('./Header');
+const StyleSheet = require('./StyleSheet');
+
 const {
   Platform,
   Image,
@@ -14,12 +18,8 @@ const {
   TouchableOpacity,
   View,
 } = require('react-native');
-const PropTypes = require('prop-types');
-var RNCHeader = require('./RNCHeader');
-var {Text} = require('./RGFText');
-var StyleSheet = require('./StyleSheet');
 
-import type {Item as HeaderItem} from 'RNCHeader';
+import type {Item as HeaderItem} from 'Header';
 
 type Props = {
   title: string;
@@ -67,12 +67,12 @@ class ListContainer extends React.Component {
     return (
       <View style={[styles.container, this.props.style]}>
         <View style={styles.headerWrapper}>
-          <RNCHeader
+          <Header
             title={this.props.title}
             leftItem={leftItem}
             rightItem={this.props.rightItem}
             extraItems={this.props.extraItems}>
-          </RNCHeader>
+          </Header>
         </View>
         <View style={styles.content}>
           {this.props.children}
