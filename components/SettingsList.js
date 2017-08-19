@@ -10,16 +10,16 @@ const React = require('react');
 const PropTypes = require('prop-types');
 const ARROW_ICON = require('./img/disclosure.png');
 const {
+  PixelRatio,
   Image,
   Text,
   TextInput,
   TouchableHighlight,
-  Switch,
   ScrollView,
   StyleSheet,
+  Switch,
   View,
   ViewPropTypes,
-  PixelRatio,
 } = require('react-native');
 
 class SettingsList extends React.Component {
@@ -378,12 +378,12 @@ SettingsList.Item = Item;
 
 const styles = StyleSheet.create({
   itemBox: {
-    flex: 1,
+    // flex: 1,
     justifyContent: 'center',
     flexDirection: 'row',
   },
   itemBoxRTL: {
-    flex: 1,
+    // flex: 1,
     justifyContent: 'center',
     flexDirection: 'row-reverse',
   },

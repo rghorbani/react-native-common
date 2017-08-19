@@ -7,11 +7,11 @@
 
 const React = require('react');
 const {
-  View,
-  StyleSheet,
-  ScrollView,
-  ViewPagerAndroid,
   Platform,
+  ScrollView,
+  StyleSheet,
+  View,
+  ViewPagerAndroid,
 } = require('react-native');
 
 type Props = {
