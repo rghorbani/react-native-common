@@ -33,6 +33,7 @@ class PureListView extends React.Component {
   static defaultProps = {
     type: 'flat',
     data: [],
+    renderEmptyList: null,
     // renderSeparator: (sectionID, rowID) => <View style={styles.separator} key={rowID} />,
   };
 
