@@ -4,6 +4,7 @@
   "description": "React Native common components",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint components/",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
@@ -43,11 +44,26 @@
     "fbjs": "~0.8.9",
     "immutable": "~3.7.6",
     "prop-types": "^15.5.10",
-    "react-native-vector-icons": "^4.2.0",
     "react-timer-mixin": "^0.13.2",
     "rebound": "^0.0.13"
   },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.23.1",
+    "babel-eslint": "^7.1.1",
+    "babel-jest": "^19.0.0",
+    "babel-loader": "^6.3.2",
+    "babel-preset-react-native": "^1.9.1",
+    "eslint": "^3.17.1",
+    "eslint-plugin-react": "^6.10.0",
+    "eslint-plugin-react-native": "^2.3.1",
+    "jest": "^19.0.2",
+    "prettier": "^1.5.3",
+    "react": "^15.4.2",
+    "react-native": "*",
+    "react-native-vector-icons": "^4.2.0"
+  },
   "peerDependencies": {
-    "react-native": "*"
+    "react-native-vector-icons": "^4.2.0"
   }
 }
