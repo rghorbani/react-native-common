@@ -5,7 +5,7 @@
 </p>
 
 <h3 align="center">
-  React Native Elements
+  React Native Common
 </h3>
 
 <p align="center">
@@ -85,7 +85,7 @@ import { Button } from 'react-native-common';
 
 ## Demo App
 
-Run the pre built and configured [React Native Elements App](https://expo.io/@monte9/react-native-common-app) on Expo which uses all of the React Native Elements components.
+Run the pre built and configured [React Native Common App](https://expo.io/@monte9/react-native-common-app) on Expo which uses all of the React Native Common components.
 
 Also checkout the `example/` folder to view the implementation & run the expo app locally.
 
