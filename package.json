@@ -1,10 +1,14 @@
 {
   "name": "react-native-common",
-  "version": "0.1.20",
+  "version": "0.2.0",
   "description": "React Native common components",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint components/",
+    "start": "watchman watch-del-all && react-native start",
+    "ios": "react-native run-ios --simulator=\"iPhone 8\"",
+    "android": "react-native run-android",
+    "pretest": "npm run lint",
+    "lint": "eslint src -c .eslintrc",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
@@ -40,30 +44,34 @@
     }
   ],
   "dependencies": {
-    "create-react-class": "^15.6.0",
-    "fbjs": "~0.8.9",
-    "immutable": "~3.7.6",
-    "prop-types": "^15.5.10",
-    "react-timer-mixin": "^0.13.2",
-    "rebound": "^0.0.13"
+    "create-react-class": "^15.6.2",
+    "fbjs": "~0.8.16",
+    "immutable": "~3.8.2",
+    "prop-types": "^15.6.0",
+    "react-timer-mixin": "^0.13.3",
+    "rebound": "^0.0.15"
   },
   "devDependencies": {
-    "babel": "^6.23.0",
-    "babel-core": "^6.23.1",
-    "babel-eslint": "^7.1.1",
-    "babel-jest": "^19.0.0",
-    "babel-loader": "^6.3.2",
-    "babel-preset-react-native": "^1.9.1",
-    "eslint": "^3.17.1",
-    "eslint-plugin-react": "^6.10.0",
-    "eslint-plugin-react-native": "^2.3.1",
-    "jest": "^19.0.2",
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.2.1",
+    "babel-jest": "^22.1.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-react-native": "^4.0.0",
+    "eslint": "^4.16.0",
+    "eslint-plugin-react": "^7.5.1",
+    "eslint-plugin-react-native": "^3.2.1",
+    "jest": "^22.1.4",
     "prettier": "^1.5.3",
-    "react": "^15.4.2",
+    "react": "*",
     "react-native": "*",
-    "react-native-vector-icons": "^4.2.0"
   },
   "peerDependencies": {
-    "react-native-vector-icons": "^4.2.0"
+    "react-native-vector-icons": "^4.5.0"
+  },
+  "jest": {
+    "preset": "react-native",
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ]
   }
 }

@@ -6,4 +6,4 @@
 
 'use strict';
 
-module.exports = require('./img/nav/x.png');
+module.exports = require('./img/x.png');
