@@ -4,13 +4,14 @@
  * @flow
  */
 
-import 'react';
+const React = require('react');
 const PropTypes = require('prop-types');
 const { Animated, TextInput, ViewPropTypes } = require('react-native');
 const { BaseComponent } = require('../../commons');
 // import {Colors, Typography} from '../../style';
 
 class BaseInput extends BaseComponent {
+  static displayName = 'BaseInput';
 
   static propTypes = {
     ...TextInput.propTypes,
@@ -33,7 +34,7 @@ class BaseInput extends BaseComponent {
   constructor(props) {
     super(props);
 
-    const typography = this.getTypography();
+    // const typography = this.getTypography();
     this.state = {
       inputWidth: typography.fontSize * 2,
       widthExtendBreaks: [],

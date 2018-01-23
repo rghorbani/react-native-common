@@ -44,29 +44,30 @@
     }
   ],
   "dependencies": {
-    "create-react-class": "^15.6.2",
+    "create-react-class": "~15.6.2",
     "fbjs": "~0.8.16",
     "immutable": "~3.8.2",
-    "prop-types": "^15.6.0",
-    "react-timer-mixin": "^0.13.3",
-    "rebound": "^0.0.15"
+    "prop-types": "~15.6.0",
+    "react-native-blur": "~3.2.2",
+    "react-timer-mixin": "~0.13.3",
+    "rebound": "~0.0.15"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-eslint": "^8.2.1",
-    "babel-jest": "^22.1.0",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-react-native": "^4.0.0",
-    "eslint": "^4.16.0",
-    "eslint-plugin-react": "^7.5.1",
-    "eslint-plugin-react-native": "^3.2.1",
-    "jest": "^22.1.4",
-    "prettier": "^1.5.3",
-    "react": "*",
-    "react-native": "*",
+    "babel-cli": "~6.26.0",
+    "babel-eslint": "~8.2.1",
+    "babel-jest": "~22.1.0",
+    "babel-preset-react": "~6.24.1",
+    "babel-preset-react-native": "~4.0.0",
+    "eslint": "~4.16.0",
+    "eslint-plugin-react": "~7.5.1",
+    "eslint-plugin-react-native": "~3.2.1",
+    "jest": "~22.1.4",
+    "prettier": "~1.5.3"
   },
   "peerDependencies": {
-    "react-native-vector-icons": "^4.5.0"
+    "react": "*",
+    "react-native": "*",
+    "react-native-vector-icons": "~4.5.0"
   },
   "jest": {
     "preset": "react-native",

@@ -6,12 +6,12 @@
 
 'use strict';
 
-const NavIcons = require('./nav-icons');
 const KeyboardAware = require('./keyboard-aware');
+const NavIcons = require('./nav-icons');
 
 module.exports = {
-  ...NavIcons,
   ...KeyboardAware,
+  ...NavIcons,
   get Button() { return require('./Button')},
   get Carousel() { return require('./Carousel')},
   get Colors() { return require('./Colors')},

@@ -245,6 +245,8 @@ class SettingsList extends React.Component {
  * Optional Header for groups
  */
 class Header extends React.Component {
+  static displayName = 'Header';
+
   static propTypes = {
     rtl: PropTypes.bool,
     headerText: PropTypes.string,
@@ -267,6 +269,8 @@ SettingsList.Header = Header;
  * Individual Items in the Settings List
  */
 class Item extends React.Component {
+  static displayName = 'Item';
+
   static propTypes = {
     rtl: PropTypes.bool,
     /**
