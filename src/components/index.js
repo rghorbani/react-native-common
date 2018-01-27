@@ -16,8 +16,6 @@ module.exports = {
   get Carousel() { return require('./Carousel')},
   get Colors() { return require('./Colors')},
   get DrawerLayout() { return require('./DrawerLayout')},
-  get ForwardIcon() { return require('./ForwardIcon')},
-  get ForwardWhiteIcon() { return require('./ForwardWhiteIcon')},
   get InfiniteScrollView() { return require('./InfiniteScrollView')},
   get ItemsWithSeperator() { return require('./ItemsWithSeperator')},
   get KeyboardSpacer() { return require('./KeyboardSpacer')},
