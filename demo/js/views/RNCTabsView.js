@@ -33,7 +33,8 @@ class RNCTabsView extends React.Component {
         type="static"
         content={this.renderNavigationView()}
         openDrawerOffset={0.2}
-        panThreshold={0.08}
+        panOpenMask={0.1}
+        acceptTap={true}
         initializeOpen={true}
       >
         <View style={styles.content} key={this.state.tab}>
