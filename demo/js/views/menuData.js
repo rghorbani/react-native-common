@@ -3,7 +3,9 @@
 module.exports = [{
   title: 'Button',
   tag: 'button',
+  component: require('./screens/ButtonScreen'),
 }, {
-  title: '',
-  tag: '',
+  title: 'Touchable',
+  tag: 'touchable',
+  component: require('./screens/ButtonScreen'),
 }];

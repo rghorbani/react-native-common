@@ -1,12 +1,14 @@
 
 const React = require('react');
-const Drawer = require('react-native-drawer');
+const PropTypes = require('prop-types');
+import Drawer from 'react-native-drawer'
 const autoBind = require('react-autobind');
-const { View } = require('react-native');
+const { FlatList, TextInput, StyleSheet, View } = require('react-native');
+// const { TextInput } = require('react-native-common');
 const MenuItem = require('./MenuItem');
 const menuData = require('./menuData');
 
-class RGFTabsView extends React.Component {
+class RNCTabsView extends React.Component {
   constructor(props) {
     super(props);
 
@@ -14,8 +16,6 @@ class RGFTabsView extends React.Component {
       tab: 'button',
     };
 
-    // this.openDrawer = this.openDrawer.bind(this);
-    // this.onTabSelect = this.onTabSelect.bind(this);
     autoBind(this);
   }
 
@@ -30,8 +30,11 @@ class RGFTabsView extends React.Component {
     return (
       <Drawer
         ref={(ref) => this.drawer = ref}
-        type="overlay"
-        content={this.renderNavigationView}
+        type="static"
+        content={this.renderNavigationView()}
+        openDrawerOffset={0.2}
+        panThreshold={0.08}
+        initializeOpen={true}
       >
         <View style={styles.content} key={this.state.tab}>
           {this.renderContent()}
@@ -44,18 +47,19 @@ class RGFTabsView extends React.Component {
     this.drawer.open();
   }
 
-  onTabSelect(tab: Tab) {
-    if (this.props.tab !== tab) {
+  onTabSelect(tab) {
+    if (this.state.tab !== tab) {
       this.setState({ tab });
     }
-    this.drawer.closeDrawer();
+    this.drawer.close();
   }
 
   renderNavigationView() {
     return (
       <View style={styles.drawer}>
-        <View style={{marginTop: 20, marginLeft: 20}}>
+        <View style={styles.inputWrapper}>
           <TextInput
+            style={styles.input}
             value={this.state.filterText}
             onChangeText={this.filterExplorerScreens}
             hideUnderline
@@ -65,6 +69,7 @@ class RGFTabsView extends React.Component {
         <FlatList
           data={menuData}
           renderItem={this.renderItem}
+          keyExtractor={(item, index) => item.tag}
         />
       </View>
     );
@@ -75,39 +80,44 @@ class RGFTabsView extends React.Component {
       <MenuItem
         title={item.title}
         selected={this.state.tab === item.tag}
-        onPress={this.onTabSelect(item.tag)}
+        onPress={() => this.onTabSelect(item.tag)}
       />
     );
   }
 
   renderContent() {
-    switch (this.state.tab) {
-      case 'home':
-        return (
-          <HomeView
-            navigator={this.props.navigator}
-          />
-        );
-
-      case 'transactions':
-        return (
-          <TransactionView
-            navigator={this.props.navigator}
-          />
-        );
-
-      case 'settings':
-        return (
-          <SettingView
-            navigator={this.props.navigator}
-          />
-        );
-
-      case 'notifications':
-        return <RGFNotificationsView navigator={this.props.navigator} />;
+    for (let i = 0; i < menuData.length; i++) {
+      if (this.state.tab === menuData[i].tag) {
+        const Screen = menuData[i].component;
+        return <Screen navigator={this.props.navigator} />;
+      }
     }
-    throw new Error(`Unknown tab ${this.props.tab}`);
+
+    throw new Error(`Unknown tab ${this.state.tab}`);
   }
 }
 
-module.exports = RGFTabsView;
+RNCTabsView.childContextTypes = {
+  openDrawer: PropTypes.func,
+  // hasUnreadNotifications: PropTypes.number,
+};
+
+const styles = StyleSheet.create({
+  drawer: {
+    flex: 1,
+    backgroundColor: 'blue',
+  },
+  content: {
+    flex: 1,
+  },
+  inputWrapper: {
+    marginTop: 20,
+    marginLeft: 20,
+  },
+  input: {
+    textAlign: 'left',
+    fontSize: 15,
+  },
+})
+
+module.exports = RNCTabsView;

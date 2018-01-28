@@ -1,6 +1,9 @@
 
 const React = require('react');
-// const Navigator = require('react-native-de');
+const PropTypes = require('prop-types');
+const autoBind = require('react-autobind');
+const { BackHandler } = require('react-native');
+const { Navigator } = require('react-native-common');
 const RNCTabsView = require('./views/RNCTabsView');
 
 class RNCNavigator extends React.Component {
@@ -9,10 +12,7 @@ class RNCNavigator extends React.Component {
 
     this._handlers = [];
 
-    (this: any).addBackButtonListener = this.addBackButtonListener.bind(this);
-    (this: any).removeBackButtonListener = this.removeBackButtonListener.bind(this);
-    (this: any).handleBackButton = this.handleBackButton.bind(this);
-    (this: any).renderScene = this.renderScene.bind(this);
+    autoBind(this);
   }
 
   componentDidMount() {
@@ -65,10 +65,10 @@ class RNCNavigator extends React.Component {
       return true;
     }
 
-    if (this.props.tab !== 'transactions') {
-      this.props.dispatch(switchTab('transactions'));
-      return true;
-    }
+    // if (this.props.tab !== 'transactions') {
+    //   this.props.dispatch(switchTab('transactions'));
+    //   return true;
+    // }
     return false;
   }
 
@@ -76,5 +76,10 @@ class RNCNavigator extends React.Component {
     return <RNCTabsView navigator={navigator} />
   }
 }
+
+RNCNavigator.childContextTypes = {
+  addBackButtonListener: PropTypes.func,
+  removeBackButtonListener: PropTypes.func,
+};
 
 module.exports = RNCNavigator;

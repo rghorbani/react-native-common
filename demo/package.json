@@ -11,7 +11,8 @@
     "react-autobind": "^1.0.6",
     "react-native": "0.52.1",
     "react-native-common": "*",
-    "react-native-drawer": "^2.5.0"
+    "react-native-drawer": "^2.5.0",
+    "react-native-vector-icons": "^4.5.0"
   },
   "devDependencies": {
     "babel-jest": "22.1.0",

@@ -12,11 +12,12 @@ const {
   Image,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } = require('react-native');
 const {
   RGFColors,
-  RGFTouchable,
+  Touchable,
 } = require('react-native-common');
 
 class MenuItem extends React.Component {
@@ -30,39 +31,24 @@ class MenuItem extends React.Component {
   };
 
   render() {
-    console.log(this.props.icon);
-    let icon = this.props.selected ? this.props.selectedIcon : this.props.icon;
     let selectedTitleStyle = this.props.selected && styles.selectedTitle;
-    let badge;
-    if (this.props.badge) {
-      badge = (
-        <View style={styles.badge}>
-          <Text style={styles.badgeText}>
-            {this.props.badge}
-          </Text>
-        </View>
-      );
-    }
     return (
-      <RGFTouchable onPress={this.props.onPress}>
+      <TouchableOpacity onPress={this.props.onPress}>
         <View style={styles.container}>
-          <Image style={styles.icon} source={icon} />
           <Text style={[styles.title, selectedTitleStyle]}>
             {this.props.title}
           </Text>
-          {badge}
         </View>
-      </RGFTouchable>
+      </TouchableOpacity>
     );
   }
 }
 
 var styles = StyleSheet.create({
   container: {
-    flexDirection: 'row-reverse',
-    height: 50,
-    alignItems: 'center',
+    flexDirection: 'row',
     paddingHorizontal: 20,
+    paddingVertical: 5,
   },
   icon: {
     marginLeft: 20,
@@ -70,10 +56,10 @@ var styles = StyleSheet.create({
   title: {
     flex: 1,
     fontSize: 17,
-    color: RGFColors.lightText,
+    // color: RGFColors.lightText,
   },
   selectedTitle: {
-    color: RGFColors.darkText,
+    // color: RGFColors.darkText,
   },
   badge: {
     backgroundColor: '#DC3883',
