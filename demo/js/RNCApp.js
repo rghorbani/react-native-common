@@ -1,7 +1,7 @@
 
 const React = require('react');
 const { StatusBar, View } = require('react-native');
-const RNCNavigator = require('./RNCNavigator');
+// const RNCNavigator = require('./RNCNavigator');
 const Playground = require('./Playground');
 
 class RNCApp extends React.Component {

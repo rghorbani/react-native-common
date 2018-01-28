@@ -8,7 +8,7 @@ const {
 } = require('react-native');
 const {
   TextInput,
-} = require('../../src/index');
+} = require('react-native-common');
 
 class Playground extends React.Component {
   constructor(props) {

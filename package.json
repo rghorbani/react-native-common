@@ -13,10 +13,10 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/rghorbani/react-native-common"
-  },
+  "files": [
+    "src/",
+    "index.js"
+  ],
   "keyword": [
     "react",
     "react-native",
@@ -32,21 +32,11 @@
   "bugs": {
     "url": "https://github.com/rghorbani/react-native-common/issues"
   },
-  "homepage": "https://github.com/rghorbani/react-native-common",
-  "_npmUser": {
-    "name": "rghorbani",
-    "email": "r.ghorbani.f@gmail.com"
-  },
-  "maintainers": [
-    {
-      "name": "rghorbani",
-      "email": "r.ghorbani.f@gmail.com"
-    }
-  ],
   "dependencies": {
     "create-react-class": "~15.6.2",
     "fbjs": "~0.8.16",
     "immutable": "~3.8.2",
+    "lodash": "^4.17.4",
     "prop-types": "~15.6.0",
     "react-native-blur": "~3.2.2",
     "react-timer-mixin": "~0.13.3",
@@ -72,7 +62,22 @@
   "jest": {
     "preset": "react-native",
     "testPathIgnorePatterns": [
-      "/node_modules/"
+      "<rootDir>/demo/node_modules"
     ]
+  },
+  "homepage": "https://github.com/rghorbani/react-native-common",
+  "_npmUser": {
+    "name": "rghorbani",
+    "email": "r.ghorbani.f@gmail.com"
+  },
+  "maintainers": [
+    {
+      "name": "rghorbani",
+      "email": "r.ghorbani.f@gmail.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rghorbani/react-native-common"
   }
 }

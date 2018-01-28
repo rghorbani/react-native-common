@@ -3,7 +3,7 @@ const React = require('react');
 const PropTypes = require('prop-types');
 const autoBind = require('react-autobind');
 const { BackHandler } = require('react-native');
-const { Navigator } = require('react-native-common');
+const { Navigator } = require('../..');
 const RNCTabsView = require('./views/RNCTabsView');
 
 class RNCNavigator extends React.Component {
