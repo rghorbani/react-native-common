@@ -1,9 +1,9 @@
-
 /**
  * Copyright 2016 Reza (github.com/rghorbani)
  *
  * @flow
  */
+
 'use strict';
 
 const React = require('react');
@@ -14,9 +14,16 @@ const {
 } = require('react-native');
 
 class DrawerLayout extends React.Component {
+  static displayName = 'DrawerLayout';
+
+  static contextTypes = {
+    addBackButtonListener: PropTypes.func,
+    removeBackButtonListener: PropTypes.func,
+  };
+
   _drawer: ?DrawerLayoutAndroid;
 
-  constructor(props: any, context: any) {
+  constructor(props, context) {
     super(props, context);
 
     (this: any).openDrawer = this.openDrawer.bind(this);
@@ -68,10 +75,5 @@ class DrawerLayout extends React.Component {
     this._drawer && this._drawer.openDrawer();
   }
 }
-
-DrawerLayout.contextTypes = {
-  addBackButtonListener: PropTypes.func,
-  removeBackButtonListener: PropTypes.func,
-};
 
 module.exports = DrawerLayout;

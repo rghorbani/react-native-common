@@ -1,25 +1,23 @@
 /**
- * Copyright 2017 Reza (github.com/rghorbani)
+ * Copyright 2016 Reza (github.com/rghorbani)
  *
  * @flow
  */
+
 'use strict';
 
 const React = require('react');
 const PropTypes = require('prop-types');
-
-const {
-  StyleSheet,
-  View,
-  ViewPropTypes,
-} = require('react-native');
+const { StyleSheet, View, ViewPropTypes } = require('react-native');
 
 class PageControl extends React.Component {
-  props: {
-    style: ViewPropTypes.style,
+  static displayName = 'PageControl';
+
+  static propTypes = {
     count: PropTypes.number.isRequired,
     selectedIndex: PropTypes.number.isRequired,
-  }
+    style: ViewPropTypes.style,
+  };
 
   render() {
     var images = [];

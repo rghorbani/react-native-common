@@ -16,6 +16,8 @@ const {
 } = require('react-native');
 
 class LoadingView extends React.Component {
+  static displayName = 'LoadingView';
+
   static defaultProps = {
     loading: false,
     type: 'secondary',

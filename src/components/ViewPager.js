@@ -1,42 +1,37 @@
 /**
- * Copyright 2017 Reza (github.com/rghorbani)
+ * Copyright 2016 Reza (github.com/rghorbani)
  *
  * @flow
  */
+
 'use strict';
 
 const React = require('react');
+const PropTypes = require('prop-types');
 const {
   Platform,
   ScrollView,
   StyleSheet,
   View,
   ViewPagerAndroid,
+  ViewPropTypes,
 } = require('react-native');
 
-type Props = {
-  count: number;
-  selectedIndex: number;
-  onSelectedIndexChange?: (index: number) => void;
-  bounces?: boolean;
-  children?: any;
-  style?: any;
-};
-
-type State = {
-  width: number;
-  height: number;
-  selectedIndex: number;
-  initialSelectedIndex: number;
-  scrollingTo: ?number;
-};
-
 class ViewPager extends React.Component {
-  props: Props;
-  state: State;
+  static displayName = 'ViewPager';
 
-  constructor(props: Props) {
+  static propTypes = {
+    count: PropTypes.number,
+    selectedIndex: PropTypes.number,
+    onSelectedIndexChange: PropTypes.func,
+    bounces: PropTypes.bool,
+    children: PropTypes.nodes,
+    style: ViewPropTypes.style,
+  };
+
+  constructor(props) {
     super(props);
+
     this.state = {
       width: 0,
       height: 0,
@@ -44,6 +39,7 @@ class ViewPager extends React.Component {
       initialSelectedIndex: this.props.selectedIndex,
       scrollingTo: null,
     };
+
     (this: any).handleHorizontalScroll = this.handleHorizontalScroll.bind(this);
     (this: any).adjustCardSize = this.adjustCardSize.bind(this);
   }
@@ -147,7 +143,7 @@ class ViewPager extends React.Component {
   }
 }
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
   },

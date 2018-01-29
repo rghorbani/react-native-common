@@ -1,3 +1,10 @@
+/**
+ * Copyright 2016 Reza (github.com/rghorbani)
+ *
+ * @flow
+ */
+
+'use strict';
 
 const React = require('react');
 const PropTypes = require('prop-types');

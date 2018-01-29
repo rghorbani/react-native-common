@@ -1,5 +1,5 @@
 /**
- * Copyright 2017 Reza (github.com/rghorbani)
+ * Copyright 2016 Reza (github.com/rghorbani)
  *
  * @flow
  */
@@ -43,10 +43,12 @@ function Rect(x, y, width, height) {
 }
 
 class Popover extends React.Component {
+  static displayName = 'Popover';
+
   static propTypes = {
-    style: ViewPropTypes.style,
     isVisible: PropTypes.bool,
     onClose: PropTypes.func,
+    style: ViewPropTypes.style,
   };
 
   static defaultProps = {

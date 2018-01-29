@@ -1,28 +1,27 @@
 /**
- * Copyright 2017 Reza (github.com/rghorbani)
+ * Copyright 2016 Reza (github.com/rghorbani)
  *
  * @flow
  */
+
 'use strict';
 
 const React = require('react');
-const {
-  Platform,
-  Text,
-  TouchableOpacity,
-  View,
-} = require('react-native');
-var StyleSheet = require('./StyleSheet');
+const PropTypes = require('prop-types');
+const { Platform, Text, TouchableOpacity, View, ViewPropTypes } = require('react-native');
+const StyleSheet = require('./StyleSheet');
 
 class RNCSegmentedControl extends React.Component {
-  props: {
-    values: Array<string>;
-    selectionColor: ?string;
-    selectedIndex: number;
-    onChange: (newIndex: number) => void;
-    titleStyle?: any;
-    segmentStyle?: any;
-    style?: any;
+  static displayName = 'PageControl';
+
+  static propTypes: {
+    values: PropTypes.array,
+    selectionColor: PropTypes.string,
+    selectedIndex: PropTypes.number,
+    onChange: PropTypes.func,
+    titleStyle: PropTypes.any,
+    segmentStyle: PropTypes.any,
+    style: ViewPropTypes.style,
   };
 
   render() {
@@ -89,7 +88,7 @@ class Segment extends React.Component {
 
 const HEIGHT = 32;
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     backgroundColor: 'transparent',

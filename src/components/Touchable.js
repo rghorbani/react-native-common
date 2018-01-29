@@ -7,11 +7,7 @@
 'use strict';
 
 const React = require('react');
-const {
-  TouchableHighlight,
-  TouchableNativeFeedback,
-  Platform,
-} = require('react-native');
+const { Platform, TouchableHighlight, TouchableNativeFeedback } = require('react-native');
 
 function RNCTouchableIOS(props: Object): ReactElement {
   return (

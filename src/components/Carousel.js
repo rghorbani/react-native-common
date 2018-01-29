@@ -1,24 +1,27 @@
 /**
- * Copyright 2017 Reza (github.com/rghorbani)
+ * Copyright 2016 Reza (github.com/rghorbani)
  *
  * @flow
  */
+
 'use strict';
 
 const React = require('react');
+const PropTypes = require('prop-types');
+const { ViewPropTypes } = require('react-native');
 const StyleSheet = require('./StyleSheet');
 const ViewPager = require('./ViewPager');
 
-type Props = {
-  count: number;
-  selectedIndex: number;
-  onSelectedIndexChange?: (index: number) => void;
-  renderCard: (index: number) => ReactElement;
-  style?: any;
-};
-
 class Carousel extends React.Component {
-  props: Props;
+  static displayName = 'Carousel';
+
+  static propTypes = {
+    count: PropTypes.number,
+    selectedIndex: PropTypes.number,
+    onSelectedIndexChange: PropTypes.func,
+    renderCard: PropTypes.func.isRequired,
+    style: ViewPropTypes.style,
+  };
 
   render() {
     let cards = [];
@@ -39,7 +42,7 @@ class Carousel extends React.Component {
   }
 }
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   carousel: {
     ios: {
       margin: 10,

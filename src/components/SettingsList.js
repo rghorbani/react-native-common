@@ -1,5 +1,5 @@
 /**
- * Copyright 2017 Reza (github.com/rghorbani)
+ * Copyright 2016 Reza (github.com/rghorbani)
  *
  * @flow
  */
@@ -8,7 +8,6 @@
 
 const React = require('react');
 const PropTypes = require('prop-types');
-const ARROW_ICON = require('./img/disclosure.png');
 const {
   PixelRatio,
   Image,
@@ -21,8 +20,11 @@ const {
   View,
   ViewPropTypes,
 } = require('react-native');
+const ARROW_ICON = require('./img/disclosure.png');
 
 class SettingsList extends React.Component {
+  static displayName = 'SettingsList';
+
   static propTypes = {
     rtl: PropTypes.bool,
     backgroundColor: PropTypes.string,

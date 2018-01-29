@@ -272,7 +272,7 @@ class ItemWrapperIOS extends React.Component {
 var STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBar.currentHeight;
 var HEADER_HEIGHT = Platform.OS === 'ios' ? 44 + STATUS_BAR_HEIGHT : 65 + STATUS_BAR_HEIGHT;
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   toolbarContainer: {
     paddingTop: STATUS_BAR_HEIGHT,
   },

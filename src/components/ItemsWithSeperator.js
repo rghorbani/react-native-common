@@ -1,22 +1,22 @@
 /**
- * Copyright 2017 Reza (github.com/rghorbani)
+ * Copyright 2016 Reza (github.com/rghorbani)
  *
  * @flow
  */
+
 'use strict';
 
 const React = require('react');
-const {
-  PixelRatio,
-  StyleSheet,
-  View,
-} = require('react-native');
+const PropTypes = require('prop-types');
+const { PixelRatio, StyleSheet, View, ViewPropTypes } = require('react-native');
 
 class ItemsWithSeparator extends React.Component {
-  props: {
-    style?: any;
-    separatorStyle?: any;
-    children?: any;
+  static displayName = 'ItemsWithSeparator';
+
+  static propTypes = {
+    style: ViewPropTypes.style,
+    separatorStyle: ViewPropTypes.style,
+    children: PropTypes.nodes,
   };
 
   render() {
@@ -44,7 +44,7 @@ class ItemsWithSeparator extends React.Component {
   }
 }
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   separator: {
     backgroundColor: '#0322500A',
     height: 1 / PixelRatio.get(),

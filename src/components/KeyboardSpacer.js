@@ -1,20 +1,20 @@
 /**
- * Copyright 2017 Reza (github.com/rghorbani)
+ * Copyright 2016 Reza (github.com/rghorbani)
  *
  * @flow
  */
+
 'use strict';
 
 const React = require('react');
 const PropTypes = require('prop-types');
-
 const {
-  Keyboard,
-  LayoutAnimation,
-  View,
   Dimensions,
   Platform,
+  Keyboard,
+  LayoutAnimation,
   StyleSheet,
+  View,
   ViewPropTypes,
 } = require('react-native');
 
@@ -33,6 +33,8 @@ const defaultAnimation = {
 };
 
 class KeyboardSpacer extends React.Component {
+  static displayName = 'KeyboardSpacer';
+
   static propTypes = {
     topSpacing: PropTypes.number,
     onToggle: PropTypes.func,
@@ -121,7 +123,7 @@ class KeyboardSpacer extends React.Component {
   }
 }
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     left: 0,
     right: 0,

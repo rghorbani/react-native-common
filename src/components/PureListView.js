@@ -7,37 +7,26 @@
 'use strict';
 
 const React = require('react');
-
-const {
-  FlatList,
-  SectionList,
-} = require('react-native');
-
-export type Data = Array<Object>;
-type RenderElement = () => ?ReactElement;
-
-type Props = {
-  type: 'flat' | 'section';
-  data: Data;
-  renderEmptyList?: ?RenderElement;
-};
-
-type State = {
-  data: Data;
-};
+const PropTypes = require('prop-types');
+const { FlatList, SectionList, ViewPropTypes } = require('react-native');
 
 class PureListView extends React.Component {
-  props: Props;
-  state: State;
+  static displayName = 'PureListView';
+
+  static propTypes = {
+    type: PropTypes.oneOf(['flat', 'section']).isRequired,
+    data: PropTypes.array.isRequired,
+    renderEmptyList: PropTypes.func,
+    style: ViewPropTypes.style,
+  };
 
   static defaultProps = {
     type: 'flat',
     data: [],
     renderEmptyList: null,
-    // renderSeparator: (sectionID, rowID) => <View style={styles.separator} key={rowID} />,
   };
 
-  constructor(props: Props) {
+  constructor(props) {
     super(props);
 
     this.state = {

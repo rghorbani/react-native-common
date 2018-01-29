@@ -1,3 +1,8 @@
+/**
+ * Copyright 2016 Reza (github.com/rghorbani)
+ *
+ * @flow
+ */
 
 const _ = require('lodash');
 const { Constants } = require('../helpers');

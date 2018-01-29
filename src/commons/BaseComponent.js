@@ -7,6 +7,7 @@
 const React = require('react');
 const _ = require('lodash');
 const { StyleSheet } = require('react-native');
+const { Colors, ThemeManager, Typography } = require('../style');
 
 class BaseComponent extends React.Component {
   static displayName = 'BaseComponent';
@@ -17,6 +18,16 @@ class BaseComponent extends React.Component {
     if (!this.styles) {
       this.generateStyles();
     }
+  }
+
+  extractColorValue() {
+    let color;
+    _.forEach(Colors, (value, key) => {
+      if (this.props[key] === true) {
+        color = value;
+      }
+    });
+    return color;
   }
 
   extractTypographyValue() {
