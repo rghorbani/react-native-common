@@ -301,7 +301,6 @@ class TextInput extends BaseInput {
   }
 
   render() {
-    return <RNTextInput />;
     const {expandable, containerStyle} = this.props;
     const underlineStyle = this.getUnderlineStyle();
 

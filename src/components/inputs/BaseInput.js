@@ -8,7 +8,7 @@ const React = require('react');
 const PropTypes = require('prop-types');
 const { Animated, TextInput, ViewPropTypes } = require('react-native');
 const { BaseComponent } = require('../../commons');
-// import {Colors, Typography} from '../../style';
+import {Colors, Typography} from '../../style';
 
 class BaseInput extends BaseComponent {
   static displayName = 'BaseInput';
