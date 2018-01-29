@@ -8,7 +8,7 @@
 
 const React = require('react');
 // import LinearGradient from 'react-native-linear-gradient';
-const RGFColors = require('./RGFColors');
+const RGFColors = require('../RGFColors');
 
 const {
   Image,

@@ -2,9 +2,11 @@
 const _ = require('lodash');
 
 const emojis = require('./emojis');
+const icons = require('./icons');
 
 class Assets {
   emojis = emojis;
+  icons = icons;
 
   loadAssetsGroup(groupName, assets) {
     if (!_.isString(groupName)) {

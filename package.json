@@ -2,7 +2,7 @@
   "name": "react-native-common",
   "version": "0.2.2",
   "description": "React Native common components",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "start": "watchman watch-del-all && react-native start",
     "ios": "react-native run-ios --simulator=\"iPhone 8\"",
@@ -14,8 +14,7 @@
     "test:coverage": "jest --coverage"
   },
   "files": [
-    "src/",
-    "index.js"
+    "src/"
   ],
   "keyword": [
     "react",
@@ -61,6 +60,9 @@
   },
   "jest": {
     "preset": "react-native",
+    "modulePathIgnorePatterns": [
+      "<rootDir>/demo/node_modules"
+    ],
     "testPathIgnorePatterns": [
       "<rootDir>/demo/node_modules"
     ]
