@@ -3678,7 +3678,7 @@ react-native-blur@~3.2.2:
 
 react-native-common@rghorbani/react-native-common:
   version "0.2.2"
-  resolved "https://codeload.github.com/rghorbani/react-native-common/tar.gz/4f2721cee34947e138d0bdb76f1fd2911c939a8e"
+  resolved "https://codeload.github.com/rghorbani/react-native-common/tar.gz/608b52c3a3d173c73f0ed317e1ab484876fcba2b"
   dependencies:
     create-react-class "~15.6.2"
     fbjs "~0.8.16"
