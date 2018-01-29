@@ -4,9 +4,11 @@ const autoBind = require('react-autobind');
 const {
   StatusBar,
   StyleSheet,
+  Text,
   View,
 } = require('react-native');
 const {
+  Button,
   TextInput,
 } = require('react-native-common');
 
@@ -21,13 +23,12 @@ class Playground extends React.Component {
   }
 
   render() {
+    console.log(TextInput);
     return (
       <View style={styles.container}>
         <StatusBar
         />
         <View style={styles.container}>
-          <TextInput
-          />
         </View>
       </View>
     );

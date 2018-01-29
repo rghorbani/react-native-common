@@ -6,10 +6,12 @@
 
 'use strict';
 
+const Inputs = require('./inputs');
 const KeyboardAware = require('./keyboard-aware');
 const NavIcons = require('./nav-icons');
 
 module.exports = {
+  ...Inputs,
   ...KeyboardAware,
   ...NavIcons,
   get Button() { return require('./button')},
