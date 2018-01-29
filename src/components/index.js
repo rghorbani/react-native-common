@@ -12,7 +12,7 @@ const NavIcons = require('./nav-icons');
 module.exports = {
   ...KeyboardAware,
   ...NavIcons,
-  get Button() { return require('./Button')},
+  get Button() { return require('./button')},
   get Carousel() { return require('./Carousel')},
   get Colors() { return require('./Colors')},
   get DrawerLayout() { return require('./DrawerLayout')},

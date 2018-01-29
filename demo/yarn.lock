@@ -3678,11 +3678,12 @@ react-native-blur@~3.2.2:
 
 react-native-common@rghorbani/react-native-common:
   version "0.2.2"
-  resolved "https://codeload.github.com/rghorbani/react-native-common/tar.gz/22f5a22a34f11ae3666530e72744ac27e1c4e1d6"
+  resolved "https://codeload.github.com/rghorbani/react-native-common/tar.gz/94e52cc6df0805db972770c33f587245c1d8276c"
   dependencies:
     create-react-class "~15.6.2"
     fbjs "~0.8.16"
     immutable "~3.8.2"
+    lodash "^4.17.4"
     prop-types "~15.6.0"
     react-native-blur "~3.2.2"
     react-timer-mixin "~0.13.3"

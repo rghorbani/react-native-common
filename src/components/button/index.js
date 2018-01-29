@@ -18,7 +18,7 @@ const {
   View,
 } = require('react-native');
 
-class RGFButton extends React.Component {
+class Button extends React.Component {
   props: {
     type: 'primary' | 'secondary' | 'bordered';
     icon?: number;
@@ -75,7 +75,7 @@ class RGFButton extends React.Component {
 }
 
 const HEIGHT = 50;
-RGFButton.HEIGHT = HEIGHT;
+Button.HEIGHT = HEIGHT;
 
 var styles = StyleSheet.create({
   container: {
@@ -113,4 +113,4 @@ var styles = StyleSheet.create({
   }
 });
 
-module.exports = RGFButton;
+module.exports = Button;
