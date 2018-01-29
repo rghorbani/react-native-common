@@ -29,6 +29,8 @@ class Playground extends React.Component {
         <StatusBar
         />
         <View style={styles.container}>
+          <TextInput
+          />
         </View>
       </View>
     );

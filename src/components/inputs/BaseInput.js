@@ -34,7 +34,7 @@ class BaseInput extends BaseComponent {
   constructor(props) {
     super(props);
 
-    // const typography = this.getTypography();
+    const typography = this.getTypography();
     this.state = {
       inputWidth: typography.fontSize * 2,
       widthExtendBreaks: [],
