@@ -23,16 +23,11 @@
 
 ### Installation
 
-- If you are using
-[create-react-native-app](https://github.com/react-community/create-react-native-app)
-or [Expo](https://expo.io), [follow these instructions](https://github.com/rghorbani/react-native-common/blob/master/using-with-crna-or-expo.md).
-
-- If your project is a standard React Native project (if you have an
-ios/android directory and created it with `react-native init`), [follow these installation instructions](https://github.com/rghorbani/react-native-common/blob/master/default_installation.md).
+`$ yarn add react-native-common`
+or
+`$ npm install react-native-common --save`
 
 ## Usage
-
-Start using the components or try it on Snack [here](https://snack.expo.io/rJu6gJfBZ).
 
 ```javascript
 import { Button } from 'react-native-common';
@@ -47,7 +42,6 @@ import { Button } from 'react-native-common';
 
 ## Components Included
 
-- [x] Badge
 - [x] Button
 - [x] Carousel
 - [x] DrawerLayout
@@ -65,6 +59,7 @@ import { Button } from 'react-native-common';
 - [x] SettingsList.Item
 - [x] StyleSheet
 - [x] ViewPager
+- [ ] Badge
 - [ ] Connection Status Bar
 - [ ] Checkboxes
 
