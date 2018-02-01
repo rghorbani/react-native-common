@@ -9,6 +9,7 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const { Animated, TextInput, ViewPropTypes } = require('react-native');
+
 const { BaseComponent } = require('../../commons');
 import {Colors, Typography} from '../../style';
 

@@ -4,6 +4,8 @@
  * @flow
  */
 
+'use strict';
+
 module.exports = {
   get BaseInput() { return require('./BaseInput')},
   get MaskedInput() { return require('./MaskedInput')},

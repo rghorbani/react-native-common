@@ -17,9 +17,9 @@ const {
 } = require('react-native');
 import Ionicons from 'react-native-vector-icons/Ionicons';
 // import LinearGradient from 'react-native-linear-gradient';
-var StyleSheet = require('./StyleSheet');
-var RGFColors = require('./RGFColors');
-var { Text, NumText } = require('./RGFText');
+const StyleSheet = require('./StyleSheet');
+const RGFColors = require('./RGFColors');
+const { Text, NumText } = require('./RGFText');
 
 export type Layout =
     'default'      // Use platform defaults (icon on Android, text on iOS)

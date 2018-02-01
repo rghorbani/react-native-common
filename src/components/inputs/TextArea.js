@@ -9,6 +9,7 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const { View, TextInput, StyleSheet } = require('react-native');
+
 const BaseInput = require('./BaseInput');
 
 class TextArea extends BaseInput {

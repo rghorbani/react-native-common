@@ -11,7 +11,7 @@ const PropTypes = require('prop-types');
 const { Platform, Text, TouchableOpacity, View, ViewPropTypes } = require('react-native');
 const StyleSheet = require('./StyleSheet');
 
-class RNCSegmentedControl extends React.Component {
+class SegmentedControl extends React.Component {
   static displayName = 'PageControl';
 
   static propTypes: {
@@ -129,4 +129,4 @@ const styles = StyleSheet.create({
   },
 });
 
-module.exports = RNCSegmentedControl;
+module.exports = SegmentedControl;

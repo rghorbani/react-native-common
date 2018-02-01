@@ -8,6 +8,7 @@ const React = require('react');
 const PropTypes = require('prop-types');
 const _ = require('lodash');
 const { Keyboard, Text, TouchableOpacity, StyleSheet, View, ViewPropTypes } = require('react-native');
+
 const TextInput = require('./TextInput');
 const BaseInput = require('./BaseInput');
 

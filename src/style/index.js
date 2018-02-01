@@ -7,6 +7,7 @@
 'use strict';
 
 module.exports = {
+  get BorderRadiuses() { return require('./BorderRadiuses') },
   get Colors() { return require('./Colors') },
   get ThemeManager() { return require('./ThemeManager') },
   get Typography() { return require('./Typography') },

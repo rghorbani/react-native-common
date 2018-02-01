@@ -8,10 +8,6 @@
 
 const React = require('react');
 const PropTypes = require('prop-types');
-const RGFColors = require('./RGFColors');
-const Header = require('./Header');
-const StyleSheet = require('./StyleSheet');
-
 const {
   Platform,
   Image,
@@ -19,6 +15,10 @@ const {
   TouchableOpacity,
   View,
 } = require('react-native');
+
+const RGFColors = require('./RGFColors');
+const Header = require('./Header');
+const StyleSheet = require('./StyleSheet');
 
 import type {Item as HeaderItem} from './Header';
 
@@ -63,7 +63,7 @@ class PageContainer extends React.Component {
   }
 }
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',

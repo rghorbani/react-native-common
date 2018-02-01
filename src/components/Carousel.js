@@ -9,6 +9,7 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const { ViewPropTypes } = require('react-native');
+
 const StyleSheet = require('./StyleSheet');
 const ViewPager = require('./ViewPager');
 

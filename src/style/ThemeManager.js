@@ -4,6 +4,8 @@
  * @flow
  */
 
+'use strict';
+
 const _ = require('lodash');
 const Colors = require('./Colors');
 

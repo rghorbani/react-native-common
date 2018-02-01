@@ -2,13 +2,11 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const _ = require('lodash');
-
 const { Animated, Text, StyleSheet, View } = require('react-native');
 import {TextInput as RNTextInput} from 'react-native';
 
 const BaseInput = require('./BaseInput');
 const TextArea = require('./TextArea');
-
 const { Colors, Typography } = require('../../style');
 const { Constants } = require('../../helpers');
 const { Modal } = require('../../screen-components');
@@ -337,7 +335,7 @@ class TextInput extends BaseInput {
       value: expandableInputValue,
     });
     this.state.floatingPlaceholderState.setValue(expandableInputValue ? 1 : 0);
-    _.invoke(this.props, 'onChangeText', expandableInputValue);
+    this.props.onChangeText && this.props.onChangeText(expandableInputValue);
     this.toggleExpandableModal(false);
   }
 
@@ -348,7 +346,7 @@ class TextInput extends BaseInput {
       transformedText = transformer(text);
     }
 
-    _.invoke(this.props, 'onChangeText', transformedText);
+    this.props.onChangeText && this.props.onChangeText(transformedText);
 
     this.setState(
       {
@@ -360,12 +358,12 @@ class TextInput extends BaseInput {
 
   onContentSizeChange(event) {
     this.calcMultilineInputHeight(event);
-    _.invoke(this.props, 'onChange', event);
+    this.props.onChange && this.props.onChange(event);
   }
 
   onChange(event) {
     this.calcMultilineInputHeight(event);
-    _.invoke(this.props, 'onChange', event);
+    this.props.onChange && this.props.onChange(event);
   }
 
   // this is just for android

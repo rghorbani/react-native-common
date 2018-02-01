@@ -4,6 +4,8 @@
  * @flow
  */
 
+'use strict';
+
 const _ = require('lodash');
 const { Constants } = require('../helpers');
 

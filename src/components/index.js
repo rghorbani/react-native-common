@@ -6,15 +6,25 @@
 
 'use strict';
 
+const { BaseComponent } = require('../commons');
+
 const Inputs = require('./inputs');
 const KeyboardAware = require('./keyboard-aware');
 const NavIcons = require('./nav-icons');
+const Touchables = require('./touchables');
 
 module.exports = {
+  // Base
+  ...BaseComponent,
+  // Components
   ...Inputs,
   ...KeyboardAware,
   ...NavIcons,
+  ...Touchables,
   get Button() { return require('./button')},
+  get Text() { return require('./text')},
+  get View() { return require('./view')},
+  // Old
   get Carousel() { return require('./Carousel')},
   get Colors() { return require('./Colors')},
   get DrawerLayout() { return require('./DrawerLayout')},
@@ -33,6 +43,5 @@ module.exports = {
   get SegmentedControl() { return require('./SegmentedControl')},
   get SettingsList() { return require('./SettingsList')},
   get StyleSheet() { return require('./StyleSheet')},
-  get Touchable() { return require('./Touchable')},
   get ViewPager() { return require('./ViewPager')},
 };
