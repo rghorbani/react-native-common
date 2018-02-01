@@ -1,8 +1,3 @@
-<p align="center">
-  <a href="https://rghorbani.github.io/react-native-common/">
-    <img alt="react-native-common" src="https://raw.githubusercontent.com/rghorbani/react-native-common/master/docs/images/react_native_elements_logo.png" width="450">
-  </a>
-</p>
 
 <h3 align="center">
   React Native Common
@@ -19,15 +14,10 @@
 </p>
 
 <p align="center">
-  <a href="#backers"><img src="https://opencollective.com/react-native-common/backers/badge.svg"></a>
-  <a href="#sponsors"><img src="https://opencollective.com/react-native-common/sponsors/badge.svg"></a>
-  <a href="https://codecov.io/gh/rghorbani/react-native-common"><img src="https://codecov.io/gh/rghorbani/react-native-common/coverage.svg"></a>
   <a href="https://github.com/prettier/prettier"><img src="https://img.shields.io/badge/styled_with-prettier-ff69b4.svg"></a>
 </p>
 
 <br />
-
-![React Native UI Toolkit](http://i.imgur.com/UXrGTeG.png)
 
 ## Get Started
 
