@@ -21,7 +21,9 @@ module.exports = {
   ...KeyboardAware,
   ...NavIcons,
   ...Touchables,
+  get Badge() { return require('./badge')},
   get Button() { return require('./button')},
+  get Header() { return require('./header')},
   get Text() { return require('./text')},
   get View() { return require('./view')},
   // Old
@@ -39,7 +41,6 @@ module.exports = {
   get Popover() { return require('./Popover')},
   get ProgressBar() { return require('./ProgressBar')},
   get PureListView() { return require('./PureListView')},
-  // get Header() { return require('./Header')},
   get SegmentedControl() { return require('./SegmentedControl')},
   get SettingsList() { return require('./SettingsList')},
   get StyleSheet() { return require('./StyleSheet')},

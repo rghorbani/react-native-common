@@ -42,10 +42,12 @@ import { Button } from 'react-native-common';
 
 ## Components Included
 
+- [x] Badge
 - [x] Button
 - [x] Carousel
 - [x] DrawerLayout
 - [x] KeyboardSpacer
+- [x] Header
 - [x] PageControl
 - [x] Popover
 - [x] PureListView
@@ -59,7 +61,6 @@ import { Button } from 'react-native-common';
 - [x] SettingsList.Item
 - [x] StyleSheet
 - [x] ViewPager
-- [ ] Badge
 - [ ] Connection Status Bar
 - [ ] Checkboxes
 

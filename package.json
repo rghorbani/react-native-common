@@ -1,6 +1,6 @@
 {
   "name": "react-native-common",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "React Native common components",
   "main": "src/index.js",
   "scripts": {
@@ -37,6 +37,7 @@
     "immutable": "~3.8.2",
     "lodash": "^4.17.4",
     "prop-types": "~15.6.0",
+    "react-native-animatable": "^1.2.4",
     "react-native-blur": "~3.2.2",
     "react-timer-mixin": "~0.13.3",
     "rebound": "~0.0.15"
@@ -56,7 +57,7 @@
   "peerDependencies": {
     "react": "*",
     "react-native": "*",
-    "react-native-vector-icons": "~4.5.0"
+    "react-native-vector-icons": "^4.5.0"
   },
   "jest": {
     "preset": "react-native",

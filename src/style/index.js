@@ -9,6 +9,7 @@
 module.exports = {
   get BorderRadiuses() { return require('./BorderRadiuses') },
   get Colors() { return require('./Colors') },
+  get Shadows() { return require('./Shadows') },
   get ThemeManager() { return require('./ThemeManager') },
   get Typography() { return require('./Typography') },
 };
