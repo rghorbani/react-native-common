@@ -8,7 +8,7 @@
 
 const React = require('react');
 const PropTypes = require('prop-types');
-const { Dimensions, Text, TouchableOpacity, StyleSheet } = require('react-native');
+const { Dimensions, Image, Text, TouchableOpacity, StyleSheet } = require('react-native');
 
 const { BaseComponent } = require('../../commons');
 const { Colors } = require('../../style');
