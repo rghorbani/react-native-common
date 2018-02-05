@@ -52,10 +52,18 @@ class Text extends BaseComponent {
       style
     ];
     return (
-      <RNText {...props} style={textStyle}>
+      <RNText {...props} style={textStyle} ref={r => (this.text = r)}>
         {this.props.children}
       </RNText>
     );
+  }
+
+  measure(...args) {
+    this.text.measure(...args);
+  }
+
+  measureInWindow(...args) {
+    this.text.measureInWindow(...args);
   }
 }
 

@@ -25,7 +25,7 @@ class ViewPager extends React.Component {
     selectedIndex: PropTypes.number,
     onSelectedIndexChange: PropTypes.func,
     bounces: PropTypes.bool,
-    children: PropTypes.nodes,
+    children: PropTypes.arrayOf(PropTypes.node),
     style: ViewPropTypes.style,
   };
 
