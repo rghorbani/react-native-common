@@ -55,7 +55,7 @@ class SettingsList extends React.Component {
       // Allow for null, optional fields
       if(!child) return;
 
-      if(child.type.displayName === 'Header') {
+      if(child.type.displayName === 'SettingsList.Header') {
         if(groupNumber != -1){
           result[groupNumber] = {items: itemGroup, header: headers[groupNumber], other: other};
           itemGroup = [];
@@ -63,7 +63,7 @@ class SettingsList extends React.Component {
         }
         groupNumber++;
         headers[groupNumber] = child.props;
-      } else if(child.type.displayName === 'Item') {
+      } else if(child.type.displayName === 'SettingsList.Item') {
         if(groupNumber == -1){
           groupNumber++;
         }
@@ -247,7 +247,7 @@ class SettingsList extends React.Component {
  * Optional Header for groups
  */
 class Header extends React.Component {
-  static displayName = 'Header';
+  static displayName = 'SettingsList.Header';
 
   static propTypes = {
     rtl: PropTypes.bool,
@@ -271,7 +271,7 @@ SettingsList.Header = Header;
  * Individual Items in the Settings List
  */
 class Item extends React.Component {
-  static displayName = 'Item';
+  static displayName = 'SettingsList.Item';
 
   static propTypes = {
     rtl: PropTypes.bool,

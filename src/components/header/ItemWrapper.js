@@ -8,8 +8,10 @@
 
 const React = require('react');
 const PropTypes = require('prop-types');
-const { Dimensions, Image, Text, TouchableOpacity, StyleSheet } = require('react-native');
+const { Dimensions, Image, TouchableOpacity, StyleSheet } = require('react-native');
 
+const Text = require('../text');
+const View = require('../view');
 const { BaseComponent } = require('../../commons');
 const { Colors } = require('../../style');
 
@@ -35,6 +37,10 @@ class ItemWrapper extends BaseComponent {
      * item color
      */
     color: PropTypes.string,
+    /**
+     * item's icon size
+     */
+    size: PropTypes.number,
   };
 
   static defaultProps = {

@@ -8,13 +8,12 @@
 
 const React = require('react');
 const PropTypes = require('prop-types');
-const _ = require('lodash');
 const { Platform, ToolbarAndroid, StatusBar } = require('react-native');
 
 const ItemWrapper = require('./ItemWrapper');
+const Button = require('../button');
 const Text = require('../text');
 const View = require('../view');
-const Button = require('../button');
 const StyleSheet = require('../StyleSheet');
 const { BaseComponent } = require('../../commons');
 const { Colors, Shadows } = require('../../style');
@@ -51,15 +50,15 @@ class Header extends BaseComponent {
     /**
      * leftItems
      */
-    leftItems: PropTypes.oneOfType([ItemWrapper.propTypes, PropTypes.arrayOf(ItemWrapper.propTypes)]),
+    leftItems: PropTypes.oneOfType([PropTypes.shape(ItemWrapper.propTypes), PropTypes.arrayOf(PropTypes.shape(ItemWrapper.propTypes))]),
     /**
      * rightItems
      */
-    rightItems: PropTypes.oneOfType([ItemWrapper.propTypes, PropTypes.arrayOf(ItemWrapper.propTypes)]),
+    leftItems: PropTypes.oneOfType([PropTypes.shape(ItemWrapper.propTypes), PropTypes.arrayOf(PropTypes.shape(ItemWrapper.propTypes))]),
     /**
      * extraItems
      */
-    extraItems: PropTypes.oneOfType([ItemWrapper.propTypes, PropTypes.arrayOf(ItemWrapper.propTypes)]),
+    leftItems: PropTypes.oneOfType([PropTypes.shape(ItemWrapper.propTypes), PropTypes.arrayOf(PropTypes.shape(ItemWrapper.propTypes))]),
     /**
      * color of items
      */
