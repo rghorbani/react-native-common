@@ -34,14 +34,14 @@ export function numberWithCommas(str) {
   // for (var i = 0; i < 10; i++) {
   //   x = x.replace(convertToPersian[i], i);
   // }
-  var parts = str.toString().split('.');
+  let parts = str.toString().split('.');
   parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   return parts.join('.');
 }
 
 export function parseNumberWithCommas(str) {
   str = str.replace(/,/g, '');
-  var pattern = /^\d+$/;
+  let pattern = /^\d+$/;
   if (!pattern.test(str)) {
     console.error('Error: parseNumberWithCommas', str);
     return '';

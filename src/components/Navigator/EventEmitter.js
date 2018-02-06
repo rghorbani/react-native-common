@@ -123,7 +123,7 @@ class EventEmitter {
    * @throws {Error} When called not during an eventing cycle
    *
    * @example
-   *   var subscription = emitter.addListenerMap({
+   *   let subscription = emitter.addListenerMap({
    *     someEvent: function(data, event) {
    *       console.log(data);
    *       emitter.removeCurrentListener();

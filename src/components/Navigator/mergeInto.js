@@ -25,12 +25,12 @@
  * @typechecks static-only
  */
 
-"use strict";
+'use strict';
 
-var mergeHelpers = require('./mergeHelpers');
+const mergeHelpers = require('./mergeHelpers');
 
-var checkMergeObjectArg = mergeHelpers.checkMergeObjectArg;
-var checkMergeIntoObjectArg = mergeHelpers.checkMergeIntoObjectArg;
+const checkMergeObjectArg = mergeHelpers.checkMergeObjectArg;
+const checkMergeIntoObjectArg = mergeHelpers.checkMergeIntoObjectArg;
 
 /**
  * Shallow merges two structures by mutating the first parameter.
@@ -42,7 +42,7 @@ function mergeInto(one, two) {
   checkMergeIntoObjectArg(one);
   if (two != null) {
     checkMergeObjectArg(two);
-    for (var key in two) {
+    for (let key in two) {
       if (!two.hasOwnProperty(key)) {
         continue;
       }

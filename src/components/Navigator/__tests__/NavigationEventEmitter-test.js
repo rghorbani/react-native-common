@@ -32,16 +32,16 @@ jest
   .unmock('NavigationEvent')
   .unmock('NavigationEventEmitter');
 
-var NavigationEventEmitter = require('NavigationEventEmitter');
+const NavigationEventEmitter = require('NavigationEventEmitter');
 
 describe('NavigationEventEmitter', () => {
   it('emits event', () => {
-    var context = {};
-    var emitter = new NavigationEventEmitter(context);
-    var logs = [];
+    let context = {};
+    let emitter = new NavigationEventEmitter(context);
+    let logs = [];
 
     emitter.addListener('ping', (event) => {
-      var {type, data, target, defaultPrevented} = event;
+      let {type, data, target, defaultPrevented} = event;
 
       logs.push({
         data,
@@ -62,9 +62,9 @@ describe('NavigationEventEmitter', () => {
   });
 
   it('does not emit event that has no listeners', () => {
-    var context = {};
-    var emitter = new NavigationEventEmitter(context);
-    var pinged = false;
+    let context = {};
+    let emitter = new NavigationEventEmitter(context);
+    let pinged = false;
 
     emitter.addListener('ping', () => {
       pinged = true;
@@ -75,9 +75,9 @@ describe('NavigationEventEmitter', () => {
   });
 
   it('puts nested emit call in a queue', () => {
-    var context = {};
-    var emitter = new NavigationEventEmitter(context);
-    var logs = [];
+    let context = {};
+    let emitter = new NavigationEventEmitter(context);
+    let logs = [];
 
     emitter.addListener('one', () => {
       logs.push(1);
@@ -101,9 +101,9 @@ describe('NavigationEventEmitter', () => {
   });
 
   it('puts nested emit call in a queue should be in sequence order', () => {
-    var context = {};
-    var emitter = new NavigationEventEmitter(context);
-    var logs = [];
+    let context = {};
+    let emitter = new NavigationEventEmitter(context);
+    let logs = [];
 
     emitter.addListener('one', () => {
       logs.push(1);
@@ -127,12 +127,12 @@ describe('NavigationEventEmitter', () => {
   });
 
   it('calls callback after emitting', () => {
-    var context = {};
-    var emitter = new NavigationEventEmitter(context);
-    var logs = [];
+    let context = {};
+    let emitter = new NavigationEventEmitter(context);
+    let logs = [];
 
     emitter.addListener('ping', (event) => {
-      var {type, data, target, defaultPrevented} = event;
+      let {type, data, target, defaultPrevented} = event;
       logs.push({
         data,
         defaultPrevented,
@@ -143,7 +143,7 @@ describe('NavigationEventEmitter', () => {
     });
 
     emitter.emit('ping', 'hello', (event) => {
-      var {type, data, target, defaultPrevented} = event;
+      let {type, data, target, defaultPrevented} = event;
       logs.push({
         data,
         defaultPrevented,
@@ -161,16 +161,16 @@ describe('NavigationEventEmitter', () => {
 
   it('calls callback after emitting the current event and before ' +
        'emitting the next event', () => {
-    var context = {};
-    var emitter = new NavigationEventEmitter(context);
-    var logs = [];
+    let context = {};
+    let emitter = new NavigationEventEmitter(context);
+    let logs = [];
 
-    emitter.addListener('ping', (event) => {
+    emitter.addListener('ping', () => {
       logs.push('ping');
       emitter.emit('pong');
     });
 
-    emitter.addListener('pong', (event) => {
+    emitter.addListener('pong', () => {
       logs.push('pong');
     });
 

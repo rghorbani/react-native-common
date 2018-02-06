@@ -6,16 +6,16 @@
 
 'use strict';
 
-const colors = {
-  red: 'rgb(255, 59, 48)',
-  orange: 'rgb(255, 149, 0)',
-  yellow: 'rgb(255, 204, 0)',
-  green: 'rgb(76, 217, 100)',
-  tealBlue: 'rgb(90, 200, 250)',
-  blue: 'rgb(0, 122, 255)',
-  purple: 'rgb(88, 86, 214)',
-  pink: 'rgb(255, 45, 85)',
-};
+// const colors = {
+//   red: 'rgb(255, 59, 48)',
+//   orange: 'rgb(255, 149, 0)',
+//   yellow: 'rgb(255, 204, 0)',
+//   green: 'rgb(76, 217, 100)',
+//   tealBlue: 'rgb(90, 200, 250)',
+//   blue: 'rgb(0, 122, 255)',
+//   purple: 'rgb(88, 86, 214)',
+//   pink: 'rgb(255, 45, 85)',
+// };
 
 const TRANSACTION_TYPE_COLORS = {
   '1': '#3cc26b',
@@ -27,7 +27,7 @@ function colorForTransactionType(type: ?string): string {
     return '#2196F3';
   }
 
-  var color = TRANSACTION_TYPE_COLORS[type.toString()];
+  let color = TRANSACTION_TYPE_COLORS[type.toString()];
   if (!color) {
     console.warn(`Transaction type '${type}' has no color`);
     color = '#2196F3';
@@ -43,7 +43,7 @@ function colorForAmount(amount: ?number): string {
   if (amount < 0) {
     return '#fb5959';
   } else {
-    return '#3cc26b'
+    return '#3cc26b';
   }
 }
 

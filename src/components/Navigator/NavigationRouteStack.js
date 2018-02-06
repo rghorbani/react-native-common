@@ -26,18 +26,18 @@
  */
 'use strict';
 
-var immutable = require('immutable');
-var invariant = require('fbjs/lib/invariant');
+const immutable = require('immutable');
+const invariant = require('fbjs/lib/invariant');
 
 type IterationCallback = (route: any, index: number, key: string) => void;
 
-var {List, Set} = immutable;
+const {List, Set} = immutable;
 
 function isRouteEmpty(route: any): boolean {
   return (route === undefined || route === null || route === '') || false;
 }
 
-var _nextID = 0;
+let _nextID = 0;
 
 class RouteNode {
   key: string;
@@ -52,7 +52,7 @@ class RouteNode {
   }
 }
 
-var StackDiffRecord = immutable.Record({
+const StackDiffRecord = immutable.Record({
   key: null,
   route: null,
   index: null,
@@ -90,9 +90,9 @@ class RouteStack {
   }
 
   toArray(): Array<any> {
-    var result = [];
-    var ii = 0;
-    var nodes = this._routeNodes;
+    let result = [];
+    let ii = 0;
+    let nodes = this._routeNodes;
     while (ii < nodes.size) {
       result.push(nodes.get(ii).value);
       ii++;
@@ -117,7 +117,7 @@ class RouteStack {
     if (isRouteEmpty(route)) {
       return null;
     }
-    var index = this.indexOf(route);
+    let index = this.indexOf(route);
     return index > -1 ?
       this._routeNodes.get(index).key :
       null;
@@ -128,7 +128,7 @@ class RouteStack {
       return -1;
     }
 
-    var finder = (node) => {
+    let finder = (node) => {
       return (node: RouteNode).value === route;
     };
 
@@ -136,8 +136,8 @@ class RouteStack {
   }
 
   slice(begin?: number, end?: number): RouteStack {
-    var routeNodes = this._routeNodes.slice(begin, end);
-    var index = Math.min(this._index, routeNodes.size - 1);
+    let routeNodes = this._routeNodes.slice(begin, end);
+    let index = Math.min(this._index, routeNodes.size - 1);
     return this._update(index, routeNodes);
   }
 
@@ -155,7 +155,7 @@ class RouteStack {
     invariant(this._routeNodes.indexOf(route) === -1, 'route must be unique');
 
     // When pushing, removes the rest of the routes past the current index.
-    var routeNodes = this._routeNodes.withMutations((list: List<RouteNode>) => {
+    let routeNodes = this._routeNodes.withMutations((list: List<RouteNode>) => {
       list.slice(0, this._index + 1).push(new RouteNode(route));
     });
 
@@ -170,7 +170,7 @@ class RouteStack {
     invariant(this._routeNodes.size > 1, 'should not pop routeNodes stack to empty');
 
     // When popping, removes the rest of the routes past the current index.
-    var routeNodes = this._routeNodes.slice(0, this._index);
+    let routeNodes = this._routeNodes.slice(0, this._index);
     return this._update(routeNodes.size - 1, routeNodes);
   }
 
@@ -210,23 +210,23 @@ class RouteStack {
       'index out of bound'
     );
 
-    var routeNodes = this._routeNodes.set(index, new RouteNode(route));
+    let routeNodes = this._routeNodes.set(index, new RouteNode(route));
     return this._update(index, routeNodes);
   }
 
   // Iterations
   forEach(callback: IterationCallback, context: ?Object): void {
-    var ii = 0;
-    var nodes = this._routeNodes;
+    let ii = 0;
+    let nodes = this._routeNodes;
     while (ii < nodes.size) {
-      var node = nodes.get(ii);
+      let node = nodes.get(ii);
       callback.call(context, node.value, ii, node.key);
       ii++;
     }
   }
 
   mapToArray(callback: IterationCallback, context: ?Object): Array<any> {
-    var result = [];
+    let result = [];
     this.forEach((route, index, key) => {
       result.push(callback.call(context, route, index, key));
     });
@@ -237,7 +237,7 @@ class RouteStack {
    * Returns a Set excluding any routes contained within the stack given.
    */
   subtract(stack: RouteStack): Set<StackDiffRecord> {
-    var items = [];
+    let items = [];
     this._routeNodes.forEach((node: RouteNode, index: number) => {
       if (!stack._routeNodes.contains(node)) {
         items.push(
@@ -270,7 +270,7 @@ class NavigationRouteStack extends RouteStack {
     // track of routeNodes. Since using `List` is really just the implementation
     // detail, we don't want to accept `routeNodes` as `list` from constructor
     // for developer.
-    var nodes = routeNodes.map((route) => {
+    let nodes = routeNodes.map((route) => {
       invariant(!isRouteEmpty(route), 'route must not be mepty');
       return new RouteNode(route);
     });

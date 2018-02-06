@@ -63,7 +63,7 @@ class TouchableOpacity extends BaseComponent {
   }
 
   render() {
-    const { throttle, ...props } = this.getThemeProps();
+    const props = this.getThemeProps();
 
     return (
       <RNTouchableOpacity

@@ -8,22 +8,20 @@
 
 const React = require('react');
 const PropTypes = require('prop-types');
-
 const {
   Animated,
   Dimensions,
   Easing,
   StyleSheet,
-  Text,
   TouchableWithoutFeedback,
   View,
   ViewPropTypes,
 } = require('react-native');
 
-var noop = () => {};
+const noop = () => {};
 
-var {height: SCREEN_HEIGHT, width: SCREEN_WIDTH} = Dimensions.get('window');
-var DEFAULT_ARROW_SIZE = new Size(10, 5);
+const {height: SCREEN_HEIGHT, width: SCREEN_WIDTH} = Dimensions.get('window');
+const DEFAULT_ARROW_SIZE = new Size(10, 5);
 
 function Point(x, y) {
   this.x = x;
@@ -158,7 +156,7 @@ class Popover extends React.Component {
       popoverOrigin,
       anchorPoint,
       placement: 'top',
-    }
+    };
   }
 
   computeBottomGeometry({displayArea, fromRect, contentSize, arrowSize}) {
@@ -172,7 +170,7 @@ class Popover extends React.Component {
       popoverOrigin,
       anchorPoint,
       placement: 'bottom',
-    }
+    };
   }
 
   computeLeftGeometry({displayArea, fromRect, contentSize, arrowSize}) {
@@ -185,7 +183,7 @@ class Popover extends React.Component {
       popoverOrigin,
       anchorPoint,
       placement: 'left',
-    }
+    };
   }
 
   computeRightGeometry({displayArea, fromRect, contentSize, arrowSize}) {
@@ -198,7 +196,7 @@ class Popover extends React.Component {
       popoverOrigin,
       anchorPoint,
       placement: 'right',
-    }
+    };
   }
 
   computeAutoGeometry({displayArea, contentSize}) {
@@ -223,7 +221,7 @@ class Popover extends React.Component {
 
   getArrowSize(placement) {
     const {arrowSize} = this.props;
-    switch(placement) {
+    switch (placement) {
       case 'left':
       case 'right':
         return new Size(arrowSize.height, arrowSize.width);
@@ -269,7 +267,7 @@ class Popover extends React.Component {
       borderRightWidth: width / 2,
       borderBottomWidth: height / 2,
       borderLeftWidth: width / 2,
-    }
+    };
   }
 
   getTranslateOrigin() {
@@ -297,7 +295,7 @@ class Popover extends React.Component {
     const commonConfig = {
       duration: animDuration,
       easing: show ? Easing.out(Easing.back()) : Easing.inOut(Easing.quad),
-    }
+    };
 
     Animated.parallel([
       Animated.timing(values.fade, {
@@ -369,7 +367,7 @@ class Popover extends React.Component {
       popover,
       arrow,
       content,
-    }
+    };
   }
 
   render() {
@@ -377,7 +375,7 @@ class Popover extends React.Component {
     const {style, isVisible, onClose, children} = this.props;
 
     if (!isVisible && !isTransitioning) {
-        return null;
+      return null;
     }
 
     const extendedStyles = this._getExtendedStyles();
@@ -402,7 +400,7 @@ class Popover extends React.Component {
               left: popoverOrigin.x,
             }, ...extendedStyles.popover]}>
             <Animated.View style={arrowStyle}/>
-            <Animated.View ref='content' onLayout={this.measureContent} style={contentStyle}>
+            <Animated.View ref="content" onLayout={this.measureContent} style={contentStyle}>
               {children}
             </Animated.View>
           </Animated.View>

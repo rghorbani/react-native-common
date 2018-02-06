@@ -26,14 +26,14 @@
  */
 'use strict';
 
-var invariant = require('fbjs/lib/invariant');
+const invariant = require('fbjs/lib/invariant');
 
 import type { StyleObj } from 'StyleSheetTypes';
 
 function getStyle(style) {
   if (style && typeof style === 'number') {
     debugger;
-    invariant(false, "Error when using Navigator from react-native-custom-components. Please provide a raw object to `props.sceneStyle` instead of a StyleSheet reference.");
+    invariant(false, 'Error when using Navigator from react-native-custom-components. Please provide a raw object to `props.sceneStyle` instead of a StyleSheet reference.');
   }
   return style;
 }
@@ -48,11 +48,11 @@ function flattenStyle(style: ?StyleObj): ?Object {
     return getStyle(style);
   }
 
-  var result = {};
-  for (var i = 0, styleLength = style.length; i < styleLength; ++i) {
-    var computedStyle = flattenStyle(style[i]);
+  let result = {};
+  for (let i = 0, styleLength = style.length; i < styleLength; ++i) {
+    let computedStyle = flattenStyle(style[i]);
     if (computedStyle) {
-      for (var key in computedStyle) {
+      for (let key in computedStyle) {
         result[key] = computedStyle[key];
       }
     }

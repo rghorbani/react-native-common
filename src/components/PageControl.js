@@ -23,9 +23,9 @@ class PageControl extends React.Component {
   };
 
   render() {
-    var images = [];
-    for (var i = 0; i < this.props.count; i++) {
-      var isSelected = this.props.selectedIndex === i;
+    let images = [];
+    for (let i = 0; i < this.props.count; i++) {
+      const isSelected = this.props.selectedIndex === i;
       images.push(<Circle key={i} {...this.props} isSelected={isSelected} />);
     }
     return (
@@ -60,7 +60,7 @@ class Circle extends React.Component {
         width: this.props.size,
         height: this.props.size,
         borderRadius: this.props.size / 2,
-      }
+      };
     }
     return <View style={[styles.circle, extraStyle]} />;
   }

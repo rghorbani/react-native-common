@@ -7,5 +7,5 @@
 'use strict';
 
 module.exports = {
-  get Modal() { return require('./modal') },
+  get Modal() { return require('./modal'); },
 };

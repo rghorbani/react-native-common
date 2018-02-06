@@ -28,46 +28,46 @@ jest
   .disableAutomock()
   .mock('ErrorUtils');
 
-var NavigationContext = require('NavigationContext');
-var NavigationEvent = require('NavigationEvent');
+const NavigationContext = require('NavigationContext');
+const NavigationEvent = require('NavigationEvent');
 
 describe('NavigationContext', () => {
   it('defaults `currentRoute` to null', () => {
-    var context = new NavigationContext();
+    let context = new NavigationContext();
     expect(context.currentRoute).toEqual(null);
   });
 
   it('updates `currentRoute`', () => {
-    var context = new NavigationContext();
+    let context = new NavigationContext();
     context.emit('didfocus', {route: {name: 'a'}});
     expect(context.currentRoute.name).toEqual('a');
   });
 
   it('has parent', () => {
-    var parent = new NavigationContext();
-    var child = new NavigationContext();
+    let parent = new NavigationContext();
+    let child = new NavigationContext();
     parent.appendChild(child);
     expect(child.parent).toBe(parent);
   });
 
   it('has `top`', () => {
-    var top = new NavigationContext();
-    var parent = new NavigationContext();
-    var child = new NavigationContext();
+    let top = new NavigationContext();
+    let parent = new NavigationContext();
+    let child = new NavigationContext();
     top.appendChild(parent);
     parent.appendChild(child);
     expect(child.top).toBe(top);
   });
 
   it('captures event', () => {
-    var parent = new NavigationContext();
-    var child = new NavigationContext();
+    let parent = new NavigationContext();
+    let child = new NavigationContext();
     parent.appendChild(child);
 
-    var logs = [];
+    let logs = [];
 
-    var listener = (event) => {
-      var {currentTarget, eventPhase, target, type} = event;
+    let listener = (event) => {
+      let {currentTarget, eventPhase, target, type} = event;
       logs.push({
         currentTarget,
         eventPhase,
@@ -98,14 +98,14 @@ describe('NavigationContext', () => {
   });
 
   it('bubbles events', () => {
-    var parent = new NavigationContext();
-    var child = new NavigationContext();
+    let parent = new NavigationContext();
+    let child = new NavigationContext();
     parent.appendChild(child);
 
-    var logs = [];
+    let logs = [];
 
-    var listener = (event) => {
-      var {currentTarget, eventPhase, target, type} = event;
+    let listener = (event) => {
+      let {currentTarget, eventPhase, target, type} = event;
       logs.push({
         currentTarget,
         eventPhase,
@@ -136,11 +136,11 @@ describe('NavigationContext', () => {
   });
 
   it('stops event propagation at capture phase', () => {
-    var parent = new NavigationContext();
-    var child = new NavigationContext();
+    let parent = new NavigationContext();
+    let child = new NavigationContext();
     parent.appendChild(child);
 
-    var counter = 0;
+    let counter = 0;
 
     parent.addListener('yo', event => event.stopPropagation(), true);
     child.addListener('yo', event => counter++, true);
@@ -151,11 +151,11 @@ describe('NavigationContext', () => {
   });
 
   it('stops event propagation at bubbling phase', () => {
-    var parent = new NavigationContext();
-    var child = new NavigationContext();
+    let parent = new NavigationContext();
+    let child = new NavigationContext();
     parent.appendChild(child);
 
-    var counter = 0;
+    let counter = 0;
 
     parent.addListener('yo', event => counter++);
     child.addListener('yo', event => event.stopPropagation());
@@ -166,11 +166,11 @@ describe('NavigationContext', () => {
   });
 
   it('prevents event at capture phase', () => {
-    var parent = new NavigationContext();
-    var child = new NavigationContext();
+    let parent = new NavigationContext();
+    let child = new NavigationContext();
     parent.appendChild(child);
 
-    var val;
+    let val;
     parent.addListener('yo', event => event.preventDefault(), true);
     child.addListener('yo', event => val = event.defaultPrevented, true);
 
@@ -180,11 +180,11 @@ describe('NavigationContext', () => {
   });
 
   it('prevents event at bubble phase', () => {
-    var parent = new NavigationContext();
-    var child = new NavigationContext();
+    let parent = new NavigationContext();
+    let child = new NavigationContext();
     parent.appendChild(child);
 
-    var val;
+    let val;
     parent.addListener('yo', event => val = event.defaultPrevented);
     child.addListener('yo', event => event.preventDefault());
 
@@ -194,21 +194,21 @@ describe('NavigationContext', () => {
   });
 
   it('emits nested events in order at capture phase', () => {
-    var parent = new NavigationContext();
-    var child = new NavigationContext();
+    let parent = new NavigationContext();
+    let child = new NavigationContext();
     parent.appendChild(child);
 
-    var logs = [];
+    let logs = [];
 
-    var listener = (event) => {
-      var {currentTarget, type} = event;
+    let listener = (event) => {
+      let {currentTarget, type} = event;
       logs.push({
         currentTarget,
         type,
       });
     };
 
-    child.addListener('yo', event => {
+    child.addListener('yo', () => {
       // event `didyo` should be fired after the full propagation cycle of the
       // `yo` event.
       child.emit('didyo');
@@ -228,21 +228,21 @@ describe('NavigationContext', () => {
   });
 
   it('emits nested events in order at bubbling phase', () => {
-    var parent = new NavigationContext();
-    var child = new NavigationContext();
+    let parent = new NavigationContext();
+    let child = new NavigationContext();
     parent.appendChild(child);
 
-    var logs = [];
+    let logs = [];
 
-    var listener = (event) => {
-      var {currentTarget, type} = event;
+    let listener = (event) => {
+      let {currentTarget, type} = event;
       logs.push({
         currentTarget,
         type,
       });
     };
 
-    child.addListener('yo', event => {
+    child.addListener('yo', () => {
       // event `didyo` should be fired after the full propagation cycle of the
       // `yo` event.
       child.emit('didyo');

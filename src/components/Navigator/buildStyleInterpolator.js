@@ -29,22 +29,22 @@
  */
 /* eslint-disable global-strict */
 
-var keyOf = require('fbjs/lib/keyOf');
+const keyOf = require('fbjs/lib/keyOf');
 
-var X_DIM = keyOf({x: null});
-var Y_DIM = keyOf({y: null});
-var Z_DIM = keyOf({z: null});
-var W_DIM = keyOf({w: null});
+const X_DIM = keyOf({x: null});
+const Y_DIM = keyOf({y: null});
+const Z_DIM = keyOf({z: null});
+const W_DIM = keyOf({w: null});
 
-var TRANSFORM_ROTATE_NAME = keyOf({transformRotateRadians: null});
+const TRANSFORM_ROTATE_NAME = keyOf({transformRotateRadians: null});
 
-var ShouldAllocateReusableOperationVars = {
+const ShouldAllocateReusableOperationVars = {
   transformRotateRadians: true,
   transformScale: true,
   transformTranslate: true,
 };
 
-var InitialOperationField = {
+const InitialOperationField = {
   transformRotateRadians: [0, 0, 0, 1],
   transformTranslate: [0, 0, 0],
   transformScale: [1, 1, 1],
@@ -76,14 +76,14 @@ var InitialOperationField = {
  *      },
  *    };
  *
- *    var toTheLeft = buildStyleInterpolator(ToTheLeft);
+ *    let toTheLeft = buildStyleInterpolator(ToTheLeft);
  *
  *  Would returns a specialized function of the form:
  *
  *    function(result, value) {
- *      var didChange = false;
- *      var nextScalarVal;
- *      var ratio;
+ *      let didChange = false;
+ *      let nextScalarVal;
+ *      let ratio;
  *      ratio = (value - 0) / 1;
  *      ratio = ratio > 1 ? 1 : (ratio < 0 ? 0 : ratio);
  *      nextScalarVal = Math.round(100 * (1 * (1 - ratio) + 0.7 * ratio)) / 100;
@@ -107,7 +107,7 @@ var InitialOperationField = {
  *    }
  */
 
-var ARGUMENT_NAMES_RE = /([^\s,]+)/g;
+const ARGUMENT_NAMES_RE = /([^\s,]+)/g;
 /**
  * This is obviously a huge hack. Proper tooling would allow actual inlining.
  * This only works in a few limited cases (where there is no function return
@@ -116,7 +116,7 @@ var ARGUMENT_NAMES_RE = /([^\s,]+)/g;
  * Example:
  *
  *
- *   var inlineMe(a, b) {
+ *   let inlineMe(a, b) {
  *      a = b + b;
  *  };
  *
@@ -128,18 +128,18 @@ var ARGUMENT_NAMES_RE = /([^\s,]+)/g;
  * within an environment, to replace `func` args with.
  * @return {string} Resulting function body string.
  */
-var inline = function(fnStr, replaceWithArgs) {
-  var parameterNames = fnStr.slice(fnStr.indexOf('(') + 1, fnStr.indexOf(')'))
+const inline = function(fnStr, replaceWithArgs) {
+  let parameterNames = fnStr.slice(fnStr.indexOf('(') + 1, fnStr.indexOf(')'))
     .match(ARGUMENT_NAMES_RE) ||
     [];
-  var replaceRegexStr = parameterNames.map(function(paramName) {
+  let replaceRegexStr = parameterNames.map(function(paramName) {
     return '\\b' + paramName + '\\b';
   }).join('|');
-  var replaceRegex = new RegExp(replaceRegexStr, 'g');
-  var fnBody = fnStr.substring(fnStr.indexOf('{') + 1, fnStr.lastIndexOf('}'));
-  var newFnBody = fnBody.replace(replaceRegex, function(parameterName) {
-    var indexInParameterNames = parameterNames.indexOf(parameterName);
-    var replacementName = replaceWithArgs[indexInParameterNames];
+  let replaceRegex = new RegExp(replaceRegexStr, 'g');
+  let fnBody = fnStr.substring(fnStr.indexOf('{') + 1, fnStr.lastIndexOf('}'));
+  let newFnBody = fnBody.replace(replaceRegex, function(parameterName) {
+    let indexInParameterNames = parameterNames.indexOf(parameterName);
+    let replacementName = replaceWithArgs[indexInParameterNames];
     return replacementName;
   });
   return newFnBody.split('\n');
@@ -148,7 +148,7 @@ var inline = function(fnStr, replaceWithArgs) {
 /**
  * Simply a convenient way to inline functions using the inline function.
  */
-var MatrixOps = {
+let MatrixOps = {
   unroll: `function(matVar, m0, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15) {
     m0 = matVar[0];
     m1 = matVar[1];
@@ -291,7 +291,7 @@ var MatrixOps = {
 
 // Optimized version of general operation applications that can be used when
 // the target matrix is known to be the identity matrix.
-var MatrixOpsInitial = {
+const MatrixOpsInitial = {
   transformScale: `function(matVar, opVar) {
     // Scaling matVar known to be identity by opVar
     matVar[0] = opVar[0];
@@ -389,7 +389,7 @@ var MatrixOpsInitial = {
 };
 
 
-var setNextValAndDetectChange = function(name, tmpVarName) {
+const setNextValAndDetectChange = function(name, tmpVarName) {
   return (
     '  if (!didChange) {\n' +
     '    var prevVal = result.' + name + ';\n' +
@@ -401,16 +401,16 @@ var setNextValAndDetectChange = function(name, tmpVarName) {
   );
 };
 
-var computeNextValLinear = function(anim, from, to, tmpVarName) {
-  var hasRoundRatio = 'round' in anim;
-  var roundRatio = anim.round;
-  var fn = '  ratio = (value - ' + anim.min + ') / ' + (anim.max - anim.min) + ';\n';
+const computeNextValLinear = function(anim, from, to, tmpVarName) {
+  let hasRoundRatio = 'round' in anim;
+  let roundRatio = anim.round;
+  let fn = '  ratio = (value - ' + anim.min + ') / ' + (anim.max - anim.min) + ';\n';
   if (!anim.extrapolate) {
     fn += '  ratio = ratio > 1 ? 1 : (ratio < 0 ? 0 : ratio);\n';
   }
 
-  var roundOpen = (hasRoundRatio ? 'Math.round(' + roundRatio + ' * ' : '' );
-  var roundClose = (hasRoundRatio ? ') / ' + roundRatio : '' );
+  let roundOpen = (hasRoundRatio ? 'Math.round(' + roundRatio + ' * ' : '' );
+  let roundClose = (hasRoundRatio ? ') / ' + roundRatio : '' );
   fn +=
     '  ' + tmpVarName + ' = ' +
        roundOpen +
@@ -419,33 +419,33 @@ var computeNextValLinear = function(anim, from, to, tmpVarName) {
   return fn;
 };
 
-var computeNextValLinearScalar = function(anim) {
+const computeNextValLinearScalar = function(anim) {
   return computeNextValLinear(anim, anim.from, anim.to, 'nextScalarVal');
 };
 
-var computeNextValConstant = function(anim) {
-  var constantExpression = JSON.stringify(anim.value);
+const computeNextValConstant = function(anim) {
+  let constantExpression = JSON.stringify(anim.value);
   return '  nextScalarVal = ' + constantExpression + ';\n';
 };
 
-var computeNextValStep = function(anim) {
+const computeNextValStep = function(anim) {
   return (
     '  nextScalarVal = value >= ' +
          (anim.threshold + ' ? ' + anim.to + ' : ' + anim.from) + ';\n'
   );
 };
 
-var computeNextValIdentity = function(anim) {
+const computeNextValIdentity = function() {
   return '  nextScalarVal = value;\n';
 };
 
-var operationVar = function(name) {
+const operationVar = function(name) {
   return name + 'ReuseOp';
 };
 
-var createReusableOperationVars = function(anims) {
-  var ret = '';
-  for (var name in anims) {
+const createReusableOperationVars = function(anims) {
+  let ret = '';
+  for (let name in anims) {
     if (ShouldAllocateReusableOperationVars[name]) {
       ret += 'var ' + operationVar(name) + ' = [];\n';
     }
@@ -453,7 +453,7 @@ var createReusableOperationVars = function(anims) {
   return ret;
 };
 
-var newlines = function(statements) {
+const newlines = function(statements) {
   return '\n' + statements.join('\n') + '\n';
 };
 
@@ -463,8 +463,8 @@ var newlines = function(statements) {
  * @param {number} index Field in operationVar to set.
  * @return {string} Code that sets the operation variable's field.
  */
-var computeNextMatrixOperationField = function(anim, name, dimension, index) {
-  var fieldAccess = operationVar(name) + '[' + index + ']';
+const computeNextMatrixOperationField = function(anim, name, dimension, index) {
+  let fieldAccess = operationVar(name) + '[' + index + ']';
   if (anim.from[dimension] !== undefined && anim.to[dimension] !== undefined) {
     return '  ' + anim.from[dimension] !== anim.to[dimension] ?
         computeNextValLinear(anim, anim.from[dimension], anim.to[dimension], fieldAccess) :
@@ -474,12 +474,12 @@ var computeNextMatrixOperationField = function(anim, name, dimension, index) {
   }
 };
 
-var unrolledVars = [];
-for (var varIndex = 0; varIndex < 16; varIndex++) {
+let unrolledVars = [];
+for (let varIndex = 0; varIndex < 16; varIndex++) {
   unrolledVars.push('m' + varIndex);
 }
-var setNextMatrixAndDetectChange = function(orderedMatrixOperations) {
-  var fn = [
+const setNextMatrixAndDetectChange = function(orderedMatrixOperations) {
+  let fn = [
     '  var transform = result.transform !== undefined ? ' +
     'result.transform : (result.transform = [{ matrix: [] }]);' +
     '  var transformMatrix = transform[0].matrix;'
@@ -488,8 +488,8 @@ var setNextMatrixAndDetectChange = function(orderedMatrixOperations) {
     fn,
     inline(MatrixOps.unroll, ['transformMatrix'].concat(unrolledVars))
   );
-  for (var i = 0; i < orderedMatrixOperations.length; i++) {
-    var opName = orderedMatrixOperations[i];
+  for (let i = 0; i < orderedMatrixOperations.length; i++) {
+    let opName = orderedMatrixOperations[i];
     if (i === 0) {
       fn.push.apply(
         fn,
@@ -509,32 +509,32 @@ var setNextMatrixAndDetectChange = function(orderedMatrixOperations) {
   return fn;
 };
 
-var InterpolateMatrix = {
+const InterpolateMatrix = {
   transformTranslate: true,
   transformRotateRadians: true,
   transformScale: true,
 };
 
-var createFunctionString = function(anims) {
+const createFunctionString = function(anims) {
   // We must track the order they appear in so transforms are applied in the
   // correct order.
-  var orderedMatrixOperations = [];
+  let orderedMatrixOperations = [];
 
   // Wrapping function allows the final function to contain state (for
   // caching).
-  var fn = 'return (function() {\n';
+  let fn = 'return (function() {\n';
   fn += createReusableOperationVars(anims);
   fn += 'return function(result, value) {\n';
   fn += '  var didChange = false;\n';
   fn += '  var nextScalarVal;\n';
   fn += '  var ratio;\n';
 
-  for (var name in anims) {
-    var anim = anims[name];
+  for (let name in anims) {
+    let anim = anims[name];
     if (anim.type === 'linear') {
       if (InterpolateMatrix[name]) {
         orderedMatrixOperations.push(name);
-        var setOperations = [
+        let setOperations = [
           computeNextMatrixOperationField(anim, name, X_DIM, 0),
           computeNextMatrixOperationField(anim, name, Y_DIM, 1),
           computeNextMatrixOperationField(anim, name, Z_DIM, 2)
@@ -572,9 +572,9 @@ var createFunctionString = function(anims) {
  * @return {function} Function accepting style object, that mutates that style
  * object and returns a boolean describing if any update was actually applied.
  */
-var buildStyleInterpolator = function(anims) {
+const buildStyleInterpolator = function(anims) {
   // Defer compiling this method until we really need it.
-  var interpolator = null;
+  let interpolator = null;
   function lazyStyleInterpolator(result, value) {
     if (interpolator === null) {
       interpolator = Function(createFunctionString(anims))();

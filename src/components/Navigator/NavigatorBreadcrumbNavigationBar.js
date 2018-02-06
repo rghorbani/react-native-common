@@ -103,10 +103,10 @@ class NavigatorBreadcrumbNavigationBar extends React.Component {
   static Styles = NavigatorBreadcrumbNavigationBarStyles;
 
   _updateIndexProgress(progress, index, fromIndex, toIndex) {
-    var amount = toIndex > fromIndex ? progress : (1 - progress);
-    var oldDistToCenter = index - fromIndex;
-    var newDistToCenter = index - toIndex;
-    var interpolate;
+    let amount = toIndex > fromIndex ? progress : (1 - progress);
+    let oldDistToCenter = index - fromIndex;
+    let newDistToCenter = index - toIndex;
+    let interpolate;
     invariant(
       Interpolators[index],
       'Cannot find breadcrumb interpolators for ' + index
@@ -135,7 +135,7 @@ class NavigatorBreadcrumbNavigationBar extends React.Component {
     if (interpolate.Title(TITLE_PROPS[index].style, amount)) {
       this._setPropsIfExists('title_' + index, TITLE_PROPS[index]);
     }
-    var right = this.refs['right_' + index];
+    let right = this.refs['right_' + index];
 
     const rightButtonStyle = RIGHT_BUTTON_PROPS[index].style;
     if (right && interpolate.RightItem(rightButtonStyle, amount)) {
@@ -147,30 +147,30 @@ class NavigatorBreadcrumbNavigationBar extends React.Component {
   }
 
   updateProgress(progress, fromIndex, toIndex) {
-    var max = Math.max(fromIndex, toIndex);
-    var min = Math.min(fromIndex, toIndex);
-    for (var index = min; index <= max; index++) {
+    let max = Math.max(fromIndex, toIndex);
+    let min = Math.min(fromIndex, toIndex);
+    for (let index = min; index <= max; index++) {
       this._updateIndexProgress(progress, index, fromIndex, toIndex);
     }
   }
 
   onAnimationStart(fromIndex, toIndex) {
-    var max = Math.max(fromIndex, toIndex);
-    var min = Math.min(fromIndex, toIndex);
-    for (var index = min; index <= max; index++) {
+    let max = Math.max(fromIndex, toIndex);
+    let min = Math.min(fromIndex, toIndex);
+    for (let index = min; index <= max; index++) {
       this._setRenderViewsToHardwareTextureAndroid(index, true);
     }
   }
 
   onAnimationEnd() {
-    var max = this.props.navState.routeStack.length - 1;
-    for (var index = 0; index <= max; index++) {
+    let max = this.props.navState.routeStack.length - 1;
+    for (let index = 0; index <= max; index++) {
       this._setRenderViewsToHardwareTextureAndroid(index, false);
     }
   }
 
   _setRenderViewsToHardwareTextureAndroid(index, renderToHardwareTexture) {
-    var props = {
+    let props = {
       renderToHardwareTextureAndroid: renderToHardwareTexture,
     };
 
@@ -185,10 +185,10 @@ class NavigatorBreadcrumbNavigationBar extends React.Component {
   }
 
   render() {
-    var navState = this.props.navState;
-    var icons = navState && navState.routeStack.map(this._getBreadcrumb);
-    var titles = navState.routeStack.map(this._getTitle);
-    var buttons = navState.routeStack.map(this._getRightButton);
+    let navState = this.props.navState;
+    let icons = navState && navState.routeStack.map(this._getBreadcrumb);
+    let titles = navState.routeStack.map(this._getTitle);
+    let buttons = navState.routeStack.map(this._getRightButton);
 
     return (
       <View
@@ -228,7 +228,7 @@ class NavigatorBreadcrumbNavigationBar extends React.Component {
     const navBarRouteMapper = this.props.routeMapper;
     const firstStyles = initStyle(index, navStatePresentedIndex(this.props.navState));
 
-    var breadcrumbDescriptor = (
+    let breadcrumbDescriptor = (
       <View
         key={'crumb_' + index}
         pointerEvents={pointerEvents}
@@ -251,13 +251,13 @@ class NavigatorBreadcrumbNavigationBar extends React.Component {
       return this._descriptors.title.get(route);
     }
 
-    var titleContent = this.props.routeMapper.titleContentForRoute(
+    let titleContent = this.props.routeMapper.titleContentForRoute(
       this.props.navState.routeStack[index],
       this.props.navigator
     );
-    var firstStyles = initStyle(index, navStatePresentedIndex(this.props.navState));
+    let firstStyles = initStyle(index, navStatePresentedIndex(this.props.navState));
 
-    var titleDescriptor = (
+    let titleDescriptor = (
       <View
         key={'title_' + index}
         ref={'title_' + index}
@@ -273,7 +273,7 @@ class NavigatorBreadcrumbNavigationBar extends React.Component {
     if (this._descriptors.right.has(route)) {
       return this._descriptors.right.get(route);
     }
-    var rightContent = this.props.routeMapper.rightContentForRoute(
+    let rightContent = this.props.routeMapper.rightContentForRoute(
       this.props.navState.routeStack[index],
       this.props.navigator
     );
@@ -281,8 +281,8 @@ class NavigatorBreadcrumbNavigationBar extends React.Component {
       this._descriptors.right = this._descriptors.right.set(route, null);
       return null;
     }
-    var firstStyles = initStyle(index, navStatePresentedIndex(this.props.navState));
-    var rightButtonDescriptor = (
+    let firstStyles = initStyle(index, navStatePresentedIndex(this.props.navState));
+    let rightButtonDescriptor = (
       <View
         key={'right_' + index}
         ref={'right_' + index}
@@ -295,7 +295,7 @@ class NavigatorBreadcrumbNavigationBar extends React.Component {
   };
 
   _setPropsIfExists(ref, props) {
-    var ref = this.refs[ref];
+    ref = this.refs[ref];
     ref && ref.setNativeProps(props);
   }
 }

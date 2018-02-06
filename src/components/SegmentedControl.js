@@ -9,6 +9,7 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const { Platform, Text, TouchableOpacity, View, ViewPropTypes } = require('react-native');
+
 const StyleSheet = require('./StyleSheet');
 
 class SegmentedControl extends React.Component {
@@ -25,7 +26,7 @@ class SegmentedControl extends React.Component {
   };
 
   render() {
-    var segments = this.props.values.map(
+    let segments = this.props.values.map(
       (value, index) => (
         <Segment
           key={value}
@@ -57,17 +58,17 @@ class Segment extends React.Component {
   };
 
   render() {
-    var selectedButtonStyle;
+    let selectedButtonStyle;
     if (this.props.isSelected) {
       selectedButtonStyle = { borderColor: this.props.selectionColor };
     }
-    var deselectedLabelStyle;
+    let deselectedLabelStyle;
     if (!this.props.isSelected && Platform.OS === 'android') {
       deselectedLabelStyle = styles.deselectedLabel;
     }
-    var title = this.props.value && this.props.value.toUpperCase();
+    let title = this.props.value && this.props.value.toUpperCase();
 
-    var accessibilityTraits = ['button'];
+    let accessibilityTraits = ['button'];
     if (this.props.isSelected) {
       accessibilityTraits.push('selected');
     }

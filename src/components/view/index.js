@@ -30,11 +30,11 @@ class View extends BaseComponent {
 
   render() {
     const {backgroundColor, borderRadius, paddings, margins, alignments, flexStyle} = this.state;
-    const {style, left, top, right, bottom, flex: propsFlex, ...others} = this.props;
+    const {style, ...props} = this.props;
 
     return (
       <RNView
-        {...others}
+        {...props}
         style={[
           this.styles.container,
           backgroundColor && {backgroundColor},

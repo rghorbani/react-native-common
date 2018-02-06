@@ -26,25 +26,25 @@
 'use strict';
 
 import {Dimensions} from 'react-native';
-var NavigatorNavigationBarStylesIOS = require('./NavigatorNavigationBarStylesIOS');
+const NavigatorNavigationBarStylesIOS = require('./NavigatorNavigationBarStylesIOS');
 
-var buildStyleInterpolator = require('./buildStyleInterpolator');
-var merge = require('./merge');
+const buildStyleInterpolator = require('./buildStyleInterpolator');
+const merge = require('./merge');
 
-var SCREEN_WIDTH = Dimensions.get('window').width;
-var STATUS_BAR_HEIGHT = NavigatorNavigationBarStylesIOS.General.StatusBarHeight;
-var NAV_BAR_HEIGHT = NavigatorNavigationBarStylesIOS.General.NavBarHeight;
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const STATUS_BAR_HEIGHT = NavigatorNavigationBarStylesIOS.General.StatusBarHeight;
+const NAV_BAR_HEIGHT = NavigatorNavigationBarStylesIOS.General.NavBarHeight;
 
-var SPACING = 4;
-var ICON_WIDTH = 40;
-var SEPARATOR_WIDTH = 9;
-var CRUMB_WIDTH = ICON_WIDTH + SEPARATOR_WIDTH;
+const SPACING = 4;
+const ICON_WIDTH = 40;
+const SEPARATOR_WIDTH = 9;
+const CRUMB_WIDTH = ICON_WIDTH + SEPARATOR_WIDTH;
 
-var OPACITY_RATIO = 100;
-var ICON_INACTIVE_OPACITY = 0.6;
-var MAX_BREADCRUMBS = 10;
+const OPACITY_RATIO = 100;
+const ICON_INACTIVE_OPACITY = 0.6;
+const MAX_BREADCRUMBS = 10;
 
-var CRUMB_BASE = {
+const CRUMB_BASE = {
   position: 'absolute',
   flexDirection: 'row',
   top: STATUS_BAR_HEIGHT,
@@ -53,17 +53,17 @@ var CRUMB_BASE = {
   backgroundColor: 'transparent',
 };
 
-var ICON_BASE = {
+const ICON_BASE = {
   width: ICON_WIDTH,
   height: NAV_BAR_HEIGHT,
 };
 
-var SEPARATOR_BASE = {
+const SEPARATOR_BASE = {
   width: SEPARATOR_WIDTH,
   height: NAV_BAR_HEIGHT,
 };
 
-var TITLE_BASE = {
+const TITLE_BASE = {
   position: 'absolute',
   top: STATUS_BAR_HEIGHT,
   height: NAV_BAR_HEIGHT,
@@ -71,14 +71,14 @@ var TITLE_BASE = {
 };
 
 // For first title styles, make sure first title is centered
-var FIRST_TITLE_BASE = merge(TITLE_BASE, {
+const FIRST_TITLE_BASE = merge(TITLE_BASE, {
   left: 0,
   right: 0,
   alignItems: 'center',
   height: NAV_BAR_HEIGHT,
 });
 
-var RIGHT_BUTTON_BASE = {
+const RIGHT_BUTTON_BASE = {
   position: 'absolute',
   top: STATUS_BAR_HEIGHT,
   right: SPACING,
@@ -92,11 +92,11 @@ var RIGHT_BUTTON_BASE = {
  * Precompute crumb styles so that they don't need to be recomputed on every
  * interaction.
  */
-var LEFT = [];
-var CENTER = [];
-var RIGHT = [];
-for (var i = 0; i < MAX_BREADCRUMBS; i++) {
-  var crumbLeft = CRUMB_WIDTH * i + SPACING;
+let LEFT = [];
+let CENTER = [];
+let RIGHT = [];
+for (let i = 0; i < MAX_BREADCRUMBS; i++) {
+  let crumbLeft = CRUMB_WIDTH * i + SPACING;
   LEFT[i] = {
     Crumb: merge(CRUMB_BASE, { left: crumbLeft }),
     Icon: merge(ICON_BASE, { opacity: ICON_INACTIVE_OPACITY }),
@@ -114,7 +114,7 @@ for (var i = 0; i < MAX_BREADCRUMBS; i++) {
     }),
     RightItem: merge(RIGHT_BUTTON_BASE, { opacity: 1 }),
   };
-  var crumbRight = SCREEN_WIDTH - 100;
+  let crumbRight = SCREEN_WIDTH - 100;
   RIGHT[i] = {
     Crumb: merge(CRUMB_BASE, { left: crumbRight}),
     Icon: merge(ICON_BASE, { opacity: 0 }),
@@ -139,7 +139,7 @@ LEFT[0].Title = merge(FIRST_TITLE_BASE, {left: -SCREEN_WIDTH / 4, opacity: 0});
 RIGHT[0].Title = merge(FIRST_TITLE_BASE, {opacity: 0});
 
 
-var buildIndexSceneInterpolator = function(startStyles, endStyles) {
+const buildIndexSceneInterpolator = function(startStyles, endStyles) {
   return {
     Crumb: buildStyleInterpolator({
       left: {
@@ -199,7 +199,7 @@ var buildIndexSceneInterpolator = function(startStyles, endStyles) {
   };
 };
 
-var Interpolators = CENTER.map(function(_, ii) {
+const Interpolators = CENTER.map(function(_, ii) {
   return {
     // Animating *into* the center stage from the right
     RightToCenter: buildIndexSceneInterpolator(RIGHT[ii], CENTER[ii]),

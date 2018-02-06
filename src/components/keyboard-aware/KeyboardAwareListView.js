@@ -36,7 +36,7 @@ class KeyboardAwareListView extends KeyboardAwareBase {
         }}
         onScroll={(event) => {
           this.onKeyboardAwareViewScroll(event.nativeEvent.contentOffset);
-          if(this.props.onScroll) {
+          if (this.props.onScroll) {
             this.props.onScroll(event);
           }
         }}

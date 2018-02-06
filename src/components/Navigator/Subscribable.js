@@ -36,7 +36,7 @@ import type EventEmitter from './EventEmitter';
  * React Core
  */
 
-var Subscribable = {};
+let Subscribable = {};
 
 Subscribable.Mixin = {
 

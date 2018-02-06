@@ -26,10 +26,10 @@
  */
 'use strict';
 
-var invariant = require('fbjs/lib/invariant');
-var immutable = require('immutable');
+const invariant = require('fbjs/lib/invariant');
+const immutable = require('immutable');
 
-var {List} = immutable;
+const {List} = immutable;
 
 /**
  * Utility to build a tree of nodes.
@@ -76,7 +76,7 @@ class NavigationTreeNode {
   }
 
   removeChild(child: NavigationTreeNode): void {
-    var index = this._children.indexOf(child);
+    let index = this._children.indexOf(child);
 
     invariant(
       index > -1,

@@ -9,11 +9,11 @@ jest
   .unmock('fbjs/lib/invariant')
   .unmock('immutable');
 
-var NavigationTreeNode = require('NavigationTreeNode');
+const NavigationTreeNode = require('NavigationTreeNode');
 
 describe('NavigationTreeNode-test', () => {
   it('should be empty', () => {
-    var node = new NavigationTreeNode();
+    let node = new NavigationTreeNode();
     expect(node.getValue()).toEqual(undefined);
     expect(node.getParent()).toEqual(null);
     expect(node.getChildrenCount()).toEqual(0);
@@ -22,13 +22,13 @@ describe('NavigationTreeNode-test', () => {
 
 
   it('should contain value', () => {
-    var node = new NavigationTreeNode(123);
+    let node = new NavigationTreeNode(123);
     expect(node.getValue()).toEqual(123);
   });
 
   it('should appendChild', () => {
-    var papa = new NavigationTreeNode('hedger');
-    var baby = new NavigationTreeNode('hedger jr');
+    let papa = new NavigationTreeNode('hedger');
+    let baby = new NavigationTreeNode('hedger jr');
     papa.appendChild(baby);
     expect(papa.getChildAt(0)).toEqual(baby);
     expect(papa.getChildrenCount()).toEqual(1);
@@ -36,8 +36,8 @@ describe('NavigationTreeNode-test', () => {
   });
 
   it('should removeChild', () => {
-    var papa = new NavigationTreeNode('Eddard Stark');
-    var baby = new NavigationTreeNode('Robb Stark');
+    let papa = new NavigationTreeNode('Eddard Stark');
+    let baby = new NavigationTreeNode('Robb Stark');
     papa.appendChild(baby);
 
     papa.removeChild(baby);
@@ -47,14 +47,14 @@ describe('NavigationTreeNode-test', () => {
   });
 
   it('should not remove non-child', () => {
-    var papa = new NavigationTreeNode('dog');
-    var baby = new NavigationTreeNode('cat');
+    let papa = new NavigationTreeNode('dog');
+    let baby = new NavigationTreeNode('cat');
     expect(papa.removeChild.bind(papa, baby)).toThrow();
   });
 
   it('should find child', () => {
-    var papa = new NavigationTreeNode('Eddard Stark');
-    var baby = new NavigationTreeNode('Robb Stark');
+    let papa = new NavigationTreeNode('Eddard Stark');
+    let baby = new NavigationTreeNode('Robb Stark');
 
     papa.appendChild(baby);
     expect(papa.indexOf(baby)).toEqual(0);
@@ -65,11 +65,11 @@ describe('NavigationTreeNode-test', () => {
 
 
   it('should traverse each child', () => {
-    var parent = new NavigationTreeNode();
+    let parent = new NavigationTreeNode();
     parent.appendChild(new NavigationTreeNode('a'));
     parent.appendChild(new NavigationTreeNode('b'));
     parent.appendChild(new NavigationTreeNode('c'));
-    var result = [];
+    let result = [];
     parent.forEach((child, index) => {
       result[index] = child.getValue();
     });
@@ -78,11 +78,11 @@ describe('NavigationTreeNode-test', () => {
   });
 
   it('should map children', () => {
-    var parent = new NavigationTreeNode();
+    let parent = new NavigationTreeNode();
     parent.appendChild(new NavigationTreeNode('a'));
     parent.appendChild(new NavigationTreeNode('b'));
     parent.appendChild(new NavigationTreeNode('c'));
-    var result = parent.map((child, index) => {
+    let result = parent.map((child) => {
       return child.getValue();
     });
 
@@ -90,13 +90,13 @@ describe('NavigationTreeNode-test', () => {
   });
 
   it('should traverse some children', () => {
-    var parent = new NavigationTreeNode();
+    let parent = new NavigationTreeNode();
     parent.appendChild(new NavigationTreeNode('a'));
     parent.appendChild(new NavigationTreeNode('b'));
     parent.appendChild(new NavigationTreeNode('c'));
 
-    var result = [];
-    var value = parent.some((child, index) => {
+    let result = [];
+    let value = parent.some((child, index) => {
       if (index > 1) {
         return true;
       } else {

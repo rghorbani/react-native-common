@@ -26,8 +26,8 @@
  */
 'use strict';
 
-var EventEmitter = require('./EventEmitter');
-var NavigationEvent = require('./NavigationEvent');
+const EventEmitter = require('./EventEmitter');
+const NavigationEvent = require('./NavigationEvent');
 
 type ExtraInfo = {
   defaultPrevented: ?boolean,
@@ -57,14 +57,14 @@ class NavigationEventEmitter extends EventEmitter {
     if (this._emitting) {
       // An event cycle that was previously created hasn't finished yet.
       // Put this event cycle into the queue and will finish them later.
-      var args: any = Array.prototype.slice.call(arguments);
+      let args: any = Array.prototype.slice.call(arguments);
       this._emitQueue.push(args);
       return;
     }
 
     this._emitting = true;
 
-    var event = NavigationEvent.pool(eventType, this._target, data);
+    let event = NavigationEvent.pool(eventType, this._target, data);
 
     if (extraInfo) {
       if (extraInfo.target) {
@@ -96,7 +96,7 @@ class NavigationEventEmitter extends EventEmitter {
     this._emitting = false;
 
     while (this._emitQueue.length) {
-      var args: any = this._emitQueue.shift();
+      let args: any = this._emitQueue.shift();
       this.emit.apply(this, args);
     }
   }

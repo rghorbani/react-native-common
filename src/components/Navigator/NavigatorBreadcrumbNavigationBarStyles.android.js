@@ -25,24 +25,24 @@
  */
 'use strict';
 
-var NavigatorNavigationBarStylesAndroid = require('./NavigatorNavigationBarStylesAndroid');
+const NavigatorNavigationBarStylesAndroid = require('./NavigatorNavigationBarStylesAndroid');
 
-var buildStyleInterpolator = require('./buildStyleInterpolator');
-var merge = require('./merge');
+const buildStyleInterpolator = require('./buildStyleInterpolator');
+const merge = require('./merge');
 
-var NAV_BAR_HEIGHT = NavigatorNavigationBarStylesAndroid.General.NavBarHeight;
+const NAV_BAR_HEIGHT = NavigatorNavigationBarStylesAndroid.General.NavBarHeight;
 
-var SPACING = 8;
-var ICON_WIDTH = 40;
-var SEPARATOR_WIDTH = 9;
-var CRUMB_WIDTH = ICON_WIDTH + SEPARATOR_WIDTH;
-var NAV_ELEMENT_HEIGHT = NAV_BAR_HEIGHT;
+const SPACING = 8;
+const ICON_WIDTH = 40;
+const SEPARATOR_WIDTH = 9;
+const CRUMB_WIDTH = ICON_WIDTH + SEPARATOR_WIDTH;
+const NAV_ELEMENT_HEIGHT = NAV_BAR_HEIGHT;
 
-var OPACITY_RATIO = 100;
-var ICON_INACTIVE_OPACITY = 0.6;
-var MAX_BREADCRUMBS = 10;
+const OPACITY_RATIO = 100;
+const ICON_INACTIVE_OPACITY = 0.6;
+const MAX_BREADCRUMBS = 10;
 
-var CRUMB_BASE = {
+const CRUMB_BASE = {
   position: 'absolute',
   flexDirection: 'row',
   top: 0,
@@ -51,17 +51,17 @@ var CRUMB_BASE = {
   backgroundColor: 'transparent',
 };
 
-var ICON_BASE = {
+const ICON_BASE = {
   width: ICON_WIDTH,
   height: NAV_ELEMENT_HEIGHT,
 };
 
-var SEPARATOR_BASE = {
+const SEPARATOR_BASE = {
   width: SEPARATOR_WIDTH,
   height: NAV_ELEMENT_HEIGHT,
 };
 
-var TITLE_BASE = {
+const TITLE_BASE = {
   position: 'absolute',
   top: 0,
   height: NAV_ELEMENT_HEIGHT,
@@ -69,12 +69,12 @@ var TITLE_BASE = {
   alignItems: 'flex-start',
 };
 
-var FIRST_TITLE_BASE = merge(TITLE_BASE, {
+const FIRST_TITLE_BASE = merge(TITLE_BASE, {
   left: 0,
   right: 0,
 });
 
-var RIGHT_BUTTON_BASE = {
+const RIGHT_BUTTON_BASE = {
   position: 'absolute',
   top: 0,
   right: 0,
@@ -88,11 +88,11 @@ var RIGHT_BUTTON_BASE = {
  * Precompute crumb styles so that they don't need to be recomputed on every
  * interaction.
  */
-var LEFT = [];
-var CENTER = [];
-var RIGHT = [];
-for (var i = 0; i < MAX_BREADCRUMBS; i++) {
-  var crumbLeft = CRUMB_WIDTH * i + SPACING;
+let LEFT = [];
+let CENTER = [];
+let RIGHT = [];
+for (let i = 0; i < MAX_BREADCRUMBS; i++) {
+  let crumbLeft = CRUMB_WIDTH * i + SPACING;
   LEFT[i] = {
     Crumb: merge(CRUMB_BASE, { left: crumbLeft }),
     Icon: merge(ICON_BASE, { opacity: ICON_INACTIVE_OPACITY }),
@@ -110,7 +110,7 @@ for (var i = 0; i < MAX_BREADCRUMBS; i++) {
     }),
     RightItem: merge(RIGHT_BUTTON_BASE, { opacity: 1 }),
   };
-  var crumbRight = crumbLeft + 50;
+  let crumbRight = crumbLeft + 50;
   RIGHT[i] = {
     Crumb: merge(CRUMB_BASE, { left: crumbRight}),
     Icon: merge(ICON_BASE, { opacity: 0 }),
@@ -135,7 +135,7 @@ LEFT[0].Title = merge(FIRST_TITLE_BASE, {opacity: 0});
 RIGHT[0].Title = merge(FIRST_TITLE_BASE, {opacity: 0});
 
 
-var buildIndexSceneInterpolator = function(startStyles, endStyles) {
+const buildIndexSceneInterpolator = function(startStyles, endStyles) {
   return {
     Crumb: buildStyleInterpolator({
       left: {
@@ -195,7 +195,7 @@ var buildIndexSceneInterpolator = function(startStyles, endStyles) {
   };
 };
 
-var Interpolators = CENTER.map(function(_, ii) {
+const Interpolators = CENTER.map(function(_, ii) {
   return {
     // Animating *into* the center stage from the right
     RightToCenter: buildIndexSceneInterpolator(RIGHT[ii], CENTER[ii]),

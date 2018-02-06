@@ -25,20 +25,20 @@
  */
 'use strict';
 
-var buildStyleInterpolator = require('./buildStyleInterpolator');
-var merge = require('./merge');
+const buildStyleInterpolator = require('./buildStyleInterpolator');
+const merge = require('./merge');
 
 // Android Material Design
-var NAV_BAR_HEIGHT = 56;
-var TITLE_LEFT = 72;
-var BUTTON_SIZE = 24;
-var TOUCH_TARGT_SIZE = 48;
-var BUTTON_HORIZONTAL_MARGIN = 16;
+const NAV_BAR_HEIGHT = 56;
+const TITLE_LEFT = 72;
+const BUTTON_SIZE = 24;
+const TOUCH_TARGT_SIZE = 48;
+const BUTTON_HORIZONTAL_MARGIN = 16;
 
-var BUTTON_EFFECTIVE_MARGIN = BUTTON_HORIZONTAL_MARGIN - (TOUCH_TARGT_SIZE - BUTTON_SIZE) / 2;
-var NAV_ELEMENT_HEIGHT = NAV_BAR_HEIGHT;
+const BUTTON_EFFECTIVE_MARGIN = BUTTON_HORIZONTAL_MARGIN - (TOUCH_TARGT_SIZE - BUTTON_SIZE) / 2;
+const NAV_ELEMENT_HEIGHT = NAV_BAR_HEIGHT;
 
-var BASE_STYLES = {
+const BASE_STYLES = {
   Title: {
     position: 'absolute',
     bottom: 0,
@@ -75,7 +75,7 @@ var BASE_STYLES = {
 // we move forward in the navigation stack, we perform a
 // right-to-center transition on the new navigation item and a
 // center-to-left transition on the current navigation item.
-var Stages = {
+const Stages = {
   Left: {
     Title: merge(BASE_STYLES.Title, { opacity: 0 }),
     LeftButton: merge(BASE_STYLES.LeftButton, { opacity: 0 }),
@@ -94,7 +94,7 @@ var Stages = {
 };
 
 
-var opacityRatio = 100;
+const opacityRatio = 100;
 
 function buildSceneInterpolators(startStyles, endStyles) {
   return {
@@ -153,7 +153,7 @@ function buildSceneInterpolators(startStyles, endStyles) {
   };
 }
 
-var Interpolators = {
+const Interpolators = {
   // Animating *into* the center stage from the right
   RightToCenter: buildSceneInterpolators(Stages.Right, Stages.Center),
   // Animating out of the center stage, to the left

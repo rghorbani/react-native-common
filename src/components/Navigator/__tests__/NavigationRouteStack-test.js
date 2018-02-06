@@ -29,7 +29,7 @@ jest
  .disableAutomock()
  .mock('ErrorUtils');
 
-var NavigationRouteStack = require('NavigationRouteStack');
+const NavigationRouteStack = require('NavigationRouteStack');
 
 function assetStringNotEmpty(str) {
   expect(!!str && typeof str === 'string').toBe(true);
@@ -37,7 +37,7 @@ function assetStringNotEmpty(str) {
 
 describe('NavigationRouteStack:', () => {
   // Different types of routes.
-  var ROUTES = [
+  let ROUTES = [
     'foo',
     1,
     true,
@@ -47,28 +47,28 @@ describe('NavigationRouteStack:', () => {
 
   // Basic
   it('gets index', () => {
-    var stack = new NavigationRouteStack(1, ['a', 'b', 'c']);
+    let stack = new NavigationRouteStack(1, ['a', 'b', 'c']);
     expect(stack.index).toBe(1);
   });
 
   it('gets size', () => {
-    var stack = new NavigationRouteStack(1, ['a', 'b', 'c']);
+    let stack = new NavigationRouteStack(1, ['a', 'b', 'c']);
     expect(stack.size).toBe(3);
   });
 
   it('gets route', () => {
-    var stack = new NavigationRouteStack(0, ['a', 'b', 'c']);
+    let stack = new NavigationRouteStack(0, ['a', 'b', 'c']);
     expect(stack.get(2)).toBe('c');
   });
 
   it('converts to an array', () => {
-    var stack = new NavigationRouteStack(0, ['a', 'b']);
+    let stack = new NavigationRouteStack(0, ['a', 'b']);
     expect(stack.toArray()).toEqual(['a', 'b']);
   });
 
   it('creates a new stack after mutation', () => {
-    var stack1 = new NavigationRouteStack(0, ['a', 'b']);
-    var stack2 = stack1.push('c');
+    let stack1 = new NavigationRouteStack(0, ['a', 'b']);
+    let stack2 = stack1.push('c');
     expect(stack1).not.toBe(stack2);
   });
 
@@ -83,16 +83,16 @@ describe('NavigationRouteStack:', () => {
   });
 
   it('finds index', () => {
-    var stack = new NavigationRouteStack(0, ['a', 'b']);
+    let stack = new NavigationRouteStack(0, ['a', 'b']);
     expect(stack.indexOf('b')).toBe(1);
     expect(stack.indexOf('c')).toBe(-1);
   });
 
   // Key
   it('gets key for route', () => {
-    var test = (route) => {
-      var stack = new NavigationRouteStack(0, ['a']);
-      var key = stack.push(route).keyOf(route);
+    let test = (route) => {
+      let stack = new NavigationRouteStack(0, ['a']);
+      let key = stack.push(route).keyOf(route);
       expect(typeof key).toBe('string');
       expect(!!key).toBe(true);
     };
@@ -101,10 +101,10 @@ describe('NavigationRouteStack:', () => {
   });
 
   it('gets a key of larger value for route', () => {
-    var lastKey = '';
-    var test = (route) => {
-      var stack = new NavigationRouteStack(0, ['a']);
-      var key = stack.push(route).keyOf(route);
+    let lastKey = '';
+    let test = (route) => {
+      let stack = new NavigationRouteStack(0, ['a']);
+      let key = stack.push(route).keyOf(route);
       expect(key > lastKey).toBe(true);
       lastKey = key;
     };
@@ -113,12 +113,12 @@ describe('NavigationRouteStack:', () => {
   });
 
   it('gets an unique key for a different route', () => {
-    var stack = new NavigationRouteStack(0, ['a']);
-    var keys = {};
+    let stack = new NavigationRouteStack(0, ['a']);
+    let keys = {};
 
-    var test = (route) => {
+    let test = (route) => {
       stack = stack.push(route);
-      var key = stack.keyOf(route);
+      let key = stack.keyOf(route);
       expect(keys[key]).toBe(undefined);
       keys[key] = true;
     };
@@ -127,8 +127,8 @@ describe('NavigationRouteStack:', () => {
   });
 
   it('gets the same unique key for the same route', () => {
-    var test = (route) => {
-      var stack = new NavigationRouteStack(0, [route]);
+    let test = (route) => {
+      let stack = new NavigationRouteStack(0, [route]);
       expect(stack.keyOf(route)).toBe(stack.keyOf(route));
     };
 
@@ -137,9 +137,9 @@ describe('NavigationRouteStack:', () => {
 
 
   it('gets the same unique key form the derived stack', () => {
-    var test = (route) => {
-      var stack = new NavigationRouteStack(0, [route]);
-      var derivedStack = stack.push('wow').pop().slice(0, 10).push('blah');
+    let test = (route) => {
+      let stack = new NavigationRouteStack(0, [route]);
+      let derivedStack = stack.push('wow').pop().slice(0, 10).push('blah');
       expect(derivedStack.keyOf(route)).toBe(stack.keyOf(route));
     };
 
@@ -147,9 +147,9 @@ describe('NavigationRouteStack:', () => {
   });
 
   it('gets a different key from a different stack', () => {
-    var test = (route) => {
-      var stack1 = new NavigationRouteStack(0, [route]);
-      var stack2 = new NavigationRouteStack(0, [route]);
+    let test = (route) => {
+      let stack1 = new NavigationRouteStack(0, [route]);
+      let stack2 = new NavigationRouteStack(0, [route]);
       expect(stack1.keyOf(route)).not.toBe(stack2.keyOf(route));
     };
 
@@ -157,16 +157,16 @@ describe('NavigationRouteStack:', () => {
   });
 
   it('gets no key for a route that does not contains this route', () => {
-     var stack = new NavigationRouteStack(0, ['a']);
+     let stack = new NavigationRouteStack(0, ['a']);
      expect(stack.keyOf('b')).toBe(null);
   });
 
   it('gets a new key for a route that was removed and added again', () => {
-    var test = (route) => {
-      var stack = new NavigationRouteStack(0, ['a']);
+    let test = (route) => {
+      let stack = new NavigationRouteStack(0, ['a']);
 
-      var key1 = stack.push(route).keyOf(route);
-      var key2 = stack.push(route).pop().push(route).keyOf(route);
+      let key1 = stack.push(route).keyOf(route);
+      let key2 = stack.push(route).pop().push(route).keyOf(route);
       expect(key1).not.toBe(key2);
     };
 
@@ -175,14 +175,14 @@ describe('NavigationRouteStack:', () => {
 
   // Slice
   it('slices', () => {
-    var stack1 = new NavigationRouteStack(1, ['a', 'b', 'c', 'd']);
-    var stack2 = stack1.slice(1, 3);
+    let stack1 = new NavigationRouteStack(1, ['a', 'b', 'c', 'd']);
+    let stack2 = stack1.slice(1, 3);
     expect(stack2).not.toBe(stack1);
     expect(stack2.toArray()).toEqual(['b', 'c']);
   });
 
   it('may update index after slicing', () => {
-    var stack = new NavigationRouteStack(2, ['a', 'b', 'c']);
+    let stack = new NavigationRouteStack(2, ['a', 'b', 'c']);
     expect(stack.slice().index).toBe(2);
     expect(stack.slice(0, 1).index).toBe(0);
     expect(stack.slice(0, 2).index).toBe(1);
@@ -192,28 +192,28 @@ describe('NavigationRouteStack:', () => {
   });
 
   it('slices without specifying params', () => {
-    var stack1 = new NavigationRouteStack(1, ['a', 'b', 'c']);
-    var stack2 = stack1.slice();
+    let stack1 = new NavigationRouteStack(1, ['a', 'b', 'c']);
+    let stack2 = stack1.slice();
     expect(stack2).toBe(stack1);
   });
 
   it('slices to from the end', () => {
-    var stack1 = new NavigationRouteStack(1, ['a', 'b', 'c', 'd']);
-    var stack2 = stack1.slice(-2);
+    let stack1 = new NavigationRouteStack(1, ['a', 'b', 'c', 'd']);
+    let stack2 = stack1.slice(-2);
     expect(stack2.toArray()).toEqual(['c', 'd']);
   });
 
   it('throws when slicing to empty', () => {
       expect(() => {
-        var stack = new NavigationRouteStack(1, ['a', 'b']);
+        let stack = new NavigationRouteStack(1, ['a', 'b']);
         stack.slice(100);
       }).toThrow();
   });
 
   // Push
   it('pushes route', () => {
-    var stack1 = new NavigationRouteStack(1, ['a', 'b']);
-    var stack2 = stack1.push('c');
+    let stack1 = new NavigationRouteStack(1, ['a', 'b']);
+    let stack2 = stack1.push('c');
 
     expect(stack2).not.toBe(stack1);
     expect(stack2.toArray()).toEqual(['a', 'b', 'c']);
@@ -223,24 +223,24 @@ describe('NavigationRouteStack:', () => {
 
   it('throws when pushing empty route', () => {
     expect(() => {
-      var stack = new NavigationRouteStack(1, ['a', 'b']);
+      let stack = new NavigationRouteStack(1, ['a', 'b']);
       stack.push(null);
     }).toThrow();
 
     expect(() => {
-      var stack = new NavigationRouteStack(1, ['a', 'b']);
+      let stack = new NavigationRouteStack(1, ['a', 'b']);
       stack.push('');
     }).toThrow();
 
     expect(() => {
-      var stack = new NavigationRouteStack(1, ['a', 'b']);
+      let stack = new NavigationRouteStack(1, ['a', 'b']);
       stack.push(undefined);
     }).toThrow();
   });
 
   it('replaces routes on push', () => {
-    var stack1 = new NavigationRouteStack(1, ['a', 'b', 'c']);
-    var stack2 = stack1.push('d');
+    let stack1 = new NavigationRouteStack(1, ['a', 'b', 'c']);
+    let stack2 = stack1.push('d');
     expect(stack2).not.toBe(stack1);
     expect(stack2.toArray()).toEqual(['a', 'b', 'd']);
     expect(stack2.index).toBe(2);
@@ -248,8 +248,8 @@ describe('NavigationRouteStack:', () => {
 
   // Pop
   it('pops route', () => {
-    var stack1 = new NavigationRouteStack(2, ['a', 'b', 'c']);
-    var stack2 = stack1.pop();
+    let stack1 = new NavigationRouteStack(2, ['a', 'b', 'c']);
+    let stack2 = stack1.pop();
     expect(stack2).not.toBe(stack1);
     expect(stack2.toArray()).toEqual(['a', 'b']);
     expect(stack2.index).toBe(1);
@@ -257,8 +257,8 @@ describe('NavigationRouteStack:', () => {
   });
 
   it('replaces routes on pop', () => {
-    var stack1 = new NavigationRouteStack(1, ['a', 'b', 'c']);
-    var stack2 = stack1.pop();
+    let stack1 = new NavigationRouteStack(1, ['a', 'b', 'c']);
+    let stack2 = stack1.pop();
     expect(stack2).not.toBe(stack1);
     expect(stack2.toArray()).toEqual(['a']);
     expect(stack2.index).toBe(0);
@@ -266,15 +266,15 @@ describe('NavigationRouteStack:', () => {
 
   it('throws when popping to empty stack', () => {
     expect(() => {
-      var stack = new NavigationRouteStack(0, ['a']);
+      let stack = new NavigationRouteStack(0, ['a']);
       stack.pop();
     }).toThrow();
   });
 
   // Jump
   it('jumps to index', () => {
-    var stack1 = new NavigationRouteStack(0, ['a', 'b', 'c']);
-    var stack2 = stack1.jumpToIndex(2);
+    let stack1 = new NavigationRouteStack(0, ['a', 'b', 'c']);
+    let stack2 = stack1.jumpToIndex(2);
 
     expect(stack2).not.toBe(stack1);
     expect(stack2.index).toBe(2);
@@ -282,20 +282,20 @@ describe('NavigationRouteStack:', () => {
 
   it('throws then jumping to index out of bound', () => {
     expect(() => {
-      var stack = new NavigationRouteStack(1, ['a', 'b']);
+      let stack = new NavigationRouteStack(1, ['a', 'b']);
       stack.jumpToIndex(2);
     }).toThrow();
 
     expect(() => {
-      var stack = new NavigationRouteStack(1, ['a', 'b']);
+      let stack = new NavigationRouteStack(1, ['a', 'b']);
       stack.jumpToIndex(-1);
     }).toThrow();
   });
 
   // Replace
   it('replaces route at index', () => {
-    var stack1 = new NavigationRouteStack(1, ['a', 'b']);
-    var stack2 = stack1.replaceAtIndex(0, 'x');
+    let stack1 = new NavigationRouteStack(1, ['a', 'b']);
+    let stack2 = stack1.replaceAtIndex(0, 'x');
 
     expect(stack2).not.toBe(stack1);
     expect(stack2.toArray()).toEqual(['x', 'b']);
@@ -303,8 +303,8 @@ describe('NavigationRouteStack:', () => {
   });
 
   it('replaces route at negative index', () => {
-    var stack1 = new NavigationRouteStack(1, ['a', 'b']);
-    var stack2 = stack1.replaceAtIndex(-1, 'x');
+    let stack1 = new NavigationRouteStack(1, ['a', 'b']);
+    let stack2 = stack1.replaceAtIndex(-1, 'x');
 
     expect(stack2).not.toBe(stack1);
     expect(stack2.toArray()).toEqual(['a', 'x']);
@@ -313,24 +313,24 @@ describe('NavigationRouteStack:', () => {
 
   it('throws when replacing empty route', () => {
     expect(() => {
-      var stack = new NavigationRouteStack(1, ['a', 'b']);
+      let stack = new NavigationRouteStack(1, ['a', 'b']);
       stack.replaceAtIndex(1, null);
     }).toThrow();
   });
 
   it('throws when replacing at index out of bound', () => {
     expect(() => {
-      var stack = new NavigationRouteStack(1, ['a', 'b']);
+      let stack = new NavigationRouteStack(1, ['a', 'b']);
       stack.replaceAtIndex(100, 'x');
     }).toThrow();
   });
 
   // Iteration
   it('iterates each item', () => {
-    var stack = new NavigationRouteStack(0, ['a', 'b']);
-    var logs = [];
-    var keys = {};
-    var context = {name: 'yo'};
+    let stack = new NavigationRouteStack(0, ['a', 'b']);
+    let logs = [];
+    let keys = {};
+    let context = {name: 'yo'};
 
     stack.forEach(function (route, index, key) {
       assetStringNotEmpty(key);
@@ -351,11 +351,11 @@ describe('NavigationRouteStack:', () => {
   });
 
   it('Maps to an array', () => {
-    var stack = new NavigationRouteStack(0, ['a', 'b']);
-    var keys = {};
-    var context = {name: 'yo'};
+    let stack = new NavigationRouteStack(0, ['a', 'b']);
+    let keys = {};
+    let context = {name: 'yo'};
 
-    var logs = stack.mapToArray(function(route, index, key) {
+    let logs = stack.mapToArray(function(route, index, key) {
       assetStringNotEmpty(key);
       if (!keys.hasOwnProperty(key)) {
         keys[key] = true;
@@ -375,12 +375,12 @@ describe('NavigationRouteStack:', () => {
 
   // Diff
   it('subtracts stack', () => {
-    var stack1 = new NavigationRouteStack(2, ['a', 'b', 'c']);
-    var stack2 = stack1.pop().pop().push('x').push('y');
+    let stack1 = new NavigationRouteStack(2, ['a', 'b', 'c']);
+    let stack2 = stack1.pop().pop().push('x').push('y');
 
-    var diff = stack1.subtract(stack2);
+    let diff = stack1.subtract(stack2);
 
-    var result = diff.toJS().map((record) => {
+    let result = diff.toJS().map((record) => {
       assetStringNotEmpty(record.key);
       return {
         index: record.index,
@@ -402,11 +402,11 @@ describe('NavigationRouteStack:', () => {
   });
 
   it('only subtracts the derived stack', () => {
-    var stack1 = new NavigationRouteStack(2, ['a', 'b', 'c']);
-    var stack2 = new NavigationRouteStack(0, ['a']);
-    var diff = stack1.subtract(stack2);
+    let stack1 = new NavigationRouteStack(2, ['a', 'b', 'c']);
+    let stack2 = new NavigationRouteStack(0, ['a']);
+    let diff = stack1.subtract(stack2);
 
-    var result = diff.toJS().map((record) => {
+    let result = diff.toJS().map((record) => {
       assetStringNotEmpty(record.key);
       return {
         index: record.index,

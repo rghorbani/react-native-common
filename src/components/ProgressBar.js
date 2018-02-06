@@ -7,14 +7,9 @@
 'use strict';
 
 const React = require('react');
-// import LinearGradient from 'react-native-linear-gradient';
-const RGFColors = require('./RGFColors');
-
 const {
-  Image,
   Animated,
   LayoutAnimation,
-  TouchableOpacity,
   StyleSheet,
   View,
 } = require('react-native');
@@ -50,8 +45,7 @@ class ProgressView extends React.Component {
   }
 
   render() {
-    let progress = Math.floor(this.props.progress * 100);
-    let left = 100 - progress;
+    // let progress = Math.floor(this.props.progress * 100);
     // console.log(this.state.progress, this.state.left);
     return (
       <View style={[styles.container, this.props.style]}>
@@ -64,7 +58,7 @@ class ProgressView extends React.Component {
 
 const HEIGHT = 30;
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     height: HEIGHT,

@@ -3,8 +3,8 @@
  *
  * @flow
  */
-'use strict';
 
+'use strict';
 
 const React = require('react');
 const PropTypes = require('prop-types');
@@ -51,7 +51,7 @@ class ListContainer extends React.Component {
   }
 
   render() {
-    var leftItem = this.props.leftItem;
+    let leftItem = this.props.leftItem;
     if (!leftItem && Platform.OS === 'android') {
       leftItem = {
         layout: 'icon',
@@ -70,8 +70,8 @@ class ListContainer extends React.Component {
             title={this.props.title}
             leftItem={leftItem}
             rightItem={this.props.rightItem}
-            extraItems={this.props.extraItems}>
-          </Header>
+            extraItems={this.props.extraItems}
+          />
         </View>
         <View style={styles.content}>
           {this.props.children}

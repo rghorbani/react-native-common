@@ -27,19 +27,17 @@
 
 import {
   Dimensions,
-  I18nManager,
-  PixelRatio,
 } from 'react-native';
 
-var buildStyleInterpolator = require('./buildStyleInterpolator');
-var merge = require('./merge');
+const buildStyleInterpolator = require('./buildStyleInterpolator');
+const merge = require('./merge');
 
-var SCREEN_WIDTH = Dimensions.get('window').width;
-var NAV_BAR_HEIGHT = 44;
-var STATUS_BAR_HEIGHT = 20;
-var NAV_HEIGHT = NAV_BAR_HEIGHT + STATUS_BAR_HEIGHT;
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const NAV_BAR_HEIGHT = 44;
+const STATUS_BAR_HEIGHT = 20;
+const NAV_HEIGHT = NAV_BAR_HEIGHT + STATUS_BAR_HEIGHT;
 
-var BASE_STYLES = {
+const BASE_STYLES = {
   Title: {
     position: 'absolute',
     top: STATUS_BAR_HEIGHT,
@@ -77,7 +75,7 @@ var BASE_STYLES = {
 // we move forward in the navigation stack, we perform a
 // right-to-center transition on the new navigation item and a
 // center-to-left transition on the current navigation item.
-var Stages = {
+const Stages = {
   Left: {
     Title: merge(BASE_STYLES.Title, { left: -SCREEN_WIDTH / 2, opacity: 0 }),
     LeftButton: merge(BASE_STYLES.LeftButton, { left: 0, opacity: 0 }),
@@ -96,7 +94,7 @@ var Stages = {
 };
 
 
-var opacityRatio = 100;
+const opacityRatio = 100;
 
 function buildSceneInterpolators(startStyles, endStyles) {
   return {
@@ -155,7 +153,7 @@ function buildSceneInterpolators(startStyles, endStyles) {
   };
 }
 
-var Interpolators = {
+const Interpolators = {
   // Animating *into* the center stage from the right
   RightToCenter: buildSceneInterpolators(Stages.Right, Stages.Center),
   // Animating out of the center stage, to the left

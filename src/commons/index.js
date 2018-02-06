@@ -1,5 +1,5 @@
 
 
 module.exports = {
-  get BaseComponent() { return require('./BaseComponent') },
+  get BaseComponent() { return require('./BaseComponent'); },
 };

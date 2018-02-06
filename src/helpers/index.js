@@ -1,5 +1,5 @@
 
 
 module.exports = {
-  get Constants() { return require('./Constants') },
+  get Constants() { return require('./Constants'); },
 };

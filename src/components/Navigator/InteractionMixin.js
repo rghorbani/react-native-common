@@ -33,7 +33,7 @@ import {InteractionManager} from 'react-native';
  * that ensures `clearInteractionHandle` is always called
  * once per start, even if the component is unmounted.
  */
-var InteractionMixin = {
+const InteractionMixin = {
   componentWillUnmount: function() {
     while (this._interactionMixinHandles.length) {
       InteractionManager.clearInteractionHandle(
@@ -45,7 +45,7 @@ var InteractionMixin = {
   _interactionMixinHandles: ([]: Array<number>),
 
   createInteractionHandle: function() {
-    var handle = InteractionManager.createInteractionHandle();
+    let handle = InteractionManager.createInteractionHandle();
     this._interactionMixinHandles.push(handle);
     return handle;
   },

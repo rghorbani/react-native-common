@@ -11,7 +11,6 @@ import ReactNative, {
   DeviceEventEmitter,
   Keyboard,
   NativeModules,
-  InteractionManager
 } from 'react-native';
 
 const ScrollViewManager = NativeModules.ScrollViewManager;
@@ -63,7 +62,7 @@ class KeyboardAwareBase extends React.Component {
   }
 
   componentDidMount() {
-    if(this.keyboardAwareView && this.props.startScrolledToBottom) {
+    if (this.keyboardAwareView && this.props.startScrolledToBottom) {
       this.scrollToBottom(false);
       setTimeout(() => this.keyboardAwareView.setNativeProps({ opacity: 1 }), 100);
     }
@@ -81,16 +80,16 @@ class KeyboardAwareBase extends React.Component {
   }
 
   updateKeyboardAwareViewContentSize() {
-    if(ScrollViewManager && ScrollViewManager.getContentSize) {
+    if (ScrollViewManager && ScrollViewManager.getContentSize) {
       ScrollViewManager.getContentSize(ReactNative.findNodeHandle(this.keyboardAwareView), (res)=> {
-        if(this.keyboardAwareView) {
+        if (this.keyboardAwareView) {
           this.keyboardAwareView.contentSize = res;
-          if(this.state.scrollBottomOnNextSizeChange) {
+          if (this.state.scrollBottomOnNextSizeChange) {
             this.scrollToBottom();
             this.state.scrollBottomOnNextSizeChange = false;
           }
         }
-      })
+      });
     }
   }
 
@@ -101,9 +100,9 @@ class KeyboardAwareBase extends React.Component {
   scrollToFocusedTextInput() {
     if (this.props.getTextInputRefs) {
       const textInputRefs = this.props.getTextInputRefs();
-      textInputRefs.some((textInputRef, index, array) => {
+      textInputRefs.some((textInputRef) => {
         const isFocusedFunc = textInputRef.isFocused();
-        const isFocused = isFocusedFunc && (typeof isFocusedFunc === "function") ? isFocusedFunc() : isFocusedFunc;
+        const isFocused = isFocusedFunc && (typeof isFocusedFunc === 'function') ? isFocusedFunc() : isFocusedFunc;
         if (isFocused) {
           setTimeout(() => {
             this.keyboardAwareView.getScrollResponder().scrollResponderScrollNativeHandleToKeyboard(
@@ -125,12 +124,12 @@ class KeyboardAwareBase extends React.Component {
 
     this.setState({keyboardHeight: newKeyboardHeight});
 
-    if(this.props.scrollToBottomOnKBShow) {
+    if (this.props.scrollToBottomOnKBShow) {
       this.scrollToBottom();
     }
   }
 
-  onKeyboardWillHide(event) {
+  onKeyboardWillHide() {
     const keyboardHeight = this.state.keyboardHeight;
     this.setState({keyboardHeight: 0});
 
@@ -146,7 +145,7 @@ class KeyboardAwareBase extends React.Component {
   scrollToBottom(scrollAnimated = true) {
     if (this.keyboardAwareView) {
 
-      if(!this.keyboardAwareView.contentSize) {
+      if (!this.keyboardAwareView.contentSize) {
         setTimeout(() => this.scrollToBottom(scrollAnimated), 50);
         return;
       }

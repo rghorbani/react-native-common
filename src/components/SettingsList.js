@@ -46,30 +46,30 @@ class SettingsList extends React.Component {
   };
 
   _getGroups() {
-    var groupNumber = -1;
+    let groupNumber = -1;
     let headers = [];
     let itemGroup = [];
     let result = [];
     let other = [];
     React.Children.forEach(this.props.children, (child) => {
       // Allow for null, optional fields
-      if(!child) return;
+      if (!child) return;
 
-      if(child.type.displayName === 'SettingsList.Header') {
-        if(groupNumber != -1){
+      if (child.type.displayName === 'SettingsList.Header') {
+        if (groupNumber != -1){
           result[groupNumber] = {items: itemGroup, header: headers[groupNumber], other: other};
           itemGroup = [];
           other = [];
         }
         groupNumber++;
         headers[groupNumber] = child.props;
-      } else if(child.type.displayName === 'SettingsList.Item') {
-        if(groupNumber == -1){
+      } else if (child.type.displayName === 'SettingsList.Item') {
+        if (groupNumber == -1){
           groupNumber++;
         }
         itemGroup.push(child.props);
       } else {
-        if(groupNumber == -1){
+        if (groupNumber == -1){
           groupNumber++;
         }
         other.push(child);
@@ -90,7 +90,7 @@ class SettingsList extends React.Component {
   }
 
   _groupView(group, index) {
-    if(group.header) {
+    if (group.header) {
       return (
         <View key={'group_' + index}>
           {group.other}
@@ -166,8 +166,8 @@ class SettingsList extends React.Component {
 
   _itemView(item, index, max) {
     let border;
-    if(item.borderHide) {
-      switch(item.borderHide) {
+    if (item.borderHide) {
+      switch (item.borderHide) {
         case 'Top' : border = {borderBottomWidth: 1, borderColor: this.props.borderColor}; break;
         case 'Bottom' : border = {borderTopWidth: 1, borderColor: this.props.borderColor}; break;
       }
@@ -231,11 +231,11 @@ class SettingsList extends React.Component {
   }
 
   itemArrowIcon(item) {
-    if(item.arrowIcon) {
+    if (item.arrowIcon) {
         return item.arrowIcon;
     }
 
-    if(item.hasNavArrow) {
+    if (item.hasNavArrow) {
         return <Image style={[item.rtl ? styles.rightSideRTL : styles.rightSide, item.rtl ? styles.arrowRTL : styles.arrow, item.arrowStyle]} source={ARROW_ICON} />;
     }
 

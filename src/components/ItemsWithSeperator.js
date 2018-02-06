@@ -20,8 +20,8 @@ class ItemsWithSeparator extends React.Component {
   };
 
   render() {
-    var children = [];
-    var length = React.Children.count(this.props.children);
+    let children = [];
+    let length = React.Children.count(this.props.children);
     React.Children.forEach(
       this.props.children,
       (child, ii) => {

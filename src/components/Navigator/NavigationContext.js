@@ -26,16 +26,16 @@
  */
 'use strict';
 
-var NavigationEvent = require('./NavigationEvent');
-var NavigationEventEmitter = require('./NavigationEventEmitter');
-var NavigationTreeNode = require('./NavigationTreeNode');
+const NavigationEvent = require('./NavigationEvent');
+const NavigationEventEmitter = require('./NavigationEventEmitter');
+const NavigationTreeNode = require('./NavigationTreeNode');
 
-var emptyFunction = require('fbjs/lib/emptyFunction');
-var invariant = require('fbjs/lib/invariant');
+const emptyFunction = require('fbjs/lib/emptyFunction');
+const invariant = require('fbjs/lib/invariant');
 
 import type EventSubscription from 'EventSubscription';
 
-var {
+const {
   AT_TARGET,
   BUBBLING_PHASE,
   CAPTURING_PHASE,
@@ -43,7 +43,7 @@ var {
 
 // Event types that do not support event bubbling, capturing and
 // reconciliation API (e.g event.preventDefault(), event.stopPropagation()).
-var LegacyEventTypes = new Set([
+const LegacyEventTypes = new Set([
   'willfocus',
   'didfocus',
 ]);
@@ -76,14 +76,14 @@ class NavigationContext {
 
   /* $FlowFixMe - get/set properties not yet supported */
   get parent(): ?NavigationContext {
-    var parent = this.__node.getParent();
+    let parent = this.__node.getParent();
     return parent ? parent.getValue() : null;
   }
 
   /* $FlowFixMe - get/set properties not yet supported */
   get top(): ?NavigationContext {
-    var result = null;
-    var parentNode = this.__node.getParent();
+    let result = null;
+    let parentNode = this.__node.getParent();
     while (parentNode) {
       result = parentNode.getValue();
       parentNode = parentNode.getParent();
@@ -109,7 +109,7 @@ class NavigationContext {
       useCapture = false;
     }
 
-    var emitter = useCapture ?
+    let emitter = useCapture ?
       this._captureEventEmitter :
       this._bubbleEventEmitter;
 
@@ -124,12 +124,14 @@ class NavigationContext {
     if (this._emitCounter > 0) {
       // An event cycle that was previously created hasn't finished yet.
       // Put this event cycle into the queue and will finish them later.
-      var args: any = Array.prototype.slice.call(arguments);
+      let args: any = Array.prototype.slice.call(arguments);
       this._emitQueue.push(args);
       return;
     }
 
     this._emitCounter++;
+    let propagationStopped = false;
+    let defaultPrevented = false;
 
     if (LegacyEventTypes.has(eventType)) {
       // Legacy events does not support event bubbling and reconciliation.
@@ -145,16 +147,16 @@ class NavigationContext {
         }
       );
     } else {
-      var targets = [this];
-      var parentTarget = this.parent;
+      let targets = [this];
+      let parentTarget = this.parent;
       while (parentTarget) {
         targets.unshift(parentTarget);
         parentTarget = parentTarget.parent;
       }
 
-      var propagationStopped = false;
-      var defaultPrevented = false;
-      var callback = (event) => {
+      propagationStopped = false;
+      defaultPrevented = false;
+      let callback = (event) => {
         propagationStopped = propagationStopped || event.isPropagationStopped();
         defaultPrevented = defaultPrevented || event.defaultPrevented;
       };
@@ -165,7 +167,7 @@ class NavigationContext {
           return true;
         }
 
-        var extraInfo = {
+        let extraInfo = {
           defaultPrevented,
           eventPhase: CAPTURING_PHASE,
           propagationStopped,
@@ -180,7 +182,7 @@ class NavigationContext {
         if (propagationStopped) {
           return true;
         }
-        var extraInfo = {
+        let extraInfo = {
           defaultPrevented,
           eventPhase: BUBBLING_PHASE,
           propagationStopped,
@@ -191,7 +193,7 @@ class NavigationContext {
     }
 
     if (didEmitCallback) {
-      var event = NavigationEvent.pool(eventType, this, data);
+      let event = NavigationEvent.pool(eventType, this, data);
       propagationStopped && event.stopPropagation();
       defaultPrevented && event.preventDefault();
       didEmitCallback.call(this, event);
@@ -200,7 +202,7 @@ class NavigationContext {
 
     this._emitCounter--;
     while (this._emitQueue.length) {
-      var args: any = this._emitQueue.shift();
+      let args: any = this._emitQueue.shift();
       this.emit.apply(this, args);
     }
   }
@@ -221,7 +223,7 @@ class NavigationContext {
     didEmitCallback: ?Function,
     extraInfo: Object,
   ): void {
-    var emitter;
+    let emitter;
     switch (extraInfo.eventPhase) {
       case CAPTURING_PHASE: // phase = 1
         emitter = this._captureEventEmitter;

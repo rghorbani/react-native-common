@@ -11,7 +11,6 @@ const PropTypes = require('prop-types');
 const { Platform, ToolbarAndroid, StatusBar } = require('react-native');
 
 const ItemWrapper = require('./ItemWrapper');
-const Button = require('../button');
 const Text = require('../text');
 const View = require('../view');
 const StyleSheet = require('../StyleSheet');
@@ -54,11 +53,11 @@ class Header extends BaseComponent {
     /**
      * rightItems
      */
-    leftItems: PropTypes.oneOfType([PropTypes.shape(ItemWrapper.propTypes), PropTypes.arrayOf(PropTypes.shape(ItemWrapper.propTypes))]),
+    rightItems: PropTypes.oneOfType([PropTypes.shape(ItemWrapper.propTypes), PropTypes.arrayOf(PropTypes.shape(ItemWrapper.propTypes))]),
     /**
      * extraItems
      */
-    leftItems: PropTypes.oneOfType([PropTypes.shape(ItemWrapper.propTypes), PropTypes.arrayOf(PropTypes.shape(ItemWrapper.propTypes))]),
+    extraItems: PropTypes.oneOfType([PropTypes.shape(ItemWrapper.propTypes), PropTypes.arrayOf(PropTypes.shape(ItemWrapper.propTypes))]),
     /**
      * color of items
      */
@@ -93,7 +92,7 @@ class Header extends BaseComponent {
 
     let headerHeight = Platform.OS === 'ios' ? 45 + statusBarHeight : 60 + statusBarHeight;
     if (this.props.height) {
-      headerHeight = height;
+      headerHeight = this.props.height;
     }
 
     this.styles = createStyles({
@@ -105,12 +104,11 @@ class Header extends BaseComponent {
 
   renderNative() {
     let {
-      navItem,
-      leftItems,
-      rightItem,
-      extraItems,
-      backgroundColor,
       titleColor,
+      titleStyle,
+      leftItems,
+      rightItems,
+      extraItems,
       style,
       ...props
     } = this.props;
@@ -122,27 +120,27 @@ class Header extends BaseComponent {
       }
       const { title, icon, layout } = leftItems;
       actions.push({
-        icon: layout !== "title" ? icon : undefined,
+        icon: layout !== 'title' ? icon : undefined,
         title: title,
-        show: "always"
+        show: 'always'
       });
     }
-    if (rightItem) {
+    if (rightItems) {
       if (Array.isArray(rightItems)) {
         rightItems = rightItems[0];
       }
-      const { title, icon, layout } = rightItem;
+      const { title, icon, layout } = rightItems;
       actions.push({
-        icon: layout !== "title" ? icon : undefined,
+        icon: layout !== 'title' ? icon : undefined,
         title: title,
-        show: "always"
+        show: 'always'
       });
     }
     if (extraItems) {
       actions = actions.concat(
         extraItems.map(item => ({
           title: item.title,
-          show: "never"
+          show: 'never'
         }))
       );
     }
@@ -156,7 +154,7 @@ class Header extends BaseComponent {
       );
     } else {
       content = (
-        <View collapsable={false} style={{ flex: 1, justifyContent: "center" }}>
+        <View collapsable={false} style={{ flex: 1, justifyContent: 'center' }}>
           <Text numberOfLines={1} style={[this.styles.headerTitle, { color: titleColor }, titleStyle]}>
             {this.props.title}
           </Text>
@@ -198,7 +196,6 @@ class Header extends BaseComponent {
       rightItems,
       itemsColor,
       style,
-      ...props
     } = this.props;
 
     if (!Array.isArray(leftItems)) {
@@ -270,22 +267,22 @@ function createStyles({height, statusBarHeight, backgroundColor}) {
     },
     leftItems: {
       flex: 1,
-      alignItems: "flex-start"
+      alignItems: 'flex-start',
     },
     centerItems: {
       flex: 2,
-      alignItems: "center"
+      alignItems: 'center',
     },
     rightItems: {
       flex: 1,
-      alignItems: "flex-end"
+      alignItems: 'flex-end',
     },
     itemWrapper: {
-      padding: 11
+      padding: 11,
     },
     headerTitle: {
       ios: { fontSize: 17 },
-      android: { fontSize: 20 }
+      android: { fontSize: 20 },
     },
   });
 }
