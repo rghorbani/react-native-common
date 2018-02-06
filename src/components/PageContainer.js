@@ -3,60 +3,40 @@
  *
  * @flow
  */
-'use strict';
 
+'use strict';
 
 const React = require('react');
 const PropTypes = require('prop-types');
-const {
-  Platform,
-  Image,
-  NativeModules,
-  TouchableOpacity,
-  View,
-} = require('react-native');
+const { View, ViewPropTypes } = require('react-native');
 
-const RGFColors = require('./RGFColors');
-const Header = require('./Header');
+const Header = require('./header');
 const StyleSheet = require('./StyleSheet');
 
-import type {Item as HeaderItem} from './Header';
-
-type Props = {
-  title: string;
-  leftItem?: HeaderItem;
-  rightItem?: HeaderItem;
-  extraItems?: Array<HeaderItem>;
-  backgroundImage: number;
-  backgroundColor: string;
-  children?: any;
-};
+// import type {Item as HeaderItem} from 'RGFHeader';
 
 class PageContainer extends React.Component {
-  props: Props;
-
-  static contextTypes = {
-    openDrawer: PropTypes.func,
-    hasUnreadNotifications: PropTypes.number,
+  static propTypes = {
+    ...Header.propTypes,
+    children: PropTypes.any,
+    style: ViewPropTypes.style,
   };
 
-  constructor(props: Props) {
+  constructor(props) {
     super(props);
   }
 
   render() {
+    const {children, ...props} = this.props;
     return (
       <View style={[styles.container, this.props.style]}>
         <View style={styles.headerWrapper}>
           <Header
-            title={this.props.title}
-            leftItem={this.props.leftItem}
-            rightItem={this.props.rightItem}
-            extraItems={this.props.extraItems}>
-          </Header>
+            {...props}
+          />
         </View>
         <View style={styles.content}>
-          {this.props.children}
+          {children}
         </View>
       </View>
     );
@@ -80,11 +60,6 @@ const styles = StyleSheet.create({
       marginRight: -1,
       borderRightColor: 'transparent',
     }
-  },
-  addButton: {
-    position: 'absolute',
-    bottom: 10,
-    left: 10,
   },
 });
 

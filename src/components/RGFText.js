@@ -43,7 +43,7 @@ export function parseNumberWithCommas(str) {
   str = str.replace(/,/g, '');
   var pattern = /^\d+$/;
   if (!pattern.test(str)) {
-    console.log('Error: parseNumberWithCommas', str);
+    console.error('Error: parseNumberWithCommas', str);
     return '';
   }
 

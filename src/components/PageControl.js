@@ -16,6 +16,9 @@ class PageControl extends React.Component {
   static propTypes = {
     count: PropTypes.number.isRequired,
     selectedIndex: PropTypes.number.isRequired,
+    fullColor: PropTypes.string,
+    emptyColor: PropTypes.string,
+    size: PropTypes.number,
     style: ViewPropTypes.style,
   };
 
@@ -36,6 +39,14 @@ class PageControl extends React.Component {
 }
 
 class Circle extends React.Component {
+  static displayName = 'PageControl.Circle';
+
+  static propTypes = {
+    fullColor: PropTypes.string,
+    emptyColor: PropTypes.string,
+    size: PropTypes.number,
+  };
+
   render() {
     let extraStyle = {};
     if (this.props.isSelected) {
@@ -55,9 +66,9 @@ class Circle extends React.Component {
   }
 }
 
-var CIRCLE_SIZE = 4;
+const CIRCLE_SIZE = 4;
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',

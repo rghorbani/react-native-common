@@ -11,7 +11,6 @@ const PropTypes = require('prop-types');
 const {
   Platform,
   Image,
-  NativeModules,
   TouchableOpacity,
   View,
 } = require('react-native');

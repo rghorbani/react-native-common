@@ -34,7 +34,7 @@ class PureListView extends React.Component {
     };
   }
 
-  componentWillReceiveProps(nextProps: Props) {
+  componentWillReceiveProps(nextProps) {
     if (this.props.data !== nextProps.data) {
       this.setState({ data: nextProps.data });
     }

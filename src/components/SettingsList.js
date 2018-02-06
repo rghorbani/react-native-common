@@ -4,7 +4,7 @@
  * @flow
  */
 
-'use strict'
+'use strict';
 
 const React = require('react');
 const PropTypes = require('prop-types');
@@ -86,7 +86,7 @@ class SettingsList extends React.Component {
           return this._groupView(group, index);
         })}
       </ScrollView>
-    )
+    );
   }
 
   _groupView(group, index) {
@@ -101,7 +101,7 @@ class SettingsList extends React.Component {
             })}
           </View>
         </View>
-      )
+      );
     } else {
       return (
         <View key={'group_' + index}>
@@ -112,7 +112,7 @@ class SettingsList extends React.Component {
             })}
           </View>
         </View>
-      )
+      );
     }
   }
 
@@ -135,7 +135,7 @@ class SettingsList extends React.Component {
               onChangeText={(text) => item.onTextChange(text)}
               value={item.value} />
         : null
-    ])
+    ]);
   }
 
   _itemTitleBlock(item, index, position) {
@@ -161,11 +161,11 @@ class SettingsList extends React.Component {
             {item.titleInfo}
         </Text>
         : null
-    ])
+    ]);
   }
 
   _itemView(item, index, max) {
-    var border;
+    let border;
     if(item.borderHide) {
       switch(item.borderHide) {
         case 'Top' : border = {borderBottomWidth: 1, borderColor: this.props.borderColor}; break;
@@ -210,7 +210,7 @@ class SettingsList extends React.Component {
           <View style={item.titleBoxStyle ? item.titleBoxStyle : [item.rtl ? styles.titleBoxRTL : styles.titleBox, border, {minHeight:item.itemWidth ? item.itemWidth : this.props.defaultItemSize}]}>
             {titleInfoPosition === 'Bottom' ?
                 <View style={{flexDirection: 'column', flex: 1, justifyContent: 'center'}}>
-                    {item.isEditable ? this._itemEditableBlock(item, inde, 'Bottom') : this._itemTitleBlock(item, index, 'Bottom')}
+                    {item.isEditable ? this._itemEditableBlock(item, index, 'Bottom') : this._itemTitleBlock(item, index, 'Bottom')}
                 </View>
               : item.isEditable ? this._itemEditableBlock(item, index) : this._itemTitleBlock(item, index)}
 
@@ -227,7 +227,7 @@ class SettingsList extends React.Component {
         }
         </View>
       </TouchableHighlight>
-    )
+    );
   }
 
   itemArrowIcon(item) {

@@ -30,7 +30,7 @@ class TextArea extends BaseInput {
     const inputStyle = [this.styles.input, typography];
     return (
       <View style={this.styles.container}>
-        <RNTextInput
+        <TextInput
           {...this.props}
           value={value}
           multiline={true}
@@ -56,6 +56,5 @@ function createStyles() {
     },
   });
 }
-
 
 module.exports = TextArea;

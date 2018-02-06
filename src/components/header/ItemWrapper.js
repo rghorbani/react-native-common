@@ -13,9 +13,8 @@ const { Dimensions, Image, TouchableOpacity, StyleSheet } = require('react-nativ
 const Text = require('../text');
 const View = require('../view');
 const { BaseComponent } = require('../../commons');
-const { Colors } = require('../../style');
 
-const SCREEN_WIDTH = Dimensions.get("window").width;
+const SCREEN_WIDTH = Dimensions.get('window').width;
 const IOS_ITEM_TEXT_SIZE = SCREEN_WIDTH < 375 ? 10 : 13;
 
 class ItemWrapper extends BaseComponent {
@@ -64,7 +63,7 @@ class ItemWrapper extends BaseComponent {
     let content;
     const { title, icon, iconSource, layout, onPress, style } = item;
 
-    if (layout !== "icon" && title) {
+    if (layout !== 'icon' && title) {
       content = (
         <Text style={[this.styles.itemText, { color }, style]}>{title.toUpperCase()}</Text>
       );
@@ -76,9 +75,9 @@ class ItemWrapper extends BaseComponent {
         content = <Image source={icon} style={[{ tintColor: color }, style]} />;
       }
       content = (
-        <View style={styles.itemGroup}>
+        <View style={this.styles.itemGroup}>
           {content}
-          <Text style={[styles.itemText, {color, paddingLeft: 5}]}>
+          <Text style={[this.styles.itemText, {color, paddingLeft: 5}]}>
             {title.toUpperCase()}
           </Text>
         </View>
@@ -112,9 +111,11 @@ function createStyles() {
     },
     itemGroup: {
       flexDirection: 'row',
-      alignItems: 'center',
+      // alignItems: 'center',
     },
     itemText: {
+      alignSelf: 'center',
+      letterSpacing: 1,
       fontSize: IOS_ITEM_TEXT_SIZE,
     },
   });

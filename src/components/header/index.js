@@ -198,7 +198,7 @@ class Header extends BaseComponent {
       rightItems,
       itemsColor,
       style,
-      ...props,
+      ...props
     } = this.props;
 
     if (!Array.isArray(leftItems)) {
