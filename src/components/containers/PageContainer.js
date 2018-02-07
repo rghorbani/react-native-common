@@ -10,14 +10,13 @@ const React = require('react');
 const PropTypes = require('prop-types');
 const { View, ViewPropTypes } = require('react-native');
 
-const Header = require('./header');
-const StyleSheet = require('./StyleSheet');
-
-// import type {Item as HeaderItem} from 'RGFHeader';
+const Header = require('../header');
+const StyleSheet = require('../StyleSheet');
 
 class PageContainer extends React.Component {
   static propTypes = {
     ...Header.propTypes,
+    headerChildren: PropTypes.any,
     children: PropTypes.any,
     style: ViewPropTypes.style,
   };
@@ -33,7 +32,9 @@ class PageContainer extends React.Component {
         <View style={styles.headerWrapper}>
           <Header
             {...props}
-          />
+          >
+            {this.props.headerChildren}
+          </Header>
         </View>
         <View style={styles.content}>
           {children}

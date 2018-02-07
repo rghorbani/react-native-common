@@ -28,7 +28,7 @@ class ItemWrapper extends BaseComponent {
       title: PropTypes.string,
       icon: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
       iconSource: PropTypes.any,
-      layout: PropTypes.oneOf(['default', 'icon', 'title']),
+      layout: PropTypes.oneOf(['default', 'both', 'icon', 'title']),
       onPress: PropTypes.func,
       style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
     }),
