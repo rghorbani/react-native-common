@@ -265,7 +265,7 @@ class TextInput extends BaseInput {
       centered,
       multiline,
       numberOfLines,
-      ...others
+      ...props
     } = this.props;
     const {value} = this.state;
     const inputStyle = [
@@ -278,7 +278,7 @@ class TextInput extends BaseInput {
 
     return (
       <RNTextInput
-        {...others}
+        {...props}
         value={value}
         placeholder={floatingPlaceholder && !centered ? undefined : placeholder}
         underlineColorAndroid="transparent"
@@ -381,6 +381,7 @@ class TextInput extends BaseInput {
 }
 
 function createStyles({
+  rtl,
   placeholderTextColor,
   hideUnderline,
   centered,
@@ -393,7 +394,7 @@ function createStyles({
       flexDirection: 'row',
       borderBottomWidth: hideUnderline ? 0 : 1,
       borderColor: Colors.dark80,
-      justifyContent: centered ? 'center' : undefined,
+      justifyContent: centered ? 'center' : (rtl ? 'flex-end' : undefined),
       paddingTop: floatingPlaceholder ? 25 : undefined,
       flexGrow: 1,
     },
@@ -407,12 +408,15 @@ function createStyles({
       flex: 1,
       marginBottom: hideUnderline ? undefined : 10,
       padding: 0,
-      textAlign: centered ? 'center' : undefined,
+      textAlign: centered ? 'center' : (rtl ? 'right' : undefined),
+      writingDirection: rtl ? 'rtl' : undefined,
       backgroundColor: 'transparent',
     },
     placeholder: {
       position: 'absolute',
       color: placeholderTextColor,
+      textAlign: rtl ? 'right' : undefined,
+      writingDirection: rtl ? 'rtl' : undefined,
     },
     placeholderCentered: {
       left: 0,
