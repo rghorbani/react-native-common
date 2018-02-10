@@ -73,7 +73,6 @@ class TextInput extends BaseInput {
 
     this.onChangeText = this.onChangeText.bind(this);
     this.onChange = this.onChange.bind(this);
-    this.onContentSizeChange = this.onContentSizeChange.bind(this);
     this.updateFloatingPlaceholderState = this.updateFloatingPlaceholderState.bind(this);
     this.toggleExpandableModal = this.toggleExpandableModal.bind(this);
     this.onDoneEditingExpandableInput = this.onDoneEditingExpandableInput.bind(this);
@@ -354,11 +353,6 @@ class TextInput extends BaseInput {
       },
       this.updateFloatingPlaceholderState,
     );
-  }
-
-  onContentSizeChange(event) {
-    this.calcMultilineInputHeight(event);
-    this.props.onChange && this.props.onChange(event);
   }
 
   onChange(event) {

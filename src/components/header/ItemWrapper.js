@@ -8,8 +8,9 @@
 
 const React = require('react');
 const PropTypes = require('prop-types');
-const { Dimensions, Image, TouchableOpacity, StyleSheet } = require('react-native');
+const { Dimensions, Image, TouchableOpacity } = require('react-native');
 
+const StyleSheet = require('../StyleSheet');
 const Text = require('../text');
 const View = require('../view');
 const { BaseComponent } = require('../../commons');
@@ -18,7 +19,7 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 const IOS_ITEM_TEXT_SIZE = SCREEN_WIDTH < 375 ? 10 : 13;
 
 class ItemWrapper extends BaseComponent {
-  static displayName = 'ItemWrapper';
+  static displayName = 'Header.ItemWrapper';
 
   static propTypes = {
     /**
@@ -65,7 +66,7 @@ class ItemWrapper extends BaseComponent {
 
     if (layout !== 'icon' && title) {
       content = (
-        <Text style={[this.styles.itemText, { color }, style]}>{title.toUpperCase()}</Text>
+        <Text text90 style={[this.styles.itemText, { color }, style]}>{title.toUpperCase()}</Text>
       );
     } else if (layout === 'both' && title && icon) {
       if (typeof icon === 'string') {
@@ -77,7 +78,7 @@ class ItemWrapper extends BaseComponent {
       content = (
         <View style={this.styles.itemGroup}>
           {content}
-          <Text style={[this.styles.itemText, {color, paddingLeft: 5}]}>
+          <Text text90 style={[this.styles.itemText, {color, paddingLeft: 5}]}>
             {title.toUpperCase()}
           </Text>
         </View>
@@ -107,7 +108,7 @@ class ItemWrapper extends BaseComponent {
 function createStyles() {
   return StyleSheet.create({
     itemWrapper: {
-      padding: 11
+      padding: 5
     },
     itemGroup: {
       flexDirection: 'row',
@@ -116,7 +117,10 @@ function createStyles() {
     itemText: {
       alignSelf: 'center',
       letterSpacing: 1,
-      fontSize: IOS_ITEM_TEXT_SIZE,
+      fontWeight: '500',
+      ios: {
+        fontSize: IOS_ITEM_TEXT_SIZE,
+      },
     },
   });
 }
