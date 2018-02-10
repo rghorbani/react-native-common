@@ -15,7 +15,7 @@ const Text = require('../text');
 const View = require('../view');
 const StyleSheet = require('../StyleSheet');
 const { BaseComponent } = require('../../commons');
-const { Colors, Shadows } = require('../../style');
+const { Colors, Shadows, Typography } = require('../../style');
 
 class Header extends BaseComponent {
   static displayName = 'Header';
@@ -155,7 +155,7 @@ class Header extends BaseComponent {
     } else {
       content = (
         <View collapsable={false} style={{ flex: 1, justifyContent: 'center' }}>
-          <Text text70 numberOfLines={1} style={[this.styles.headerTitle, { color: titleColor }, titleStyle]}>
+          <Text numberOfLines={1} style={[this.styles.headerTitle, { color: titleColor }, titleStyle]}>
             {this.props.title}
           </Text>
         </View>
@@ -211,7 +211,7 @@ class Header extends BaseComponent {
 
     const content =
       React.Children.count(this.props.children) === 0 ? (
-        <Text text70 numberOfLines={1} style={[this.styles.headerTitle, { color: titleColor }, titleStyle]}>
+        <Text numberOfLines={1} style={[this.styles.headerTitle, { color: titleColor }, titleStyle]}>
           {this.props.title}
         </Text>
       ) : (
@@ -282,6 +282,7 @@ function createStyles({height, statusBarHeight, backgroundColor}) {
       padding: 11,
     },
     headerTitle: {
+      ...Typography.text70,
       fontWeight: '500',
       android: { fontSize: 20 },
     },
