@@ -156,7 +156,7 @@ class Header extends BaseComponent {
     } else {
       content = (
         <View collapsable={false} style={{ flex: 1, justifyContent: 'center' }}>
-          <Text numberOfLines={1} style={[this.styles.headerTitle, { color: titleColor }, titleStyle]}>
+          <Text text70 numberOfLines={1} style={[this.styles.headerTitle, { color: titleColor }, titleStyle]}>
             {this.props.title}
           </Text>
         </View>
@@ -212,7 +212,7 @@ class Header extends BaseComponent {
 
     const content =
       React.Children.count(this.props.children) === 0 ? (
-        <Text numberOfLines={1} style={[this.styles.headerTitle, { color: titleColor }, titleStyle]}>
+        <Text text70 numberOfLines={1} style={[this.styles.headerTitle, { color: titleColor }, titleStyle]}>
           {this.props.title}
         </Text>
       ) : (
@@ -262,28 +262,32 @@ function createStyles({height, statusBarHeight, backgroundColor}) {
       paddingTop: statusBarHeight,
       paddingHorizontal: 5,
       flexDirection: 'row',
-      justifyContent: 'space-between',
       alignItems: 'center',
+      justifyContent: 'space-between',
       backgroundColor,
       ...Shadows.white40.top,
     },
     leftItems: {
+      flex: 1,
       flexDirection: 'row',
-      alignItems: 'flex-start',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
     },
     centerItems: {
-      flex: 1,
+      flex: 2,
       alignItems: 'center',
+      justifyContent: 'center',
     },
     rightItems: {
+      flex: 1,
       flexDirection: 'row',
-      alignItems: 'flex-end',
+      alignItems: 'center',
+      justifyContent: 'flex-end',
     },
     itemWrapper: {
       padding: 11,
     },
     headerTitle: {
-      ...Typography.text70,
       fontWeight: '500',
       android: { fontSize: 20 },
     },

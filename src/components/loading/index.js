@@ -13,7 +13,7 @@ const { ActivityIndicator, StyleSheet } = require('react-native');
 const Text = require('../text');
 const View = require('../view');
 const { Constants } = require('../../helpers');
-const { Colors, Typography, ThemeManager } = require('../../style');
+const { Colors, ThemeManager } = require('../../style');
 
 class LoadingView extends React.Component {
   static displayName = 'LoadingView';
@@ -58,7 +58,7 @@ class LoadingView extends React.Component {
           style={[styles.indicator, style]}
           {...props}
         />
-        {caption && <Text style={[styles.caption, captionStyle]}>{caption}</Text>}
+        {caption && <Text text70 style={[styles.caption, captionStyle]}>{caption}</Text>}
       </View>
     );
   }
@@ -83,7 +83,6 @@ const styles = StyleSheet.create({
   },
   caption: {
     marginTop: 15,
-    ...Typography.text70,
     color: Colors.dark10,
   },
 });

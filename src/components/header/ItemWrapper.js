@@ -14,7 +14,6 @@ const StyleSheet = require('../StyleSheet');
 const Text = require('../text');
 const View = require('../view');
 const { BaseComponent } = require('../../commons');
-const { Typography } = require('../../style');
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const IOS_ITEM_TEXT_SIZE = SCREEN_WIDTH < 375 ? 10 : 13;
@@ -63,7 +62,7 @@ class ItemWrapper extends BaseComponent {
 
     if (layout !== 'icon' && title) {
       content = (
-        <Text style={[this.styles.itemText, { color }, style]}>{title.toUpperCase()}</Text>
+        <Text text90 style={[this.styles.itemText, { color }, style]}>{title.toUpperCase()}</Text>
       );
     } else if (layout === 'both' && title && icon) {
       if (typeof icon === 'string') {
@@ -75,7 +74,7 @@ class ItemWrapper extends BaseComponent {
       content = (
         <View style={this.styles.itemGroup}>
           {content}
-          <Text style={[this.styles.itemText, {color, paddingLeft: 5}]}>
+          <Text text90 style={[this.styles.itemText, {color, paddingLeft: 5}]}>
             {title.toUpperCase()}
           </Text>
         </View>
@@ -112,7 +111,6 @@ function createStyles() {
       // alignItems: 'center',
     },
     itemText: {
-      ...Typography.text90,
       alignSelf: 'center',
       letterSpacing: 1,
       fontWeight: '500',
