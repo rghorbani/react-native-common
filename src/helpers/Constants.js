@@ -12,6 +12,7 @@ const { height, width } = Dimensions.get('window');
 module.exports = {
   isAndroid: Platform.OS === 'android',
   isIOS: Platform.OS === 'ios',
+  isIphoneX: (Platform.OS === 'ios' && !Platform.isPad && !Platform.isTVOS && (height === 812 || width === 812)),
   screenHeight: height,
   screenWidth: width,
   isSmallScreen: Platform.OS === 'ios' ? (width <= 320) : (width <= 360),

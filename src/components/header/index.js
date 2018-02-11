@@ -15,6 +15,7 @@ const Text = require('../text');
 const View = require('../view');
 const StyleSheet = require('../StyleSheet');
 const { BaseComponent } = require('../../commons');
+const { Constants } = require('../../helpers');
 const { Colors, Shadows, Typography } = require('../../style');
 
 class Header extends BaseComponent {
@@ -85,7 +86,7 @@ class Header extends BaseComponent {
   }
 
   generateStyles() {
-    let statusBarHeight = Platform.OS === 'ios' ? 20 : StatusBar.currentHeight;
+    let statusBarHeight = Constants.statusBarHeight;
     if (Platform.OS === 'android' && Platform.Version && Platform.Version < 21) {
       statusBarHeight = 0;
     }

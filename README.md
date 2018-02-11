@@ -51,6 +51,7 @@ import { Button } from 'react-native-common';
 - [x] PageControl
 - [x] Popover
 - [x] PureListView
+- [x] LoadingView
 - [x] Text
 - [x] TextInput
 - [x] MaskedInput
