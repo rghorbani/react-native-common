@@ -28,7 +28,7 @@ module.exports = {
   get Text() { return require('./text'); },
   get View() { return require('./view'); },
   // Other
-  get Navigator() { return require('./Navigator/Navigator'); },
+  get Navigator() { return require('./navigator/Navigator'); },
   // Old
   get Carousel() { return require('./Carousel'); },
   get DrawerLayout() { return require('./DrawerLayout'); },
