@@ -71,6 +71,9 @@
   },
   "jest": {
     "preset": "react-native",
+    "modulePathIgnorePatterns": [
+      "src/components/navigator"
+    ],
     "testPathIgnorePatterns": [
       "src/components/navigator",
       "/node_modules/"
