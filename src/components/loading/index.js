@@ -46,7 +46,7 @@ class LoadingView extends React.Component {
   };
 
   render() {
-    const {overlay, loading, caption, captionStyle, style, ...props} = this.props;
+    const {overlay, caption, captionStyle, style, ...props} = this.props;
 
     if (!this.props.loading) {
       return null;

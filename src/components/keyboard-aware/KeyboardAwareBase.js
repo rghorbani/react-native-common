@@ -5,17 +5,18 @@
  */
 
 const React = require('react');
+const ReactNative = require('react-native');
 const PropTypes = require('prop-types');
-
-import ReactNative, {
+const {
   DeviceEventEmitter,
   Keyboard,
   NativeModules,
-} from 'react-native';
+} = require('react-native');
 
 const ScrollViewManager = NativeModules.ScrollViewManager;
 
 class KeyboardAwareBase extends React.Component {
+  static displayName = 'KeyboardAwareBase';
 
   static propTypes = {
     startScrolledToBottom: PropTypes.bool,
@@ -32,11 +33,11 @@ class KeyboardAwareBase extends React.Component {
   constructor(props) {
     super(props);
 
-    this.bind('onKeyboardWillShow', 'onKeyboardWillHide', 'addKeyboardEventListeners', 'removeKeyboardListeners', 'scrollToFocusedTextInput', 'onKeyboardAwareViewLayout', 'scrollToBottom', 'scrollBottomOnNextSizeChange');
-
     this.state = {
       keyboardHeight: 0,
     };
+
+    this.bind('onKeyboardWillShow', 'onKeyboardWillHide', 'addKeyboardEventListeners', 'removeKeyboardListeners', 'scrollToFocusedTextInput', 'onKeyboardAwareViewLayout', 'scrollToBottom', 'scrollBottomOnNextSizeChange');
   }
 
   bind(...methods) {
@@ -86,7 +87,7 @@ class KeyboardAwareBase extends React.Component {
           this.keyboardAwareView.contentSize = res;
           if (this.state.scrollBottomOnNextSizeChange) {
             this.scrollToBottom();
-            this.state.scrollBottomOnNextSizeChange = false;
+            this.setState({ scrollBottomOnNextSizeChange: false });
           }
         }
       });
@@ -139,7 +140,7 @@ class KeyboardAwareBase extends React.Component {
   }
 
   scrollBottomOnNextSizeChange() {
-    this.state.scrollBottomOnNextSizeChange = true;
+    this.setState({ scrollBottomOnNextSizeChange: true });
   }
 
   scrollToBottom(scrollAnimated = true) {

@@ -143,7 +143,7 @@ describe('NavigationContext', () => {
     let counter = 0;
 
     parent.addListener('yo', event => event.stopPropagation(), true);
-    child.addListener('yo', event => counter++, true);
+    child.addListener('yo', () => counter++, true);
 
     child.emit('yo');
 
@@ -157,7 +157,7 @@ describe('NavigationContext', () => {
 
     let counter = 0;
 
-    parent.addListener('yo', event => counter++);
+    parent.addListener('yo', () => counter++);
     child.addListener('yo', event => event.stopPropagation());
 
     child.emit('yo');

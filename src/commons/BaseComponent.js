@@ -13,7 +13,7 @@ const { BorderRadiuses, Colors, ThemeManager, Typography } = require('../style')
 const FLEX_KEY_PATTERN = /^flex(G|S)?(-\d*)?$/;
 const PADDING_KEY_PATTERN = /padding[LTRBHV]?-[0-9]*/;
 const MARGIN_KEY_PATTERN = /margin[LTRBHV]?-[0-9]*/;
-const ALIGNMENT_KEY_PATTERN = /(left|top|right|bottom|center|centerV|centerH|spread)/;
+// const ALIGNMENT_KEY_PATTERN = /(left|top|right|bottom|center|centerV|centerH|spread)/;
 
 class BaseComponent extends React.Component {
   static displayName = 'BaseComponent';

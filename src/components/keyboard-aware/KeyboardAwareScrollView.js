@@ -11,6 +11,7 @@ const KeyboardAwareBase = require('./KeyboardAwareBase');
 const { ScrollView } = require('react-native');
 
 class KeyboardAwareScrollView extends KeyboardAwareBase {
+  static displayName = 'KeyboardAwareScrollView';
 
   static propTypes = {
     getTextInputRefs: PropTypes.func,

@@ -11,6 +11,7 @@ const KeyboardAwareBase = require('./KeyboardAwareBase');
 const { ListView } = require('react-native');
 
 class KeyboardAwareListView extends KeyboardAwareBase {
+  static displayName = 'KeyboardAwareListView';
 
   static propTypes = {
     onScroll: PropTypes.func

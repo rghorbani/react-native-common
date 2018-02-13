@@ -7,6 +7,7 @@
 'use strict';
 
 const Containers = require('./containers');
+const Images = require('./images');
 const Inputs = require('./inputs');
 const KeyboardAware = require('./keyboard-aware');
 const NavIcons = require('./nav-icons');
@@ -14,6 +15,7 @@ const Touchables = require('./touchables');
 
 module.exports = {
   ...Containers,
+  ...Images,
   ...Inputs,
   ...KeyboardAware,
   ...NavIcons,

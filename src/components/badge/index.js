@@ -88,7 +88,7 @@ class Badge extends BaseComponent {
   }
 }
 
-function createStyles({label}) {
+function createStyles() {
   return StyleSheet.create({
     badge: {
       height: 21,

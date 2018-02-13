@@ -26,7 +26,7 @@
  /* eslint-disable no-extra-boolean-cast*/
 'use strict';
 
-const buildStyleInterpolator = require('./buildStyleInterpolator');
+// const buildStyleInterpolator = require('./buildStyleInterpolator');
 
 import {
   Dimensions,
@@ -861,7 +861,8 @@ const Navigator = createClass({
     this._detachGesture();
   },
 
-  _handlePanResponderTerminate: function(e, gestureState) {
+  // _handlePanResponderTerminate: function(e, gestureState) {
+  _handlePanResponderTerminate: function() {
     if (this.state.activeGesture == null) {
       return;
     }

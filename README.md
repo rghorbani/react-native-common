@@ -57,6 +57,8 @@ import { Button } from 'react-native-common';
 - [x] MaskedInput
 - [x] TagsInput
 - [x] SegmentedControl
+- [x] AnimatedImage
+- [x] NetworkImage
 - [x] SettingsList
 - [x] SettingsList.Header
 - [x] SettingsList.Item
