@@ -338,7 +338,7 @@ class Button extends BaseComponent {
   }
 
   render() {
-    const {onPress, disabled, link, style, testID, ...others} = this.getThemeProps();
+    const {onPress, disabled, link, style, testID, ...props} = this.getThemeProps();
     const shadowStyle = this.getShadowStyle();
     const {margins} = this.state;
     const backgroundColor = this.getBackgroundColor();
@@ -367,7 +367,7 @@ class Button extends BaseComponent {
         onPress={onPress}
         disabled={disabled}
         testID={testID}
-        {...others}
+        {...props}
       >
         <View row centerV style={contentSizeStyle}>
           {this.props.children}

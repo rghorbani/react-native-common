@@ -186,8 +186,8 @@ class SettingsList extends React.Component {
               <View style={{paddingLeft: 5, flexDirection: 'column', flex: 1}}>
                 <View style={{borderBottomWidth: 1, borderColor: this.props.borderColor}}>
                   <TextInput
-                    ref="UserNameInputBlock"
-                    onSubmitEditing={() => this.refs.PasswordInputBlock.focus()}
+                    ref={(input) => this.UserNameInputBlock = input}
+                    onSubmitEditing={() => this.PasswordInputBlock.focus()}
                     style={{flex: 1, height: 30, borderBottomWidth: 1 / PixelRatio.get()}}
                     placeholder = "username"
                     {...item.authPropsUser}
@@ -195,7 +195,7 @@ class SettingsList extends React.Component {
                 </View>
                 <View>
                   <TextInput
-                    ref="PasswordInputBlock"
+                    ref={(input) => this.PasswordInputBlock = input}
                     style={{flex: 1, height: 30}}
                     placeholder = "password"
                     secureTextEntry={true}

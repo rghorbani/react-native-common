@@ -55,7 +55,7 @@ class ViewPager extends React.Component {
   renderIOS() {
     return (
       <ScrollView
-        ref="scrollview"
+        ref={(scroll) => this.scrollview = scroll}
         contentOffset={{
           x: this.state.width * this.state.initialSelectedIndex,
           y: 0,
@@ -81,7 +81,7 @@ class ViewPager extends React.Component {
   renderAndroid() {
     return (
       <ViewPagerAndroid
-        ref="scrollview"
+        ref={(scroll) => this.scrollview = scroll}
         initialPage={this.state.initialSelectedIndex}
         onPageSelected={this.handleHorizontalScroll}
         style={styles.container}>
@@ -100,13 +100,13 @@ class ViewPager extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.selectedIndex !== this.state.selectedIndex) {
       if (Platform.OS === 'ios') {
-        this.refs.scrollview.scrollTo({
+        this.scrollview.scrollTo({
           x: nextProps.selectedIndex * this.state.width,
           animated: true,
         });
         this.setState({scrollingTo: nextProps.selectedIndex});
       } else {
-        this.refs.scrollview.setPage(nextProps.selectedIndex);
+        this.scrollview.setPage(nextProps.selectedIndex);
         this.setState({selectedIndex: nextProps.selectedIndex});
       }
     }
