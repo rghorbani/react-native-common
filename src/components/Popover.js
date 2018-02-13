@@ -400,7 +400,7 @@ class Popover extends React.Component {
               left: popoverOrigin.x,
             }, ...extendedStyles.popover]}>
             <Animated.View style={arrowStyle}/>
-            <Animated.View ref="content" onLayout={this.measureContent} style={contentStyle}>
+            <Animated.View ref={(cont) => this.content = cont } onLayout={this.measureContent} style={contentStyle}>
               {children}
             </Animated.View>
           </Animated.View>
