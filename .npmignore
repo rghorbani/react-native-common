@@ -1,6 +1,6 @@
 
 .npmignore
-demo/
+example/
 docs/
 
 # OSX

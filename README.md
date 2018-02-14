@@ -4,7 +4,7 @@
 </h3>
 
 <p align="center">
-  Cross Platform <a href="https://facebook.github.io/react-native/">React Native</a> UI Toolkit
+  Cross Platform <a href="https://facebook.github.io/react-native/">React Native</a> UI Toolkit & API
 </p>
 
 <p align="center">
@@ -24,7 +24,9 @@
 ### Installation
 
 `$ yarn add react-native-common`
+
 or
+
 `$ npm install react-native-common --save`
 
 ## Usage

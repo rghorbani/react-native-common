@@ -1,6 +1,6 @@
 {
   "name": "react-native-common",
-  "version": "0.8.2",
+  "version": "0.8.3",
   "description": "React Native common components",
   "main": "src/index.js",
   "scripts": {
@@ -71,20 +71,14 @@
   },
   "jest": {
     "preset": "react-native",
-    "modulePathIgnorePatterns": [
-      "src/components/navigator"
-    ],
     "testPathIgnorePatterns": [
       "src/components/navigator",
       "/node_modules/"
     ]
   },
   "homepage": "https://github.com/rghorbani/react-native-common",
-  "maintainers": [
-    {
-      "name": "rghorbani",
-      "email": "r.ghorbani.f@gmail.com"
-    }
+  "contributors": [
+    { "name": "rghorbani", "email": "r.ghorbani.f@gmail.com" }
   ],
   "repository": {
     "type": "git",
