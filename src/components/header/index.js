@@ -253,6 +253,8 @@ function createStyles({height, statusBarHeight, backgroundColor}) {
   return StyleSheet.create({
     toolbarContainer: {
       paddingTop: statusBarHeight,
+      borderBottomWidth: StyleSheet.hairlineWidth,
+	    borderBottomColor: 'rgba(0, 0, 0, .3)',
     },
     toolbar: {
       height: height - statusBarHeight,
@@ -265,7 +267,8 @@ function createStyles({height, statusBarHeight, backgroundColor}) {
       alignItems: 'center',
       justifyContent: 'space-between',
       backgroundColor,
-      ...Shadows.white40.top,
+      elevation: 4,
+      ...Shadows.white10.bottom,
     },
     leftItems: {
       flex: 1,
