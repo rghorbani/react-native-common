@@ -8,12 +8,11 @@
 
 const React = require('react');
 const PropTypes = require('prop-types');
-const { Platform, ToolbarAndroid } = require('react-native');
+const { Platform, ToolbarAndroid, StyleSheet } = require('react-native');
 
 const ItemWrapper = require('./ItemWrapper');
 const Text = require('../text');
 const View = require('../view');
-const StyleSheet = require('../StyleSheet');
 const { BaseComponent } = require('../../commons');
 const { Constants } = require('../../helpers');
 const { Colors, Shadows } = require('../../style');
@@ -100,6 +99,8 @@ class Header extends BaseComponent {
       height: headerHeight,
       statusBarHeight,
       backgroundColor: this.props.backgroundColor,
+      leftItems: this.props.leftItems,
+      rightItems: this.props.rightItems,
     });
   }
 
@@ -249,12 +250,21 @@ class Header extends BaseComponent {
   }
 }
 
-function createStyles({height, statusBarHeight, backgroundColor}) {
+function createStyles({
+  height,
+  statusBarHeight,
+  backgroundColor,
+  leftItems,
+  rightItems,
+}) {
+  const leftMore = Array.isArray(leftItems) && leftItems.length > 2;
+  const rightMore = Array.isArray(rightItems) && rightItems.length > 2;
+
   return StyleSheet.create({
     toolbarContainer: {
       paddingTop: statusBarHeight,
       borderBottomWidth: StyleSheet.hairlineWidth,
-	    borderBottomColor: 'rgba(0, 0, 0, .3)',
+      borderBottomColor: 'rgba(0, 0, 0, .3)',
     },
     toolbar: {
       height: height - statusBarHeight,
@@ -271,7 +281,7 @@ function createStyles({height, statusBarHeight, backgroundColor}) {
       ...Shadows.white10.bottom,
     },
     leftItems: {
-      flex: 1,
+      flex: leftMore ? 0 : 1,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'flex-start',
@@ -282,7 +292,7 @@ function createStyles({height, statusBarHeight, backgroundColor}) {
       justifyContent: 'center',
     },
     rightItems: {
-      flex: 1,
+      flex: rightMore ? 0 : 1,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'flex-end',
@@ -292,7 +302,9 @@ function createStyles({height, statusBarHeight, backgroundColor}) {
     },
     headerTitle: {
       fontWeight: '500',
-      android: { fontSize: 20 },
+      ...Platform.select({
+        android: { fontSize: 20 },
+      }),
     },
   });
 }

@@ -1,3 +1,10 @@
+/**
+ * Copyright 2016 Reza (github.com/rghorbani)
+ *
+ * @flow
+ */
+
+'use strict';
 
 const React = require('react');
 const PropTypes = require('prop-types');
@@ -108,7 +115,7 @@ class TextInput extends BaseInput {
 
     const underlineColorByState = _.cloneDeep(DEFAULT_UNDERLINE_COLOR_BY_STATE);
     if (underlineColor) {
-      if (_.isString(underlineColor)) {
+      if (typeof underlineColor === 'string') {
         return {borderColor: underlineColor}; // use given color for any state
       } else if (_.isObject(underlineColor)) {
         _.merge(underlineColorByState, underlineColor);
@@ -341,7 +348,7 @@ class TextInput extends BaseInput {
   onChangeText(text) {
     let transformedText = text;
     const {transformer} = this.props;
-    if (_.isFunction(transformer)) {
+    if (typeof transformer === 'function') {
       transformedText = transformer(text);
     }
 

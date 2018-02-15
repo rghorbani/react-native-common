@@ -4,9 +4,10 @@
  * @flow
  */
 
+'use strict';
+
 const React = require('react');
 const PropTypes = require('prop-types');
-const _ = require('lodash');
 const { Keyboard, Text, TouchableOpacity, StyleSheet, View, ViewPropTypes } = require('react-native');
 
 const TextInput = require('./TextInput');
@@ -43,7 +44,7 @@ class MaskedInput extends BaseInput {
     const {renderMaskedText} = this.props;
     const {value} = this.state;
 
-    if (_.isFunction(renderMaskedText)) {
+    if (typeof renderMaskedText === 'function') {
       return renderMaskedText(value);
     }
 

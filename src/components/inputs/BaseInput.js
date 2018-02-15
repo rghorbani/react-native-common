@@ -21,6 +21,10 @@ class BaseInput extends BaseComponent {
     /**
      * text color
      */
+    rtl: PropTypes.bool,
+    /**
+     * text color
+     */
     color: PropTypes.string,
     /**
      * text input container style

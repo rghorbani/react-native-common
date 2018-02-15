@@ -43,15 +43,17 @@ class TextArea extends BaseInput {
   }
 }
 
-function createStyles() {
+function createStyles({rtl}) {
   return StyleSheet.create({
     container: {
       flex: 1,
     },
     input: {
       flex: 1,
-      justifyContent: 'flex-start',
-      alignItems: 'flex-start',
+      justifyContent: rtl ? 'flex-end' : 'flex-start',
+      alignItems: rtl ? 'flex-end' : 'flex-start',
+      textAlign: rtl ? 'right' : undefined,
+      writingDirection: rtl ? 'auto' : undefined,
       textAlignVertical: 'top',
     },
   });

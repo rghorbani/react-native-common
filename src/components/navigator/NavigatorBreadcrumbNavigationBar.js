@@ -135,7 +135,7 @@ class NavigatorBreadcrumbNavigationBar extends React.Component {
     if (interpolate.Title(TITLE_PROPS[index].style, amount)) {
       this._setPropsIfExists('title_' + index, TITLE_PROPS[index]);
     }
-    let right = this.refs['right_' + index];
+    let right = this['right_' + index];
 
     const rightButtonStyle = RIGHT_BUTTON_PROPS[index].style;
     if (right && interpolate.RightItem(rightButtonStyle, amount)) {
@@ -295,7 +295,7 @@ class NavigatorBreadcrumbNavigationBar extends React.Component {
   };
 
   _setPropsIfExists(ref, props) {
-    ref = this.refs[ref];
+    ref = this[ref];
     ref && ref.setNativeProps(props);
   }
 }
