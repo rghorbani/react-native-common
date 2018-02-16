@@ -27,7 +27,8 @@ class ItemWrapper extends BaseComponent {
      */
     item: PropTypes.shape({
       title: PropTypes.string,
-      icon: PropTypes.oneOfType([PropTypes.number, PropTypes.element]),
+      icon: PropTypes.oneOfType([PropTypes.element, PropTypes.string, PropTypes.number]),
+      iconSource: PropTypes.any,
       layout: PropTypes.oneOf(['default', 'both', 'icon', 'title']),
       onPress: PropTypes.func,
       style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
@@ -36,6 +37,14 @@ class ItemWrapper extends BaseComponent {
      * item color
      */
     color: PropTypes.string,
+    /**
+     * item size
+     */
+    size: PropTypes.number,
+  };
+
+  static defaultProps = {
+    size: 30,
   };
 
   generateStyles() {
@@ -43,13 +52,13 @@ class ItemWrapper extends BaseComponent {
   }
 
   render() {
-    const { item, color } = this.props;
+    const { item, color, size } = this.props;
     if (!item) {
       return null;
     }
 
     let content;
-    const { title, icon, layout, onPress, style } = item;
+    const { title, icon, iconSource, layout, onPress, style } = item;
 
     if (layout !== 'icon' && title) {
       content = (
@@ -58,6 +67,9 @@ class ItemWrapper extends BaseComponent {
     } else if (layout === 'both' && title && icon) {
       if (React.isValidElement(icon)) {
         content = icon;
+      } else if (typeof icon === 'string') {
+        const Icon = iconSource;
+        content = <Icon name={icon} color={color} size={size} />;
       } else {
         content = <Image source={icon} style={[{ tintColor: color }, style]} />;
       }
@@ -72,6 +84,9 @@ class ItemWrapper extends BaseComponent {
     } else if (icon) {
       if (React.isValidElement(icon)) {
         content = icon;
+      } else if (typeof icon === 'string') {
+        const Icon = iconSource;
+        content = <Icon name={icon} color={color} size={size} />;
       } else {
         content = <Image source={icon} style={[{ tintColor: color }, style]} />;
       }
