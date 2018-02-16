@@ -17,6 +17,10 @@ class TextArea extends BaseInput {
   static propTypes = {
     ...TextInput.propTypes,
     ...BaseInput.propTypes,
+    /**
+     * rtl component
+     */
+    rtl: PropTypes.bool,
     testId: PropTypes.string,
   };
 

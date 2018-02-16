@@ -27,8 +27,7 @@ class ItemWrapper extends BaseComponent {
      */
     item: PropTypes.shape({
       title: PropTypes.string,
-      icon: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-      iconSource: PropTypes.any,
+      icon: PropTypes.oneOfType([PropTypes.number, PropTypes.element]),
       layout: PropTypes.oneOf(['default', 'both', 'icon', 'title']),
       onPress: PropTypes.func,
       style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
@@ -37,37 +36,28 @@ class ItemWrapper extends BaseComponent {
      * item color
      */
     color: PropTypes.string,
-    /**
-     * item's icon size
-     */
-    size: PropTypes.number,
-  };
-
-  static defaultProps = {
-    size: 30,
   };
 
   generateStyles() {
-    this.styles = createStyles();
+    this.styles = createStyles(this.props);
   }
 
   render() {
-    const { item, color, size } = this.props;
+    const { item, color } = this.props;
     if (!item) {
       return null;
     }
 
     let content;
-    const { title, icon, iconSource, layout, onPress, style } = item;
+    const { title, icon, layout, onPress, style } = item;
 
     if (layout !== 'icon' && title) {
       content = (
         <Text text90 style={[this.styles.itemText, { color }, style]}>{title.toUpperCase()}</Text>
       );
     } else if (layout === 'both' && title && icon) {
-      if (typeof icon === 'string') {
-        const Icon = iconSource;
-        content = <Icon name={icon} size={size} color={color} />;
+      if (React.isValidElement(icon)) {
+        content = icon;
       } else {
         content = <Image source={icon} style={[{ tintColor: color }, style]} />;
       }
@@ -80,9 +70,8 @@ class ItemWrapper extends BaseComponent {
         </View>
       );
     } else if (icon) {
-      if (typeof icon === 'string') {
-        const Icon = iconSource;
-        content = <Icon name={icon} size={size} color={color} />;
+      if (React.isValidElement(icon)) {
+        content = icon;
       } else {
         content = <Image source={icon} style={[{ tintColor: color }, style]} />;
       }
