@@ -76,6 +76,15 @@
       "/node_modules/"
     ]
   },
+  "rnpm": {
+    "android": {
+      "packageImportPath": "com.kajoo.reactnativecommon.*",
+      "packageInstance": "new TextInputDelKeyHandlerPackage()"
+    },
+    "ios": {
+      "project": "ios/RNCommon.xcodeproj"
+    }
+  },
   "homepage": "https://github.com/rghorbani/react-native-common",
   "contributors": [
     { "name": "rghorbani", "email": "r.ghorbani.f@gmail.com" }
