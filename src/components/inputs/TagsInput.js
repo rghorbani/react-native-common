@@ -144,6 +144,18 @@ class TagsInput extends BaseComponent {
     this.styles = createStyles(this.props);
   }
 
+  focus() {
+    this.input.focus();
+  }
+
+  blur() {
+    this.input.blur();
+  }
+
+  clear() {
+    this.input.clear();
+  }
+
   addTag() {
     const {onCreateTag, disableTagAdding} = this.props;
     const {value, tags} = this.state;
