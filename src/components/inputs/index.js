@@ -9,6 +9,7 @@
 module.exports = {
   get BaseInput() { return require('./BaseInput'); },
   get MaskedInput() { return require('./MaskedInput'); },
+  get TagsInput() { return require('./TagsInput'); },
   get TextArea() { return require('./TextArea'); },
   get TextInput() { return require('./TextInput'); },
 };
