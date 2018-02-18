@@ -94,6 +94,7 @@ class TagsInput extends BaseComponent {
 
   static defaultProps = {
     removeLabel: 'Remove',
+    tags: [],
   };
 
   static onChangeTagsActions = {
@@ -114,7 +115,7 @@ class TagsInput extends BaseComponent {
 
     this.state = {
       value: props.value,
-      tags: props.tags || [],
+      tags: props.tags,
       tagIndexToRemove: undefined,
     };
   }
@@ -246,7 +247,7 @@ class TagsInput extends BaseComponent {
   renderLabel(tag, shouldMarkTag) {
     const typography = this.extractTypographyValue();
     return (
-      <View row centerV>
+      <View style={this.styles.removeContainer}>
         {shouldMarkTag &&
           <Image style={this.styles.removeIcon} source={Assets.icons.x} />}
         <Text style={[this.styles.tagLabel, typography]}>
@@ -358,11 +359,16 @@ function createStyles({ rtl }) {
     tagMarked: {
       backgroundColor: Colors.dark10,
     },
+    removeContainer: {
+      flexDirection: rtl ? 'row-reverse' : 'row',
+      alignItems: 'center',
+    },
     removeIcon: {
       tintColor: Colors.white,
       width: 10,
       height: 10,
-      marginRight: 6,
+      marginLeft: rtl ? 6 : undefined,
+      marginRight: rtl ? undefined : 6,
     },
     tagLabel: {
       ...Typography.text80,
