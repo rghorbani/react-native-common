@@ -1,6 +1,6 @@
 {
   "name": "react-native-common",
-  "version": "0.10.2",
+  "version": "0.10.3",
   "description": "React Native common components",
   "main": "src/index.js",
   "scripts": {
@@ -80,7 +80,7 @@
   },
   "rnpm": {
     "android": {
-      "packageImportPath": "com.kajoo.reactnativecommon.*",
+      "packageImportPath": "import com.kajoo.reactnativecommon.textinput.*;",
       "packageInstance": "new TextInputDelKeyHandlerPackage()"
     },
     "ios": {
