@@ -90,13 +90,14 @@ class Header extends BaseComponent {
       statusBarHeight = 0;
     }
 
-    let headerHeight = Platform.OS === 'ios' ? 45 + statusBarHeight : 60 + statusBarHeight;
+    let height = Platform.OS === 'ios' ? 45 : 55;
     if (this.props.height) {
-      headerHeight = this.props.height;
+      height = this.props.height;
     }
+    height += statusBarHeight;
 
     this.styles = createStyles({
-      height: headerHeight,
+      height: height,
       statusBarHeight,
       backgroundColor: this.props.backgroundColor,
       leftItems: this.props.leftItems,
@@ -157,7 +158,7 @@ class Header extends BaseComponent {
     } else {
       content = (
         <View collapsable={false} style={{ flex: 1, justifyContent: 'center' }}>
-          <Text text70 numberOfLines={1} style={[this.styles.headerTitle, { color: titleColor }, titleStyle]}>
+          <Text text70 numberOfLines={1} style={[this.styles.title, { color: titleColor }, titleStyle]}>
             {this.props.title}
           </Text>
         </View>
@@ -213,7 +214,7 @@ class Header extends BaseComponent {
 
     const content =
       React.Children.count(this.props.children) === 0 ? (
-        <Text text70 numberOfLines={1} style={[this.styles.headerTitle, { color: titleColor }, titleStyle]}>
+        <Text text70 numberOfLines={1} style={[this.styles.title, { color: titleColor }, titleStyle]}>
           {this.props.title}
         </Text>
       ) : (
@@ -297,14 +298,7 @@ function createStyles({
       alignItems: 'center',
       justifyContent: 'flex-end',
     },
-    itemWrapper: {
-      padding: 11,
-    },
-    headerTitle: {
-      fontWeight: '500',
-      ...Platform.select({
-        android: { fontSize: 20 },
-      }),
+    title: {
     },
   });
 }
