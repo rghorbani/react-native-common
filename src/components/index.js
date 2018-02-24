@@ -26,6 +26,7 @@ module.exports = {
   get Header() { return require('./header'); },
   get KeyboardSpacer() { return require('./KeyboardSpacer'); },
   get LoadingView() { return require('./loading'); },
+  get Picker() { return require('./picker'); },
   get Text() { return require('./text'); },
   get View() { return require('./view'); },
   // Other

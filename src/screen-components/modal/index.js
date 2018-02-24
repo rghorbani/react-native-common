@@ -8,13 +8,12 @@
 
 const React = require('react');
 const PropTypes = require('prop-types');
-
+const RNModal = require('react-native').Modal;
+const { BlurView } = require('react-native-blur');
 const { View } = require('react-native');
-import { Modal as RNModal } from 'react-native';
-import { BlurView } from 'react-native-blur';
-const { BaseComponent } = require('../../commons');
 
 const TopBar = require('./TopBar');
+const { BaseComponent } = require('../../commons');
 
 class Modal extends BaseComponent {
   static displayName = 'Modal';
@@ -24,10 +23,10 @@ class Modal extends BaseComponent {
   };
 
   render() {
-    const {enableModalBlur, ...props} = this.props;
+    const {enableModalBlur, ...others} = this.props;
     const Container = enableModalBlur ? BlurView : View;
     return (
-      <RNModal {...props}>
+      <RNModal {...others}>
         <Container style={{flex: 1}} blurType="light">
           {this.props.children}
         </Container>

@@ -47,6 +47,7 @@ import { Button } from 'react-native-common';
 - [x] Badge
 - [x] Button
 - [x] Carousel
+- [x] Connection Status Bar
 - [x] DrawerLayout
 - [x] KeyboardSpacer
 - [x] Header
@@ -66,7 +67,6 @@ import { Button } from 'react-native-common';
 - [x] SettingsList.Item
 - [x] StyleSheet
 - [x] ViewPager
-- [ ] Connection Status Bar
 - [ ] Checkboxes
 
 ## Documentation
@@ -80,7 +80,6 @@ Look for the label `Good First Task` on the issues. Click [here](https://github.
 
 #### NOT STARTED
 - [ ] Add Theming & Default Styles to all of the Components
-- [ ] Add Notification Component
 - [ ] Add DatePicker/Calendar Component
 - [ ] Add Image Component which supports parallax
 - [ ] Compatibility with react-native-windows

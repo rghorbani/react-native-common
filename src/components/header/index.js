@@ -90,7 +90,7 @@ class Header extends BaseComponent {
       statusBarHeight = 0;
     }
 
-    let height = Platform.OS === 'ios' ? 45 : 55;
+    let height = Platform.OS === 'ios' ? 45 : 50;
     if (this.props.height) {
       height = this.props.height;
     }

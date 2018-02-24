@@ -8,12 +8,12 @@
 
 const React = require('react');
 const PropTypes = require('prop-types');
-
-const { Text, StyleSheet, View } = require('react-native');
+const { StyleSheet } = require('react-native');
 
 const Assets = require('../../assets');
 const Button = require('../../components/button');
-
+const Text = require('../../components/text');
+const View = require('../../components/view');
 const { BaseComponent } = require('../../commons');
 const { Constants } = require('../../helpers');
 const { Colors, Typography } = require('../../style');
@@ -163,6 +163,5 @@ function createStyles() {
     },
   });
 }
-
 
 module.exports = TopBar;
