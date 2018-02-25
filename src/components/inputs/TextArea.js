@@ -21,6 +21,9 @@ class TextArea extends BaseInput {
      * rtl component
      */
     rtl: PropTypes.bool,
+    /**
+     * Use to identify the component in tests
+     */
     testId: PropTypes.string,
   };
 
@@ -39,6 +42,7 @@ class TextArea extends BaseInput {
           value={value}
           multiline={true}
           style={inputStyle}
+          underlineColorAndroid="transparent"
           onChangeText={this.onChangeText}
           ref={(input) => { this.input = input; }}
         />

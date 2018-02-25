@@ -10,7 +10,7 @@ const React = require('react');
 const PropTypes = require('prop-types');
 const _ = require('lodash');
 const { Animated, Text, StyleSheet, View } = require('react-native');
-import {TextInput as RNTextInput} from 'react-native';
+const RNTextInput = require('react-native').TextInput;
 
 const BaseInput = require('./BaseInput');
 const TextArea = require('./TextArea');
@@ -19,10 +19,12 @@ const { Constants } = require('../../helpers');
 const { Modal } = require('../../screen-components');
 
 const DEFAULT_UNDERLINE_COLOR_BY_STATE = {
-  default: Colors.dark80,
+  default: Colors.dark70,
   focus: Colors.blue30,
   error: Colors.red30,
 };
+const charCountColorDefault = Colors.dark40;
+const charCountColorLimit = Colors.red30;
 
 class TextInput extends BaseInput {
   static displayName = 'TextInput';
@@ -66,12 +68,28 @@ class TextInput extends BaseInput {
      * transform function executed on value and return transformed value
      */
     transformer: PropTypes.func,
+    /**
+     * Fixed title that will displayed above the input (note: floatingPlaceholder MUST be 'false')
+     */
+    title: PropTypes.string,
+    /**
+     * The title's color
+     */
+    titleColor: PropTypes.string,
+    /**
+     * should the input display a character counter (only when passing 'maxLength')
+     */
+    showCharacterCounter: PropTypes.bool,
+    /**
+     * Use to identify the component in tests
+     */
     testId: PropTypes.string,
   };
 
   static defaultProps = {
     placeholderTextColor: Colors.dark40,
     floatingPlaceholderColor: Colors.dark40,
+    titleColor: Colors.dark40,
     enableErrors: true,
   };
 
@@ -80,20 +98,21 @@ class TextInput extends BaseInput {
 
     this.onChangeText = this.onChangeText.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.onDoneEditingExpandableInput = this.onDoneEditingExpandableInput.bind(this);
     this.updateFloatingPlaceholderState = this.updateFloatingPlaceholderState.bind(this);
     this.toggleExpandableModal = this.toggleExpandableModal.bind(this);
-    this.onDoneEditingExpandableInput = this.onDoneEditingExpandableInput.bind(this);
 
     // const typography = this.getTypography();
     this.state = {
       // inputWidth: typography.fontSize * 2,
-      widthExtendBreaks: [],
       value: props.value,
       floatingPlaceholderState: new Animated.Value(
         this.hasText(props.value) ? 1 : 0,
       ),
       showExpandableModal: false,
     };
+
+    this.generatePropsWarnings(props);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -104,19 +123,28 @@ class TextInput extends BaseInput {
     }
   }
 
+  generatePropsWarnings(props) {
+    if (props.maxLength === 0) {
+      console.warn('Setting maxLength to zero will block typing in this input');
+    }
+    if (props.showCharacterCounter && !props.maxLength) {
+      console.warn("In order to use showCharacterCount please pass 'maxLength' prop");
+    }
+  }
+
   generateStyles() {
     this.styles = createStyles(this.props);
   }
 
-  // todo: add tests
   getUnderlineStyle() {
     const {focused} = this.state;
-    const {error, underlineColor} = this.props;
+    const {error, underlineColor, showCharacterCounter} = this.props;
 
     const underlineColorByState = _.cloneDeep(DEFAULT_UNDERLINE_COLOR_BY_STATE);
     if (underlineColor) {
       if (typeof underlineColor === 'string') {
-        return {borderColor: underlineColor}; // use given color for any state
+        // use given color for any state
+        return {borderColor: underlineColor};
       } else if (_.isObject(underlineColor)) {
         _.merge(underlineColorByState, underlineColor);
       }
@@ -125,12 +153,25 @@ class TextInput extends BaseInput {
     let borderColor = underlineColorByState.default;
     if (error) {
       borderColor = underlineColorByState.error;
+    } else if (showCharacterCounter && this.isCounterLimit()) {
+      borderColor = charCountColorLimit;
     } else if (focused) {
       borderColor = underlineColorByState.focus;
     }
 
     // return the right color for the current state
     return {borderColor};
+  }
+
+  getCharCount() {
+    const {value} = this.state;
+    return _.size(value);
+  }
+
+  isCounterLimit() {
+    const {maxLength} = this.props;
+    const counter = this.getCharCount();
+    return counter === 0 ? false : maxLength === counter;
   }
 
   hasText(value) {
@@ -147,14 +188,29 @@ class TextInput extends BaseInput {
     if (multiline && numberOfLines) {
       if (Constants.isAndroid) {
         return undefined;
+      } else if (!this.state.height) {
+        // get numberOfLines support for iOS
+        this.setState({height: this.getLinesHeightLimit()});
       }
     }
-    const {height} = this.state;
+
     if (multiline) {
+      const {height} = this.state;
       return height;
     }
+
     const typography = this.getTypography();
     return typography.lineHeight;
+  }
+
+  getLinesHeightLimit() {
+    let maxHeight;
+    const {multiline, numberOfLines} = this.props;
+    if (multiline && numberOfLines) {
+      const typography = this.getTypography();
+      maxHeight = typography.lineHeight * numberOfLines;
+    }
+    return maxHeight;
   }
 
   renderPlaceholder() {
@@ -203,6 +259,37 @@ class TextInput extends BaseInput {
     }
   }
 
+  renderTitle() {
+    const {floatingPlaceholder, title} = this.props;
+    if (!floatingPlaceholder && title) {
+      const capitalizedTitle = _.capitalize(title);
+      return (
+        <Text
+          style={this.styles.title}
+          text90
+        >
+          {capitalizedTitle}
+        </Text>
+      );
+    }
+  }
+
+  renderCharCounter() {
+    const {maxLength, showCharacterCounter} = this.props;
+    if (maxLength && showCharacterCounter) {
+      const counter = this.getCharCount();
+      const color = this.isCounterLimit() ? charCountColorLimit : charCountColorDefault;
+      return (
+        <Text
+          style={{color}}
+          text90
+        >
+          {counter} / {maxLength}
+        </Text>
+      );
+    }
+  }
+
   renderError() {
     const {enableErrors, error} = this.props;
     if (enableErrors) {
@@ -240,9 +327,9 @@ class TextInput extends BaseInput {
   }
 
   renderExpandableInput() {
-    const typography = this.getTypography();
     const {floatingPlaceholder, placeholder} = this.props;
     const {value} = this.state;
+    const typography = this.getTypography();
     const minHeight = typography.lineHeight;
     const shouldShowPlaceholder = _.isEmpty(value) && !floatingPlaceholder;
 
@@ -263,6 +350,7 @@ class TextInput extends BaseInput {
   }
 
   renderTextInput() {
+    const {value} = this.state;
     const color = this.props.color || this.extractColorValue();
     const typography = this.getTypography();
     const {
@@ -274,7 +362,6 @@ class TextInput extends BaseInput {
       numberOfLines,
       ...props
     } = this.props;
-    const {value} = this.state;
     const inputStyle = [
       this.styles.input,
       typography,
@@ -294,7 +381,6 @@ class TextInput extends BaseInput {
         numberOfLines={numberOfLines}
         onChangeText={this.onChangeText}
         onChange={this.onChange}
-        onContentSizeChange={this.onContentSizeChange}
         onFocus={this.onFocus}
         onBlur={this.onBlur}
         ref={(input) => {
@@ -310,12 +396,18 @@ class TextInput extends BaseInput {
 
     return (
       <View style={[this.styles.container, containerStyle]} collapsable={false}>
+        {this.renderTitle()}
         <View style={[this.styles.innerContainer, underlineStyle]}>
           {this.renderPlaceholder()}
           {expandable ? this.renderExpandableInput() : this.renderTextInput()}
           {this.renderExpandableModal()}
         </View>
-        {this.renderError()}
+        <View row flex>
+          <View flex-1>
+            {this.renderError()}
+          </View>
+          {this.renderCharCounter()}
+        </View>
       </View>
     );
   }
@@ -363,27 +455,7 @@ class TextInput extends BaseInput {
   }
 
   onChange(event) {
-    this.calcMultilineInputHeight(event);
     this.props.onChange && this.props.onChange(event);
-  }
-
-  // this is just for android
-  calcMultilineInputHeight(event) {
-    let height;
-    if (Constants.isAndroid) {
-      height = _.get(event, 'nativeEvent.contentSize.height');
-    }
-    // In iOS, limit the number of lines when numberOfLines passed
-    if (Constants.isIOS) {
-      const {multiline, numberOfLines} = this.props;
-      if (multiline && numberOfLines) {
-        const typography = this.getTypography();
-        height = typography.lineHeight * numberOfLines;
-      }
-    }
-    if (height) {
-      this.setState({height});
-    }
   }
 }
 
@@ -393,6 +465,7 @@ function createStyles({
   hideUnderline,
   centered,
   floatingPlaceholder,
+  titleColor,
 }) {
   return StyleSheet.create({
     container: {
@@ -400,7 +473,7 @@ function createStyles({
     innerContainer: {
       flexDirection: 'row',
       borderBottomWidth: hideUnderline ? 0 : 1,
-      borderColor: Colors.dark80,
+      borderColor: Colors.dark70,
       justifyContent: centered ? 'center' : (rtl ? 'flex-end' : undefined),
       paddingTop: floatingPlaceholder ? 25 : undefined,
       flexGrow: 1,
@@ -441,6 +514,11 @@ function createStyles({
       flex: 1,
       paddingTop: 15,
       paddingHorizontal: 20,
+    },
+    title: {
+      top: 0,
+      color: titleColor,
+      marginBottom: Constants.isIOS ? 5 : 4,
     },
   });
 }
