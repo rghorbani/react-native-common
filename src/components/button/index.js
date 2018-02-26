@@ -24,6 +24,10 @@ class Button extends BaseComponent {
   static propTypes = {
     ...Text.propTypes,
     /**
+     * rtl component
+     */
+    rtl: PropTypes.bool,
+    /**
      * Text to show inside the button
      */
     label: PropTypes.string,
@@ -369,7 +373,7 @@ class Button extends BaseComponent {
         testID={testID}
         {...props}
       >
-        <View row centerV style={contentSizeStyle}>
+        <View row centerV style={[this.styles.content, contentSizeStyle]}>
           {this.props.children}
           {this.renderIcon()}
           {this.renderLabel()}
@@ -379,7 +383,7 @@ class Button extends BaseComponent {
   }
 }
 
-function createStyles() {
+function createStyles({ rtl }) {
   return StyleSheet.create({
     container: {
       backgroundColor: 'transparent',
@@ -398,6 +402,9 @@ function createStyles() {
       paddingVertical: undefined,
       borderRadius: BorderRadiuses.br0,
       backgroundColor: undefined,
+    },
+    content: {
+      flexDirection: rtl ? 'row-reverse' : 'row',
     },
     shadowStyle: {
       shadowColor: '#3082C8',
