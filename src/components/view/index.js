@@ -7,9 +7,11 @@
 'use strict';
 
 const React = require('react');
-const { StyleSheet, ViewPropTypes } = require('react-native');
-import { View as RNView } from 'react-native';
+const PropTypes = require('prop-types');
+const RNView = require('react-native').View;
+const { StyleSheet, SafeAreaView, ViewPropTypes } = require('react-native');
 
+const Constants = require('../../helpers/Constants');
 const { BaseComponent } = require('../../commons');
 
 class View extends BaseComponent {
@@ -18,6 +20,10 @@ class View extends BaseComponent {
   static propTypes = {
     ...ViewPropTypes,
     ...BaseComponent.propTypes,
+    /**
+     * if true, will add SafeAreaView as a wrapper
+     */
+    useSafeArea: PropTypes.bool,
   };
 
   generateStyles() {
@@ -28,12 +34,13 @@ class View extends BaseComponent {
     this._root.setNativeProps(nativeProps); // eslint-disable-line
   }
 
-  render() {
+  renderView() {
     const {backgroundColor, borderRadius, paddings, margins, alignments, flexStyle} = this.state;
-    const {style, ...props} = this.props;
+    const {useSafeArea, style, left, top, right, bottom, flex: propsFlex, ...props} = this.props; // eslint-disable-line
+    const Element = (useSafeArea && Constants.isIOS) ? SafeAreaView : RNView;
 
     return (
-      <RNView
+      <Element
         {...props}
         style={[
           this.styles.container,
@@ -48,8 +55,12 @@ class View extends BaseComponent {
         ref={r => (this.view = r)}
       >
         {this.props.children}
-      </RNView>
+      </Element>
     );
+  }
+
+  render() {
+    return this.renderView();
   }
 
   measure(...args) {

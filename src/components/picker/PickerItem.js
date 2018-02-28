@@ -11,9 +11,9 @@ const PropTypes = require('prop-types');
 const _ = require('lodash');
 const { Image, StyleSheet } = require('react-native');
 
-const Assets = require('../../assets');
 const View = require('../view');
 const Text = require('../text');
+const Assets = require('../../assets');
 const { TouchableOpacity } = require('../touchables');
 const { BaseComponent } = require('../../commons');
 const { Colors, Typography, ThemeManager } = require('../../style');
@@ -85,7 +85,7 @@ class PickerItem extends BaseComponent {
   renderItem() {
     const {disabled} = this.props;
     return (
-      <View style={this.styles.container} flex row spread centerV>
+      <View flex row spread centerV style={this.styles.container}>
         <Text
           numberOfLines={1}
           style={[this.styles.labelText, disabled && this.styles.labelTextDisabled]}

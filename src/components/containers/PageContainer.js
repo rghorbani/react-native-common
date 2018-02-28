@@ -26,12 +26,13 @@ class PageContainer extends React.Component {
   }
 
   render() {
-    const {children, ...props} = this.props;
+    const {children, headerStyle, style, ...props} = this.props;
     return (
-      <View style={[styles.container, this.props.style]}>
+      <View style={[styles.container, style]}>
         <View style={styles.headerWrapper}>
           <Header
             {...props}
+            style={headerStyle}
           >
             {this.props.headerChildren}
           </Header>

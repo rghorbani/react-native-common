@@ -5,22 +5,43 @@
  */
 
 const React = require('react');
+const PropTypes = require('prop-types');
 const _ = require('lodash');
 const { StyleSheet } = require('react-native');
 
-const { BorderRadiuses, Colors, ThemeManager, Typography } = require('../style');
+const {DocsGenerator} = require('../helpers');
+const {Typography, Colors, BorderRadiuses, ThemeManager} = require('../style');
 
 const FLEX_KEY_PATTERN = /^flex(G|S)?(-\d*)?$/;
 const PADDING_KEY_PATTERN = /padding[LTRBHV]?-[0-9]*/;
 const MARGIN_KEY_PATTERN = /margin[LTRBHV]?-[0-9]*/;
-// const ALIGNMENT_KEY_PATTERN = /(left|top|right|bottom|center|centerV|centerH|spread)/;
+const ALIGNMENT_KEY_PATTERN = /(left|top|right|bottom|center|centerV|centerH|spread)/;
 
 class BaseComponent extends React.Component {
   static displayName = 'BaseComponent';
 
+  static propTypes = {
+    ..._.mapValues(Typography, () => PropTypes.bool),
+    ..._.mapValues(Colors, () => PropTypes.bool),
+    useNativeDriver: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    useNativeDriver: true,
+  };
+
+  static extractOwnProps(props, ignoreProps) {
+    const ownPropTypes = this.propTypes;
+    const ownProps = _.chain(props)
+      .pickBy((value, key) => _.includes(Object.keys(ownPropTypes), key))
+      .omit(ignoreProps)
+      .value();
+
+    return ownProps;
+  }
+
   constructor(props) {
     super(props);
-
     if (!this.styles) {
       this.generateStyles();
     }
@@ -30,6 +51,61 @@ class BaseComponent extends React.Component {
     };
   }
 
+  getThemeProps() {
+    const componentName = this.constructor.displayName;
+    const componentThemeProps = ThemeManager.components[componentName];
+    return {...componentThemeProps, ...this.props};
+  }
+
+  getSnippet() {
+    return DocsGenerator.generateSnippet(DocsGenerator.extractComponentInfo(this));
+  }
+
+  generateStyles() {
+    this.styles = StyleSheet.create({});
+  }
+
+  extractAnimationProps() {
+    return _.pick(this.props, [
+      'animation',
+      'duration',
+      'delay',
+      'direction',
+      'easing',
+      'iterationCount',
+      'transition',
+      'onAnimationBegin',
+      'onAnimationEnd',
+      'useNativeDriver',
+    ]);
+  }
+
+  extractContainerStyle(props) {
+    let containerStyle = {};
+    if (props.containerStyle) {
+      containerStyle = _.pickBy(props.containerStyle, (value, key) => {
+        return key.includes('margin') || _.includes(['alignSelf', 'transform'], key);
+      });
+    }
+
+    return containerStyle;
+  }
+
+  extractTypographyValue() {
+    const typographyPropsKeys = _.chain(this.props)
+      .keys(this.props)
+      .filter(key => Typography.getKeysPattern().test(key))
+      .value();
+    let typography;
+    _.forEach(typographyPropsKeys, (key) => {
+      if (this.props[key] === true) {
+        typography = Typography[key];
+      }
+    });
+
+    return typography;
+  }
+
   extractColorValue() {
     let color;
     _.forEach(Colors, (value, key) => {
@@ -37,9 +113,11 @@ class BaseComponent extends React.Component {
         color = value;
       }
     });
+
     return color;
   }
 
+  // todo: refactor this and use BACKGROUND_KEY_PATTERN
   extractBackgroundColorValue() {
     let backgroundColor;
     _.forEach(Colors, (value, key) => {
@@ -47,6 +125,7 @@ class BaseComponent extends React.Component {
         backgroundColor = value;
       }
     });
+
     return backgroundColor;
   }
 
@@ -57,6 +136,7 @@ class BaseComponent extends React.Component {
         borderRadius = value;
       }
     });
+
     return borderRadius;
   }
 
@@ -157,6 +237,23 @@ class BaseComponent extends React.Component {
     return alignments;
   }
 
+  // todo: deprecate this, use extractFlexStyle instead
+  extractFlexValue() {
+    const flexPropKey = _.chain(this.props)
+      .keys(this.props)
+      .filter(key => FLEX_KEY_PATTERN.test(key))
+      .last()
+      .value();
+    if (flexPropKey && this.props[flexPropKey] === true) {
+      const value = flexPropKey.split('-').pop();
+      if (value === 'flex' || value === '') {
+        return 1;
+      } else if (!isNaN(value)) {
+        return Number(value);
+      }
+    }
+  }
+
   extractFlexStyle() {
     const STYLE_KEY_CONVERTERS = {
       flex: 'flex',
@@ -183,6 +280,7 @@ class BaseComponent extends React.Component {
     const paddings = this.extractPaddingValues();
     const margins = this.extractMarginValues();
     const alignments = this.extractAlignmentsValues();
+    // const flex = this.extractFlexValue();
     const flexStyle = this.extractFlexStyle();
 
     return {
@@ -199,28 +297,20 @@ class BaseComponent extends React.Component {
     return _.pick(props, [..._.keys(Typography), ..._.keys(Colors), 'color']);
   }
 
-  extractTypographyValue() {
-    const typographyPropsKeys = _.chain(this.props)
-      .keys(this.props)
-      .filter(key => Typography.getKeysPattern().test(key))
-      .value();
-    let typography;
-    _.forEach(typographyPropsKeys, (key) => {
-      if (this.props[key] === true) {
-        typography = Typography[key];
-      }
+  extractModifierProps() {
+    const patterns = [
+      FLEX_KEY_PATTERN,
+      PADDING_KEY_PATTERN,
+      MARGIN_KEY_PATTERN,
+      ALIGNMENT_KEY_PATTERN,
+      Colors.getBackgroundKeysPattern(),
+    ];
+    const modifierProps = _.pickBy(this.props, (value, key) => {
+      const isModifier = _.find(patterns, pattern => pattern.test(key));
+      return !!isModifier;
     });
-    return typography;
-  }
 
-  generateStyles() {
-    this.styles = StyleSheet.create({});
-  }
-
-  getThemeProps() {
-    const componentName = this.constructor.displayName;
-    const componentThemeProps = ThemeManager.components[componentName];
-    return {...componentThemeProps, ...this.props};
+    return modifierProps;
   }
 }
 

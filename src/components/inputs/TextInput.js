@@ -9,11 +9,13 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const _ = require('lodash');
-const { Animated, Text, StyleSheet, View } = require('react-native');
 const RNTextInput = require('react-native').TextInput;
+const { Animated, StyleSheet } = require('react-native');
 
 const BaseInput = require('./BaseInput');
 const TextArea = require('./TextArea');
+const Text = require('../text');
+const View = require('../view');
 const { Colors, Typography } = require('../../style');
 const { Constants } = require('../../helpers');
 const { Modal } = require('../../screen-components');
@@ -32,6 +34,10 @@ class TextInput extends BaseInput {
   static propTypes = {
     ...RNTextInput.propTypes,
     ...BaseInput.propTypes,
+    /**
+     * make component rtl
+     */
+    rtl: PropTypes.bool,
     /**
      * should placeholder have floating behavior
      */
@@ -117,9 +123,12 @@ class TextInput extends BaseInput {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.value !== this.props.value) {
-      this.setState({
-        value: nextProps.value,
-      }, this.updateFloatingPlaceholderState);
+      this.setState(
+        {
+          value: nextProps.value,
+        },
+        this.updateFloatingPlaceholderState,
+      );
     }
   }
 
@@ -138,11 +147,11 @@ class TextInput extends BaseInput {
 
   getUnderlineStyle() {
     const {focused} = this.state;
-    const {error, underlineColor, showCharacterCounter} = this.props;
+    const {error, underlineColor} = this.props;
 
     const underlineColorByState = _.cloneDeep(DEFAULT_UNDERLINE_COLOR_BY_STATE);
     if (underlineColor) {
-      if (typeof underlineColor === 'string') {
+      if (_.isString(underlineColor)) {
         // use given color for any state
         return {borderColor: underlineColor};
       } else if (_.isObject(underlineColor)) {
@@ -153,8 +162,6 @@ class TextInput extends BaseInput {
     let borderColor = underlineColorByState.default;
     if (error) {
       borderColor = underlineColorByState.error;
-    } else if (showCharacterCounter && this.isCounterLimit()) {
-      borderColor = charCountColorLimit;
     } else if (focused) {
       borderColor = underlineColorByState.focus;
     }
@@ -360,19 +367,20 @@ class TextInput extends BaseInput {
       centered,
       multiline,
       numberOfLines,
-      ...props
+      ...others
     } = this.props;
     const inputStyle = [
       this.styles.input,
       typography,
       color && {color},
+      // {height: (multiline) ? typography.lineHeight * 3 : typography.lineHeight},
       {height: this.getHeight()},
       style,
     ];
 
     return (
       <RNTextInput
-        {...props}
+        {...others}
         value={value}
         placeholder={floatingPlaceholder && !centered ? undefined : placeholder}
         underlineColorAndroid="transparent"
@@ -402,7 +410,7 @@ class TextInput extends BaseInput {
           {expandable ? this.renderExpandableInput() : this.renderTextInput()}
           {this.renderExpandableModal()}
         </View>
-        <View row flex>
+        <View row flex style={this.styles.errorContainer}>
           <View flex-1>
             {this.renderError()}
           </View>
@@ -433,18 +441,18 @@ class TextInput extends BaseInput {
       value: expandableInputValue,
     });
     this.state.floatingPlaceholderState.setValue(expandableInputValue ? 1 : 0);
-    this.props.onChangeText && this.props.onChangeText(expandableInputValue);
+    _.invoke(this.props, 'onChangeText', expandableInputValue);
     this.toggleExpandableModal(false);
   }
 
   onChangeText(text) {
     let transformedText = text;
     const {transformer} = this.props;
-    if (typeof transformer === 'function') {
+    if (_.isFunction(transformer)) {
       transformedText = transformer(text);
     }
 
-    this.props.onChangeText && this.props.onChangeText(transformedText);
+    _.invoke(this.props, 'onChangeText', transformedText);
 
     this.setState(
       {
@@ -455,7 +463,7 @@ class TextInput extends BaseInput {
   }
 
   onChange(event) {
-    this.props.onChange && this.props.onChange(event);
+    _.invoke(this.props, 'onChange', event);
   }
 }
 
@@ -503,11 +511,15 @@ function createStyles({
       right: 0,
       textAlign: 'center',
     },
+    errorContainer: {
+      flexDirection: rtl ? 'row-reverse' : 'row',
+    },
     errorMessage: {
       color: Colors.red30,
       ...Typography.text90,
       height: Typography.text90.lineHeight,
-      textAlign: centered ? 'center' : undefined,
+      textAlign: centered ? 'center' : (rtl ? 'right' : undefined),
+      writingDirection: rtl ? 'rtl' : undefined,
       marginTop: 1,
     },
     expandableModalContent: {
@@ -519,6 +531,8 @@ function createStyles({
       top: 0,
       color: titleColor,
       marginBottom: Constants.isIOS ? 5 : 4,
+      textAlign: rtl ? 'right' : undefined,
+      writingDirection: rtl ? 'rtl' : undefined,
     },
   });
 }

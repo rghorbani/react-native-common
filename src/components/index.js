@@ -27,6 +27,7 @@ module.exports = {
   get KeyboardSpacer() { return require('./KeyboardSpacer'); },
   get LoadingView() { return require('./loading'); },
   get Picker() { return require('./picker'); },
+  get Stepper() { return require('./stepper'); },
   get Text() { return require('./text'); },
   get View() { return require('./view'); },
   // Other
