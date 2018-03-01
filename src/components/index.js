@@ -28,7 +28,9 @@ module.exports = {
   get LoadingView() { return require('./loading'); },
   get Picker() { return require('./picker'); },
   get Stepper() { return require('./stepper'); },
+  get TabBar() { return require('./tab-bar'); },
   get Text() { return require('./text'); },
+  get Toast() { return require('./toast'); },
   get View() { return require('./view'); },
   // Other
   get Navigator() { return require('./navigator/Navigator'); },

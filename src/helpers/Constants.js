@@ -1,8 +1,10 @@
 /**
- * Copyright 2016 Reza (github.com/rghorbani)
+ * Copyright 2016 Reza (github.com/rghorbani).
  *
  * @flow
  */
+
+'use strict';
 
 const { Dimensions, Platform, NativeModules } = require('react-native');
 

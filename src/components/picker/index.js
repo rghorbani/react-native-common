@@ -69,6 +69,7 @@ class Picker extends TextInput {
 
   static defaultProps = {
     ...TextInput.defaultProps,
+    picker: true,
     mode: PICKER_MODES.SINGLE,
     enableModalBlur: true,
     expandable: true,
@@ -157,12 +158,18 @@ class Picker extends TextInput {
 
   renderExpandableInput() {
     const typography = this.getTypography();
+    const minHeight = typography.lineHeight;
     const color = this.extractColorValue() || Colors.dark10;
     const label = this.getLabel();
 
     return (
       <Text
-        style={[this.styles.input, typography, {color}]}
+        style={[
+          this.styles.input,
+          typography,
+          {minHeight},
+          {color},
+        ]}
         numberOfLines={3}
         onPress={this.handlePickerOnPress}
       >

@@ -7,6 +7,7 @@
 'use strict';
 
 module.exports = {
+  get ListItem() { return require('./ListItem'); },
   // get InfiniteScrollView() { return require('./InfiniteScrollView'); },
   // get ItemsWithSeperator() { return require('./ItemsWithSeperator'); },
 };
