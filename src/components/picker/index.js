@@ -69,7 +69,6 @@ class Picker extends TextInput {
 
   static defaultProps = {
     ...TextInput.defaultProps,
-    picker: true,
     mode: PICKER_MODES.SINGLE,
     enableModalBlur: true,
     expandable: true,

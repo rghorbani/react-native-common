@@ -18,6 +18,7 @@ class PageContainer extends React.Component {
     ...Header.propTypes,
     headerChildren: PropTypes.any,
     children: PropTypes.any,
+    contentStyle: ViewPropTypes.style,
     style: ViewPropTypes.style,
   };
 
@@ -26,7 +27,7 @@ class PageContainer extends React.Component {
   }
 
   render() {
-    const {children, headerStyle, style, ...props} = this.props;
+    const {children, headerStyle, style, contentStyle, ...props} = this.props;
     return (
       <View style={[styles.container, style]}>
         <View style={styles.headerWrapper}>
@@ -37,7 +38,7 @@ class PageContainer extends React.Component {
             {this.props.headerChildren}
           </Header>
         </View>
-        <View style={styles.content}>
+        <View style={[styles.content, contentStyle]}>
           {children}
         </View>
       </View>
