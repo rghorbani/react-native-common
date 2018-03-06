@@ -3,8 +3,9 @@ const PropTypes = require('prop-types');
 const { StyleSheet, View, ViewPropTypes } = require('react-native');
 
 const Moment = require('moment');
+const jMoment = require('moment-jalaali');
 const dateutils = require('../dateutils');
-const { xdateToData, parseDate } = require('../interface');
+const { gregorian, jalaali, xdateToData, parseDate } = require('../interface');
 const Day = require('./day/basic');
 const UnitDay = require('./day/period');
 const MultiDotDay = require('./day/multi-dot');
@@ -19,6 +20,10 @@ const EmptyArray = [];
 
 class Calendar extends React.Component {
   static propTypes = {
+    // Calendar type
+    type: PropTypes.oneOf(['gregorian', 'jalaali']),
+    // is Calendar rtl
+    rtl: PropTypes.bool,
     // Specify theme properties to override specific styles for calendar parts. Default = {}
     theme: PropTypes.object,
     // Collection of dates that have to be marked. Default = {}
@@ -71,14 +76,22 @@ class Calendar extends React.Component {
     onPressArrowRight: PropTypes.func
   };
 
+  static defaultProps = {
+    type: 'gregorian',
+  };
+
   constructor(props) {
     super(props);
-    this.style = styleConstructor(this.props.theme);
+    this.style = styleConstructor(props.theme, props);
     let currentMonth;
     if (props.current) {
-      currentMonth = parseDate(props.current);
+      currentMonth = parseDate(this.props.type, props.current);
     } else {
-      currentMonth = Moment.utc();
+      if (props.type === 'jalaali') {
+        currentMonth = jMoment.utc();
+      } else {
+        currentMonth = Moment.utc();
+      }
     }
     this.state = {
       currentMonth
@@ -86,12 +99,13 @@ class Calendar extends React.Component {
 
     this.updateMonth = this.updateMonth.bind(this);
     this.addMonth = this.addMonth.bind(this);
+    this.monthFormat = this.monthFormat.bind(this);
     this.pressDay = this.pressDay.bind(this);
     this.shouldComponentUpdate = shouldComponentUpdate;
   }
 
   componentWillReceiveProps(nextProps) {
-    const current = parseDate(nextProps.current);
+    const current = parseDate(this.props.type, nextProps.current);
     if (current && current.format('YYYY MM') !== this.state.currentMonth.format('YYYY MM')) {
       this.setState({
         currentMonth: current.clone()
@@ -109,49 +123,67 @@ class Calendar extends React.Component {
       if (!doNotTriggerListeners) {
         const currMont = this.state.currentMonth.clone();
         if (this.props.onMonthChange) {
-          this.props.onMonthChange(xdateToData(currMont));
+          this.props.onMonthChange(xdateToData(this.props.type, currMont));
         }
         if (this.props.onVisibleMonthsChange) {
-          this.props.onVisibleMonthsChange([xdateToData(currMont)]);
+          this.props.onVisibleMonthsChange([xdateToData(this.props.type, currMont)]);
         }
       }
     });
   }
 
   pressDay(date) {
-    const day = parseDate(date);
-    const minDate = parseDate(this.props.minDate);
-    const maxDate = parseDate(this.props.maxDate);
-    if (!(minDate && !dateutils.isGTE(day, minDate)) && !(maxDate && !dateutils.isLTE(day, maxDate))) {
+    const day = parseDate(this.props.type, date);
+    const minDate = parseDate(this.props.type, this.props.minDate);
+    const maxDate = parseDate(this.props.type, this.props.maxDate);
+    if (!(minDate && !dateutils.isGTE(this.props.type, day, minDate)) && !(maxDate && !dateutils.isLTE(this.props.type, day, maxDate))) {
       const shouldUpdateMonth = this.props.disableMonthChange === undefined || !this.props.disableMonthChange;
       if (shouldUpdateMonth) {
         this.updateMonth(day);
       }
       if (this.props.onDayPress) {
-        this.props.onDayPress(xdateToData(day));
+        if (this.props.type === 'jalaali') {
+          this.props.onDayPress(gregorian.xdateToData(day), jalaali.xdateToData(day));
+        } else {
+          this.props.onDayPress(gregorian.xdateToData(day), gregorian.xdateToData(day));
+        }
       }
     }
   }
 
   addMonth(count) {
-    this.updateMonth(this.state.currentMonth.clone().add(count, 'months'));
+    if (this.props.type === 'jalaali') {
+      this.updateMonth(this.state.currentMonth.clone().add(count, 'jMonths'));
+    } else {
+      this.updateMonth(this.state.currentMonth.clone().add(count, 'months'));
+    }
+  }
+
+  monthFormat() {
+    if (this.props.monthFormat) {
+      return this.props.monthFormat;
+    }
+    if (this.props.type === 'jalaali') {
+      return 'jMMMM jYYYY';
+    }
+    return 'MMMM YYYY';
   }
 
   renderDay(day, id) {
-    const minDate = parseDate(this.props.minDate);
-    const maxDate = parseDate(this.props.maxDate);
+    const minDate = parseDate(this.props.type, this.props.minDate);
+    const maxDate = parseDate(this.props.type, this.props.maxDate);
     let state = '';
     if (this.props.disabledByDefault) {
       state = 'disabled';
-    } else if ((minDate && !dateutils.isGTE(day, minDate)) || (maxDate && !dateutils.isLTE(day, maxDate))) {
+    } else if ((minDate && !dateutils.isGTE(this.props.type, day, minDate)) || (maxDate && !dateutils.isLTE(this.props.type, day, maxDate))) {
       state = 'disabled';
-    } else if (!dateutils.sameMonth(day, this.state.currentMonth)) {
+    } else if (!dateutils.sameMonth(this.props.type, day, this.state.currentMonth)) {
       state = 'disabled';
-    } else if (dateutils.sameDate(day, Moment())) {
+    } else if (dateutils.sameDate(this.props.type, day, Moment())) {
       state = 'today';
     }
     let dayComp;
-    if (!dateutils.sameMonth(day, this.state.currentMonth) && this.props.hideExtraDays) {
+    if (!dateutils.sameMonth(this.props.type, day, this.state.currentMonth) && this.props.hideExtraDays) {
       if (this.props.markingType === 'period') {
         dayComp = (<View key={id} style={{flex: 1}}/>);
       } else {
@@ -159,14 +191,20 @@ class Calendar extends React.Component {
       }
     } else {
       const DayComp = this.getDayComponent();
-      const date = day.date();
+      let date;
+      if (this.props.type === 'jalaali') {
+        date = day.jDate();
+      } else {
+        date = day.date();
+      }
       dayComp = (
         <DayComp
           key={id}
           state={state}
+          type={this.props.type}
           theme={this.props.theme}
           onPress={this.pressDay}
-          date={xdateToData(day)}
+          date={xdateToData(this.props.type, day)}
           marking={this.getDateMarking(day)}
         >
           {date}
@@ -204,7 +242,7 @@ class Calendar extends React.Component {
   }
 
   renderWeekNumber (weekNumber) {
-    return <Day key={`week-${weekNumber}`} theme={this.props.theme} state="disabled">{weekNumber}</Day>;
+    return <Day key={`week-${weekNumber}`} type={this.props.type} theme={this.props.theme} state="disabled">{weekNumber}</Day>;
   }
 
   renderWeek(days, id) {
@@ -214,20 +252,24 @@ class Calendar extends React.Component {
     }, this);
 
     if (this.props.showWeekNumbers) {
-      week.unshift(this.renderWeekNumber(days[days.length - 1].isoWeek()));
+      if (this.props.type === 'jalaali') {
+        week.unshift(this.renderWeekNumber(days[days.length - 1].jWeek()));
+      } else {
+        week.unshift(this.renderWeekNumber(days[days.length - 1].isoWeek()));
+      }
     }
 
     return (<View style={this.style.week} key={id}>{week}</View>);
   }
 
   render() {
-    const days = dateutils.page(this.state.currentMonth, this.props.firstDay);
+    const days = dateutils.page(this.props.type, this.state.currentMonth, this.props.firstDay);
     const weeks = [];
     while (days.length) {
       weeks.push(this.renderWeek(days.splice(0, 7), weeks.length));
     }
     let indicator;
-    const current = parseDate(this.props.current);
+    const current = parseDate(this.props.type, this.props.current);
     if (current) {
       const lastMonthOfDay = current.clone().add(1, 'months').date(1).add(-1, 'days').format('YYYY-MM-DD');
       if (this.props.displayLoadingIndicator &&
@@ -238,6 +280,7 @@ class Calendar extends React.Component {
     return (
       <View style={[this.style.container, this.props.style]}>
         <CalendarHeader
+          type={this.props.type}
           theme={this.props.theme}
           hideArrows={this.props.hideArrows}
           month={this.state.currentMonth}
@@ -245,7 +288,7 @@ class Calendar extends React.Component {
           showIndicator={indicator}
           firstDay={this.props.firstDay}
           renderArrow={this.props.renderArrow}
-          monthFormat={this.props.monthFormat}
+          monthFormat={this.monthFormat()}
           hideDayNames={this.props.hideDayNames}
           weekNumbers={this.props.showWeekNumbers}
           onPressArrowLeft={this.props.onPressArrowLeft}
@@ -258,8 +301,15 @@ class Calendar extends React.Component {
 
 const STYLESHEET_ID = 'stylesheet.calendar.main';
 
-function styleConstructor(theme = {}) {
+function styleConstructor(theme = {}, {rtl, type}) {
   const appStyle = {...defaultStyle, ...theme};
+  if (rtl === undefined) {
+    if (type === 'jalaali') {
+      rtl = true;
+    } else {
+      rtl = false;
+    }
+  }
   return StyleSheet.create({
     container: {
       paddingLeft: 5,
@@ -269,7 +319,7 @@ function styleConstructor(theme = {}) {
     week: {
       marginTop: 7,
       marginBottom: 7,
-      flexDirection: 'row',
+      flexDirection: rtl ? 'row-reverse' : 'row',
       justifyContent: 'space-around'
     },
     ...(theme[STYLESHEET_ID] || {})

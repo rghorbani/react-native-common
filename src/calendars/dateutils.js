@@ -1,89 +1,66 @@
+const gregorian = require('./dateutils.gregorian');
+const jalaali = require('./dateutils.jalaali');
 const Moment = require('moment');
 
-function sameMonth(a, b) {
-  return a instanceof Moment && b instanceof Moment &&
-    a.year() === b.year() &&
-    a.month() === b.month();
+function sameMonth(type, a, b) {
+  if (type === 'jalaali') {
+    return jalaali.sameMonth(a, b);
+  }
+  return gregorian.sameMonth(a, b);
 }
 
-function sameDate(a, b) {
+function sameDate(type, a, b) {
   return a instanceof Moment && b instanceof Moment &&
     a.year() === b.year() &&
     a.month() === b.month() &&
     a.date() === b.date();
 }
 
-function isGTE(a, b) {
-  return b.diff(a, 'days') < 1;
+function isGTE(type, a, b) {
+  if (type === 'jalaali') {
+    return jalaali.isGTE(a, b);
+  }
+  return gregorian.isGTE(a, b);
 }
 
-function isLTE(a, b) {
-  return a.diff(b, 'days') < 1;
+function isLTE(type, a, b) {
+  if (type === 'jalaali') {
+    return jalaali.isLTE(a, b);
+  }
+  return gregorian.isLTE(a, b);
 }
 
-function fromTo(a, b) {
-  const days = [];
-  let from = +a, to = +b;
-  for (; from <= to; from = new Moment(from).add(1, 'days').valueOf()) {
-    days.push((new Moment(from)));
+function fromTo(type, a, b) {
+  if (type === 'jalaali') {
+    return jalaali.fromTo(a, b);
   }
-  return days;
+  return gregorian.fromTo(a, b);
 }
 
-function month(xd) {
-  const year = xd.year(), month = xd.month();
-  const days = new Date(year, month + 1, 0).getDate();
-
-  const firstDay = Moment.utc([year, month, 1, 0, 0, 0]);
-  const lastDay = Moment.utc([year, month, days, 0, 0, 0]);
-
-  return fromTo(firstDay, lastDay);
+function month(type, xd) {
+  if (type === 'jalaali') {
+    return jalaali.month(xd);
+  }
+  return gregorian.month(xd);
 }
 
-function weekDayNames(firstDayOfWeek = 0) {
-  let weekDaysNames = Moment.weekdaysShort();
-  const dayShift = firstDayOfWeek % 7;
-  if (dayShift) {
-    weekDaysNames = weekDaysNames.slice(dayShift).concat(weekDaysNames.slice(0, dayShift));
+function weekDayNames(type, firstDayOfWeek = 0) {
+  if (type === 'jalaali') {
+    return jalaali.weekDayNames(firstDayOfWeek);
   }
-  return weekDaysNames;
+  return gregorian.weekDayNames(firstDayOfWeek);
 }
 
-function page(xd, firstDayOfWeek) {
-  const days = month(xd);
-  // for (let i = 0; i < days.length; i++) {
-  //   console.log(days[i].format())
-  // }
-  let before = [], after = [];
-
-  const fdow = ((7 + firstDayOfWeek) % 7) || 7;
-  const ldow = (fdow + 6) % 7;
-
-  firstDayOfWeek = firstDayOfWeek || 0;
-
-  const from = days[0].clone();
-  if (from.day() !== fdow) {
-    from.add(-(from.day() + 7 - fdow) % 7, 'days');
+function page(type, xd, firstDayOfWeek) {
+  if (type === 'jalaali') {
+    return jalaali.page(xd, firstDayOfWeek);
   }
-
-  const to = days[days.length - 1].clone();
-  const day = to.day();
-  if (day !== ldow) {
-    to.add((ldow + 7 - day) % 7, 'days');
-  }
-
-  if (isLTE(from, days[0])) {
-    before = fromTo(from, days[0]);
-  }
-
-  if (isGTE(to, days[days.length - 1])) {
-    after = fromTo(days[days.length - 1], to);
-  }
-
-  return before.concat(days.slice(1, days.length - 1), after);
+  return gregorian.page(xd, firstDayOfWeek);
 }
 
 module.exports = {
+  gregorian,
+  jalaali,
   weekDayNames,
   sameMonth,
   sameDate,

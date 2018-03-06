@@ -20,9 +20,13 @@ class CalendarHeader extends React.Component {
     onPressArrowRight: PropTypes.func
   };
 
+  static defaultProps = {
+    monthFormat: 'MMMM YYYY',
+  };
+
   constructor(props) {
     super(props);
-    this.style = styleConstructor(props.theme);
+    this.style = styleConstructor(props.theme, props);
     this.addMonth = this.addMonth.bind(this);
     this.substractMonth = this.substractMonth.bind(this);
     this.onPressLeft = this.onPressLeft.bind(this);
@@ -72,7 +76,7 @@ class CalendarHeader extends React.Component {
   render() {
     let leftArrow = <View />;
     let rightArrow = <View />;
-    let weekDaysNames = weekDayNames(this.props.firstDay);
+    let weekDaysNames = weekDayNames(this.props.type, this.props.firstDay);
     if (!this.props.hideArrows) {
       leftArrow = (
         <TouchableOpacity
@@ -108,7 +112,7 @@ class CalendarHeader extends React.Component {
           {leftArrow}
           <View style={{ flexDirection: 'row' }}>
             <Text allowFontScaling={false} style={this.style.monthText}>
-              {this.props.month.format(this.props.monthFormat ? this.props.monthFormat : 'MMMM YYYY')}
+              {this.props.month.format(this.props.monthFormat)}
             </Text>
             {indicator}
           </View>
@@ -130,11 +134,18 @@ class CalendarHeader extends React.Component {
 
 const STYLESHEET_ID = 'stylesheet.calendar.header';
 
-function styleConstructor(theme = {}) {
+function styleConstructor(theme = {}, {rtl, type}) {
   const appStyle = {...defaultStyle, ...theme};
+  if (rtl === undefined) {
+    if (type === 'jalaali') {
+      rtl = true;
+    } else {
+      rtl = false;
+    }
+  }
   return StyleSheet.create({
     header: {
-      flexDirection: 'row',
+      flexDirection: rtl ? 'row-reverse' : 'row',
       justifyContent: 'space-between',
       paddingLeft: 10,
       paddingRight: 10,
@@ -151,6 +162,7 @@ function styleConstructor(theme = {}) {
       padding: 10
     },
     arrowImage: {
+      transform: rtl ? [{ rotate: '180deg'}] : undefined,
       ...Platform.select({
         ios: {
           tintColor: appStyle.arrowColor
@@ -162,7 +174,7 @@ function styleConstructor(theme = {}) {
     },
     week: {
       marginTop: 7,
-      flexDirection: 'row',
+      flexDirection: rtl ? 'row-reverse' : 'row',
       justifyContent: 'space-around'
     },
     dayHeader: {
