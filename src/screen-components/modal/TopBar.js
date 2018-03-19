@@ -122,7 +122,7 @@ class TopBar extends BaseComponent {
     const {title, titleStyle, includeStatusBar} = this.props;
 
     return (
-      <View>
+      <View useSafeArea>
         {includeStatusBar && <View style={this.styles.statusBar}/>}
         <View style={this.styles.container}>
           <View row flex bottom paddingL-15 centerV>

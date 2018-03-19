@@ -1,6 +1,6 @@
 {
   "name": "react-native-common",
-  "version": "0.16.0",
+  "version": "0.17.0",
   "description": "React Native common components",
   "main": "src/index.js",
   "scripts": {
@@ -22,6 +22,18 @@
     "react",
     "react-native",
     "react-native-common",
+    "components",
+    "animation",
+    "colors",
+    "extensions",
+    "forms",
+    "icons",
+    "modals",
+    "images",
+    "layout",
+    "rendering",
+    "styling",
+    "transformers",
     "ios",
     "android"
   ],

@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		F558C8EC2038448900E2DAED /* HighlighterView.m in Sources */ = {isa = PBXBuildFile; fileRef = F558C8EB2038448900E2DAED /* HighlighterView.m */; };
 		F558C8EE2038449C00E2DAED /* HighlighterViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F558C8ED2038449C00E2DAED /* HighlighterViewManager.m */; };
+		F5D3465F205FA55C00AB1B2A /* SafeAreaManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D3465E205FA55C00AB1B2A /* SafeAreaManager.m */; };
+		F5D34661205FA56D00AB1B2A /* SafeAreaSpacerShadowView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D34660205FA56D00AB1B2A /* SafeAreaSpacerShadowView.m */; };
+		F5D34665205FA59500AB1B2A /* SafeAreaSpacerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D34664205FA59500AB1B2A /* SafeAreaSpacerView.m */; };
+		F5D34667205FA5AA00AB1B2A /* SafeAreaSpacerViewLocalData.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D34666205FA5AA00AB1B2A /* SafeAreaSpacerViewLocalData.m */; };
+		F5D3466B205FA5DA00AB1B2A /* SafeAreaSpacerViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F5D3466A205FA5DA00AB1B2A /* SafeAreaSpacerViewManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,6 +34,16 @@
 		F558C8EB2038448900E2DAED /* HighlighterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HighlighterView.m; sourceTree = "<group>"; };
 		F558C8ED2038449C00E2DAED /* HighlighterViewManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HighlighterViewManager.m; sourceTree = "<group>"; };
 		F558C8EF203844A600E2DAED /* HighlighterViewManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HighlighterViewManager.h; sourceTree = "<group>"; };
+		F5D3465D205FA54400AB1B2A /* SafeAreaManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SafeAreaManager.h; sourceTree = "<group>"; };
+		F5D3465E205FA55C00AB1B2A /* SafeAreaManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SafeAreaManager.m; sourceTree = "<group>"; };
+		F5D34660205FA56D00AB1B2A /* SafeAreaSpacerShadowView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SafeAreaSpacerShadowView.m; sourceTree = "<group>"; };
+		F5D34662205FA57700AB1B2A /* SafeAreaSpacerShadowView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SafeAreaSpacerShadowView.h; sourceTree = "<group>"; };
+		F5D34663205FA58600AB1B2A /* SafeAreaSpacerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SafeAreaSpacerView.h; sourceTree = "<group>"; };
+		F5D34664205FA59500AB1B2A /* SafeAreaSpacerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SafeAreaSpacerView.m; sourceTree = "<group>"; };
+		F5D34666205FA5AA00AB1B2A /* SafeAreaSpacerViewLocalData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SafeAreaSpacerViewLocalData.m; sourceTree = "<group>"; };
+		F5D34668205FA5B900AB1B2A /* SafeAreaSpacerViewLocalData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SafeAreaSpacerViewLocalData.h; sourceTree = "<group>"; };
+		F5D34669205FA5CF00AB1B2A /* SafeAreaSpacerViewManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SafeAreaSpacerViewManager.h; sourceTree = "<group>"; };
+		F5D3466A205FA5DA00AB1B2A /* SafeAreaSpacerViewManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SafeAreaSpacerViewManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +76,7 @@
 		F558C8E82038443900E2DAED /* reactnativecommon */ = {
 			isa = PBXGroup;
 			children = (
+				F5D3465C205FA51E00AB1B2A /* safearea */,
 				F558C8E92038444400E2DAED /* highlighterview */,
 			);
 			path = reactnativecommon;
@@ -75,6 +91,23 @@
 				F558C8ED2038449C00E2DAED /* HighlighterViewManager.m */,
 			);
 			path = highlighterview;
+			sourceTree = "<group>";
+		};
+		F5D3465C205FA51E00AB1B2A /* safearea */ = {
+			isa = PBXGroup;
+			children = (
+				F5D3465D205FA54400AB1B2A /* SafeAreaManager.h */,
+				F5D3465E205FA55C00AB1B2A /* SafeAreaManager.m */,
+				F5D34662205FA57700AB1B2A /* SafeAreaSpacerShadowView.h */,
+				F5D34660205FA56D00AB1B2A /* SafeAreaSpacerShadowView.m */,
+				F5D34663205FA58600AB1B2A /* SafeAreaSpacerView.h */,
+				F5D34664205FA59500AB1B2A /* SafeAreaSpacerView.m */,
+				F5D34668205FA5B900AB1B2A /* SafeAreaSpacerViewLocalData.h */,
+				F5D34666205FA5AA00AB1B2A /* SafeAreaSpacerViewLocalData.m */,
+				F5D34669205FA5CF00AB1B2A /* SafeAreaSpacerViewManager.h */,
+				F5D3466A205FA5DA00AB1B2A /* SafeAreaSpacerViewManager.m */,
+			);
+			path = safearea;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -133,7 +166,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5D34661205FA56D00AB1B2A /* SafeAreaSpacerShadowView.m in Sources */,
+				F5D34665205FA59500AB1B2A /* SafeAreaSpacerView.m in Sources */,
 				F558C8EC2038448900E2DAED /* HighlighterView.m in Sources */,
+				F5D3465F205FA55C00AB1B2A /* SafeAreaManager.m in Sources */,
+				F5D3466B205FA5DA00AB1B2A /* SafeAreaSpacerViewManager.m in Sources */,
+				F5D34667205FA5AA00AB1B2A /* SafeAreaSpacerViewLocalData.m in Sources */,
 				F558C8EE2038449C00E2DAED /* HighlighterViewManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -9,8 +9,9 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const _ = require('lodash');
-const { NetInfo, StyleSheet, Text, View, ViewPropTypes } = require('react-native');
+const { NetInfo, StyleSheet, Text, ViewPropTypes } = require('react-native');
 
+const View = require('../view');
 const { Constants } = require('../../helpers');
 const { BaseComponent } = require('../../commons');
 const { Colors, Typography } = require('../../style');
@@ -128,14 +129,16 @@ class ConnectionStatusBar extends BaseComponent {
     }
 
     return (
-      <View style={[this.styles.container, this.props.containerStyle]}>
-        <View style={this.styles.innerContainer}>
-          <Text style={[this.styles.text, this.props.labelStyle]}>{this.props.label}</Text>
-          {this.props.allowDismiss && (
-            <TouchableOpacity style={this.styles.xContainer} onPress={() => this.setState({isCancelled: true})}>
-              <Text style={this.styles.x}>✕</Text>
-            </TouchableOpacity>
-          )}
+      <View useSafeArea style={[this.styles.absoluteContainer, this.props.containerStyle]}>
+        <View style={this.styles.container}>
+          <View style={this.styles.innerContainer}>
+            <Text style={[this.styles.text, this.props.labelStyle]}>{this.props.label}</Text>
+            {this.props.allowDismiss && (
+              <TouchableOpacity style={this.styles.xContainer} onPress={() => this.setState({isCancelled: true})}>
+                <Text style={this.styles.x}>✕</Text>
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
       </View>
     );
@@ -145,12 +148,12 @@ class ConnectionStatusBar extends BaseComponent {
 function createStyles({ rtl }) {
   const typography = Constants.isSmallScreen ? Typography.text90 : Typography.text80;
   return StyleSheet.create({
-    container: {
+    absoluteContainer: {
       backgroundColor: Colors.dark30,
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      right: 0,
+      ...StyleSheet.absoluteFillObject,
+      bottom: undefined,
+    },
+    container: {
       flexDirection: 'column',
       justifyContent: 'center',
     },

@@ -21,7 +21,7 @@ class LoadingView extends React.Component {
   static propTypes = {
     ...ActivityIndicator.propTypes,
     /**
-    * Show the screen as an overlay
+    * Show the screen as an absolute overlay
     */
     overlay: PropTypes.bool,
     /**

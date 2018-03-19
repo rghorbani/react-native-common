@@ -411,6 +411,7 @@ function createStyles({ rtl }) {
       shadowOffset: {height: 5, width: 0},
       shadowOpacity: 0.35,
       shadowRadius: 9.5,
+      elevation: 2,
     },
     text: {
       backgroundColor: 'transparent',
