@@ -80,7 +80,6 @@ Look for the label `Good First Task` on the issues. Click [here](https://github.
 
 #### NOT STARTED
 - [ ] Add Theming & Default Styles to all of the Components
-- [ ] Add DatePicker/Calendar Component
 - [ ] Add Image Component which supports parallax
 - [ ] Compatibility with react-native-windows
 - [ ] Something you's like to see? Submit an [issue](https://github.com/rghorbani/react-native-common/issues/new) or a [pull request](https://github.com/rghorbani/react-native-common/pulls)
@@ -88,3 +87,8 @@ Look for the label `Good First Task` on the issues. Click [here](https://github.
 ## Contributing
 
 Interested in contributing to this repo? Have a look at our [Contributing Guide](https://github.com/rghorbani/react-native-common/blob/master/.github/CONTRIBUTING.MD)
+
+## Related Projects
+
+#### [react-native-general-calendars](https://github.com/rghorbani/react-native-general-calendars)
+A `react-native` component with support of gregorian, jalaali and hijri calendar to selectand work with date and time, created by [@rghorbani](https://github.com/rghorbani).
