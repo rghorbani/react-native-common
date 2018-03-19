@@ -49,7 +49,7 @@ RCT_EXPORT_MODULE()
     UIEdgeInsets currentSafeAreaInsets = [self getCurrentSafeAreaInsets];
     if (!UIEdgeInsetsEqualToEdgeInsets(currentSafeAreaInsets, _cachedSafeAreaInsets)) {
         _cachedSafeAreaInsets = currentSafeAreaInsets;
-        
+
         NSUInteger listenerCount = [[self valueForKey:@"_listenerCount"] unsignedIntegerValue];
         if (listenerCount > 0) {
             [self sendEventWithName:SafeAreaInsetsDidChangeEvent body:[self getResultDicFromSafeArea:_cachedSafeAreaInsets]];
@@ -84,7 +84,7 @@ RCT_EXPORT_MODULE()
 }
 
 - (void)_swz_safeAreaInsetsDidChange {
-    _swz_safeAreaInsetsDidChange_orig(self, _cmd);
+    // _swz_safeAreaInsetsDidChange_orig(self, _cmd);
     [[NSNotificationCenter defaultCenter] postNotificationName:UIWindowSafeAreaInsetsDidChangeNotification object:nil];
 }
 
@@ -106,4 +106,3 @@ RCT_EXPORT_METHOD(getSafeAreaInsets:(RCTPromiseResolveBlock)resolve rejecter:(RC
 }
 
 @end
-
