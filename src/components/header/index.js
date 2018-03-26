@@ -66,11 +66,19 @@ class Header extends BaseComponent {
      * style the action bar
      */
     style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+    /**
+     * use safe area
+     */
+    useSafeArea: PropTypes.bool,
+    /**
+     * Use to identify the button in tests
+     */
     testID: PropTypes.string,
   };
 
   static defaultProps = {
     useNative: false,
+    useSafeArea: true,
     backgroundColor: Colors.white,
     titleColor: Colors.yellow,
     itemsColor: Colors.black
@@ -198,6 +206,7 @@ class Header extends BaseComponent {
       leftItems,
       rightItems,
       itemsColor,
+      useSafeArea,
       style,
     } = this.props;
 
@@ -223,6 +232,7 @@ class Header extends BaseComponent {
 
     return (
       <View
+        useSafeArea={useSafeArea}
         style={[
           this.styles.container,
           style,

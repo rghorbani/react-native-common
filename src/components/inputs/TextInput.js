@@ -122,6 +122,12 @@ class TextInput extends BaseInput {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (nextProps.rtl !== this.props.rtl) {
+      this.styles = createStyles({
+        ...this.props,
+        rtl: nextProps.rtl,
+      });
+    }
     if (nextProps.value !== this.props.value) {
       this.setState(
         {
@@ -285,10 +291,11 @@ class TextInput extends BaseInput {
   }
 
   renderCharCounter() {
+    const {focused} = this.state;
     const {maxLength, showCharacterCounter} = this.props;
     if (maxLength && showCharacterCounter) {
       const counter = this.getCharCount();
-      const color = this.isCounterLimit() ? charCountColorLimit : charCountColorDefault;
+      const color = this.isCounterLimit() && focused ? charCountColorLimit : charCountColorDefault;
       return (
         <Text
           style={[{color}, this.styles.charCounter]}

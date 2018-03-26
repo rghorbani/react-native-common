@@ -91,4 +91,4 @@ Interested in contributing to this repo? Have a look at our [Contributing Guide]
 ## Related Projects
 
 #### [react-native-general-calendars](https://github.com/rghorbani/react-native-general-calendars)
-A `react-native` component with support of gregorian, jalaali and hijri calendar to selectand work with date and time, created by [@rghorbani](https://github.com/rghorbani).
+A `react-native` component with support of gregorian, jalaali and hijri calendar to select and work with date and time, created by [@rghorbani](https://github.com/rghorbani).

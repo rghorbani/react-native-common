@@ -1,6 +1,6 @@
 {
   "name": "react-native-common",
-  "version": "0.17.2",
+  "version": "1.0.0",
   "description": "React Native common components",
   "main": "src/index.js",
   "scripts": {
@@ -51,8 +51,6 @@
     "hoist-non-react-statics": "^2.5.0",
     "immutable": "~3.8.2",
     "lodash": "^4.17.4",
-    "moment": "^2.21.0",
-    "moment-jalaali": "^0.7.2",
     "prop-types": "~15.6.0",
     "react-native-animatable": "^1.2.4",
     "react-native-blur": "~3.2.2",
@@ -91,8 +89,10 @@
     "preset": "react-native",
     "testPathIgnorePatterns": [
       "src/components/navigator",
+      "/e2e/",
       "/node_modules/"
-    ]
+    ],
+    "setupFiles": ["./jest-setup.js"]
   },
   "rnpm": {
     "android": {
