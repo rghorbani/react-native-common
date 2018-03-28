@@ -56,13 +56,8 @@ const styles = StyleSheet.create({
   },
   headerWrapper: {
     android: {
-      elevation: 2,
       backgroundColor: 'transparent',
-      // FIXME: elevation doesn't seem to work without setting border
-      borderRightWidth: 1,
-      marginRight: -1,
-      borderRightColor: 'transparent',
-    }
+    },
   },
 });
 
