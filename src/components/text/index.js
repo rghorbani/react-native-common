@@ -41,7 +41,7 @@ class Text extends BaseComponent {
   render() {
     const color = this.props.color || this.extractColorValue();
     const typography = this.extractTypographyValue();
-    const { center, style, ...props} = this.props;
+    const { style, center, ...props} = this.getThemeProps();
     const { margins } = this.state;
     const textStyle = [
       this.styles.container,

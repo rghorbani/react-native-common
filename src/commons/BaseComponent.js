@@ -108,8 +108,9 @@ class BaseComponent extends React.Component {
 
   extractColorValue() {
     let color;
+    const props = this.getThemeProps();
     _.forEach(Colors, (value, key) => {
-      if (this.props[key] === true) {
+      if (props[key] === true) {
         color = value;
       }
     });
