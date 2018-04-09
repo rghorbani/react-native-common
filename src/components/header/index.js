@@ -258,7 +258,7 @@ class Header extends BaseComponent {
       </View>
     );
 
-    if (useSafeArea) {
+    if (Constants.isIOS && useSafeArea) {
       wrapper = (
         <View useSafeArea={useSafeArea}>
           {wrapper}
