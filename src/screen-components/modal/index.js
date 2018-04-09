@@ -14,17 +14,21 @@ const { BlurView } = require('react-native-blur');
 
 const TopBar = require('./TopBar');
 const { BaseComponent } = require('../../commons');
+const { Constants } = require('../../helpers');
 
 class Modal extends BaseComponent {
   static displayName = 'Modal';
 
   static propTypes = {
+    /**
+     * Blurs the modal background when transparent (iOS only)
+     */
     enableModalBlur: PropTypes.bool,
   };
 
   render() {
     const {enableModalBlur, ...props} = this.props;
-    const Container = enableModalBlur ? BlurView : View;
+    const Container = enableModalBlur && Constants.isIOS ? BlurView : View;
     return (
       <RNModal {...props}>
         <Container style={{flex: 1}} blurType="light">

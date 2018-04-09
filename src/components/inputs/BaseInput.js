@@ -52,6 +52,7 @@ class BaseInput extends BaseComponent {
     };
 
     this.onChangeText = this.onChangeText.bind(this);
+    this.onChange = this.onChange.bind(this);
     this.onFocus = this.onFocus.bind(this);
     this.onBlur = this.onBlur.bind(this);
     this.focus = this.focus.bind(this);
@@ -86,6 +87,10 @@ class BaseInput extends BaseComponent {
   onBlur(...args) {
     this.props.onBlur && this.props.onBlur(...args);
     this.setState({focused: false});
+  }
+
+  onChange(text) {
+    this.props.onChange && this.props.onChange(text);
   }
 
   onChangeText(text) {

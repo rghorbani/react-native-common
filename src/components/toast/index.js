@@ -73,6 +73,10 @@ class Toast extends BaseComponent {
      */
     allowDismiss: PropTypes.bool,
     /**
+     * render a custom toast content (better use with StyleSheet.absoluteFillObject to support safe area)
+     */
+    renderContent: PropTypes.func,
+    /**
      * should message be centered in the toast
      */
     centerMessage: PropTypes.bool,
@@ -180,6 +184,29 @@ class Toast extends BaseComponent {
     };
   }
 
+  renderContent() {
+    const {actions, allowDismiss, renderContent} = this.getThemeProps();
+
+    if (_.isFunction(renderContent)) {
+      return renderContent(this.props);
+    }
+
+    const hasOneAction = _.size(actions) === 1;
+    const height = getHeight(this.props);
+
+    return (
+      <View row height={height} centerV spread>
+        {this.renderMessage()}
+        {(hasOneAction || allowDismiss) && (
+          <View row height="100%">
+            {hasOneAction && this.renderOneAction()}
+            {this.renderDismissButton()}
+          </View>
+        )}
+      </View>
+    );
+  }
+
   renderMessage() {
     const {message, messageStyle, centerMessage, color} = this.props;
     const {contentAnimation} = this.state;
@@ -235,7 +262,7 @@ class Toast extends BaseComponent {
   }
 
   render() {
-    const {backgroundColor, actions, allowDismiss, enableBlur, zIndex} = this.getThemeProps();
+    const {backgroundColor, actions, enableBlur, zIndex} = this.getThemeProps();
     const {animationConfig} = this.state;
     const hasOneAction = _.size(actions) === 1;
     const hasTwoActions = _.size(actions) === 2;
@@ -263,15 +290,7 @@ class Toast extends BaseComponent {
         >
           {enableBlur && <BlurView style={this.styles.blurView} {...blurOptions} />}
 
-          <View row height={height} centerV spread>
-            {this.renderMessage()}
-            {(hasOneAction || allowDismiss) && (
-              <View row height="100%">
-                {hasOneAction && this.renderOneAction()}
-                {this.renderDismissButton()}
-              </View>
-            )}
-          </View>
+          {this.renderContent()}
 
           {hasTwoActions && <View>{this.renderTwoActions()}</View>}
         </Animatable.View>

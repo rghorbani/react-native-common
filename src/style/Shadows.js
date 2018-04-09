@@ -6,6 +6,7 @@
 
 'use strict';
 
+const _ = require('lodash');
 const Colors = require('./Colors');
 
 const Shadows = {
@@ -40,6 +41,22 @@ const Shadows = {
   dark40: {
     top: {shadowColor: Colors.dark10, shadowOpacity: 0.04, shadowRadius: 4.5, shadowOffset: {height: 5, width: 0}},
     bottom: {shadowColor: Colors.dark20, shadowOpacity: 0.04, shadowRadius: 9, shadowOffset: {height: 10, width: 0}},
+  },
+
+  /**
+   * Load custom set of shadows
+   * arguments:
+   * shadows - map of keys and values
+   * e.g
+   * dark40: {
+   *   top: {shadowColor: Colors.dark10, shadowOpacity: 0.04, shadowRadius: 4.5, shadowOffset: {height: 5, width: 0}},
+   *   bottom: {shadowColor: Colors.dark20, shadowOpacity: 0.04, shadowRadius: 9, shadowOffset: {height: 10, width: 0}},
+   * }
+   */
+  loadShadows(shadows) {
+    _.forEach(shadows, (value, key) => {
+      this[key] = value;
+    });
   },
 };
 

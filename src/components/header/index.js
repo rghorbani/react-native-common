@@ -230,9 +230,8 @@ class Header extends BaseComponent {
         this.props.children
       );
 
-    return (
+    let wrapper = (
       <View
-        useSafeArea={useSafeArea}
         style={[
           this.styles.container,
           style,
@@ -258,6 +257,15 @@ class Header extends BaseComponent {
         </View>
       </View>
     );
+
+    if (useSafeArea) {
+      wrapper = (
+        <View useSafeArea={useSafeArea}>
+          {wrapper}
+        </View>
+      );
+    }
+    return wrapper;
   }
 }
 
@@ -283,7 +291,7 @@ function createStyles({
     container: {
       height,
       paddingTop: statusBarHeight,
-      paddingHorizontal: 5,
+      paddingHorizontal: 10,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
