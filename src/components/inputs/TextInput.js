@@ -79,6 +79,12 @@ class TextInput extends BaseInput {
      */
     expandable: PropTypes.bool,
     /**
+     * allow custom rendering of expandable content when clicking on the input (useful for pickers)
+     * accept props and state as params, ex. (props, state) => {...}
+     * use toggleExpandableModal(false) method to toggle off the expandable content
+     */
+    renderExpandable: PropTypes.func,
+    /**
      * transform function executed on value and return transformed value
      */
     transformer: PropTypes.func,
@@ -247,6 +253,7 @@ class TextInput extends BaseInput {
       return (
         <Animated.Text
           style={[
+            this.styles.floatingPlaceholder,
             this.styles.placeholder,
             typography,
             centered && this.styles.placeholderCentered,
@@ -319,7 +326,13 @@ class TextInput extends BaseInput {
   }
 
   renderExpandableModal() {
+    const {renderExpandable} = this.props;
     const {showExpandableModal} = this.state;
+
+    if (_.isFunction(renderExpandable) && showExpandableModal) {
+      return renderExpandable(this.props, this.state);
+    }
+
     return (
       <Modal
         animationType={'slide'}
@@ -516,8 +529,10 @@ function createStyles({
       writingDirection: rtl ? 'rtl' : undefined,
       backgroundColor: 'transparent',
     },
-    placeholder: {
+    floatingPlaceholder: {
       position: 'absolute',
+    },
+    placeholder: {
       color: placeholderTextColor,
       textAlign: rtl ? 'right' : undefined,
       writingDirection: rtl ? 'rtl' : undefined,
