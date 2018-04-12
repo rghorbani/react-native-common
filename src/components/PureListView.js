@@ -8,59 +8,46 @@
 
 const React = require('react');
 const PropTypes = require('prop-types');
-const { FlatList, SectionList, ViewPropTypes } = require('react-native');
+const { FlatList, SectionList, SwipeableFlatList, ViewPropTypes } = require('react-native');
 
-class PureListView extends React.Component {
+class PureListView extends React.PureComponent {
   static displayName = 'PureListView';
 
   static propTypes = {
-    type: PropTypes.oneOf(['flat', 'section']).isRequired,
+    type: PropTypes.oneOf(['FlatList', 'SectionList', 'SwipeableFlatList']).isRequired,
     data: PropTypes.array.isRequired,
     renderEmptyList: PropTypes.func,
     style: ViewPropTypes.style,
   };
 
   static defaultProps = {
-    type: 'flat',
+    type: 'FlatList',
     data: [],
     renderEmptyList: null,
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      data: props.data,
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.data !== nextProps.data) {
-      this.setState({ data: nextProps.data });
-    }
-  }
-
   render() {
-    const { renderEmptyList, ...props } = this.props;
-    if (this.state.data.length === 0) {
+    const { renderEmptyList, type, ...props } = this.props;
+    if (this.props.data.length === 0) {
       return renderEmptyList && renderEmptyList();
     }
 
-    if (this.props.type === 'section') {
+    if (type === 'SectionList') {
       return (
         <SectionList
           {...props}
-          sections={this.state.data}
+          sections={this.props.data}
+        />
+      );
+    } else if (type === 'SwipeableFlatList') {
+      return (
+        <SwipeableFlatList
+          {...props}
         />
       );
     }
 
-    return (
-      <FlatList
-        {...props}
-        data={this.state.data}
-      />
-    );
+    return <FlatList {...props} />;
   }
 }
 
