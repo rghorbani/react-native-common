@@ -171,6 +171,7 @@ class Picker extends TextInput {
   }
 
   renderExpandableInput() {
+    const {style} = this.props;
     const typography = this.getTypography();
     const minHeight = typography.lineHeight;
     const color = this.extractColorValue() || Colors.dark10;
@@ -183,6 +184,7 @@ class Picker extends TextInput {
           typography,
           {minHeight},
           {color},
+          style
         ]}
         numberOfLines={3}
         onPress={this.handlePickerOnPress}

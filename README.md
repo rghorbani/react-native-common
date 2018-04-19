@@ -29,6 +29,13 @@ or
 
 `$ npm install react-native-common --save`
 
+## Native Dependencies
+Some of the components are using these native dependencies, they are not a requirement but will allow you to create
+better lookings apps :)
+
+* react-native-animatable
+* react-native-blur
+
 ## Usage
 
 ```javascript
@@ -44,6 +51,7 @@ import { Button } from 'react-native-common';
 
 ## Components Included
 
+- [x] Theming & Default Styles of the Components
 - [x] Badge
 - [x] Button
 - [x] Carousel
@@ -67,7 +75,6 @@ import { Button } from 'react-native-common';
 - [x] SettingsList.Item
 - [x] StyleSheet
 - [x] ViewPager
-- [ ] Checkboxes
 
 ## Documentation
 
@@ -79,7 +86,6 @@ import { Button } from 'react-native-common';
 Look for the label `Good First Task` on the issues. Click [here](https://github.com/rghorbani/react-native-common/issues?q=is%3Aopen+is%3Aissue+label%3A%22Good+First+Task%22) to see them.
 
 #### NOT STARTED
-- [ ] Add Theming & Default Styles to all of the Components
 - [ ] Add Image Component which supports parallax
 - [ ] Compatibility with react-native-windows
 - [ ] Something you's like to see? Submit an [issue](https://github.com/rghorbani/react-native-common/issues/new) or a [pull request](https://github.com/rghorbani/react-native-common/pulls)

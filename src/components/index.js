@@ -23,6 +23,7 @@ module.exports = {
   get Badge() { return require('./badge'); },
   get Button() { return require('./button'); },
   get ConnectionStatusBar() { return require('./connection'); },
+  get Dialog() { return require('./dialog'); },
   get Header() { return require('./header'); },
   get KeyboardSpacer() { return require('./KeyboardSpacer'); },
   get LoadingView() { return require('./loading'); },
