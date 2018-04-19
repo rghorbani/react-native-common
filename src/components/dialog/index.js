@@ -5,7 +5,7 @@ const Animatable = require('react-native-animatable');
 const { StyleSheet } = require('react-native');
 
 const View = require('../view');
-const Modal = require('../../screensComponents/modal');
+const Modal = require('../../screen-components/modal');
 const { BaseComponent } = require('../../commons');
 const { Colors } = require('../../style');
 
