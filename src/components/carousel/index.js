@@ -8,13 +8,13 @@
 
 const React = require('react');
 const PropTypes = require('prop-types');
-const {ScrollView, StyleSheet} = require('react-native');
 const _ = require('lodash');
-const {BaseComponent} = require('../../commons');
-const View = require('../view');
-const {Constants} = require('../../helpers');
-const presenter = require('./CarouselPresenter');
+const { ScrollView, StyleSheet } = require('react-native');
 
+const presenter = require('./CarouselPresenter');
+const View = require('../view');
+const { BaseComponent } = require('../../commons');
+const { Constants } = require('../../helpers');
 
 const OFFSET_PIXEL_CORRECTION = 5;
 
