@@ -19,9 +19,9 @@ const {
 } = require('react-native');
 
 const TextInput = require('./TextInput');
-const Assets = require('../../assets');
 const Text = require('../text');
 const View = require('../view');
+const Assets = require('../../assets');
 const { TouchableOpacity } = require('../touchables');
 const { BaseComponent } = require('../../commons');
 const { Constants } = require('../../helpers');
