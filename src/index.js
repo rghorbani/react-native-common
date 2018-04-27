@@ -13,7 +13,7 @@ const screenComponents = require('./screen-components');
 const style = require('./style');
 
 module.exports = {
-  get Assets() { require('./assets'); },
+  get Assets() { return require('./assets'); },
   ...commons,
   ...components,
   ...helpers,
