@@ -18,6 +18,12 @@ const { TouchableOpacity } = require('../touchables');
 const { BaseComponent } = require('../../commons');
 const { Colors, Typography, ThemeManager } = require('../../style');
 
+// TODO: deprecate passing an an object as a value, use label and value props separately
+/**
+ * @description: Picker.Item, for configuring the Picker's selectable options
+ * @extends: TouchableOpacity
+ * @extendslink: docs/TouchableOpacity
+ */
 class PickerItem extends BaseComponent {
   static displayName = 'Picker.Item';
 
@@ -30,7 +36,7 @@ class PickerItem extends BaseComponent {
      * The item value with the following format - {value: ..., label: ...},
      * for custom shape use getItemLabel, getItemValue props
      */
-    value: PropTypes.object,
+    value: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.number]),
     /**
      * function to return the label out of the item value prop when value is custom shaped.
      */
@@ -53,6 +59,7 @@ class PickerItem extends BaseComponent {
     renderItem: PropTypes.func,
     onPress: PropTypes.func,
     onSelectedLayout: PropTypes.func,
+    useNativePicker: PropTypes.bool,
   };
 
   constructor(props) {

@@ -10,4 +10,5 @@ module.exports = {
   get HighlighterOverlayView() { return require('./HighlighterOverlayView'); },
   get SafeAreaSpacerView() { return require('./safearea/SafeAreaSpacerView'); },
   get SafeAreaInsetsManager() { return require('./safearea/SafeAreaInsetsManager'); },
+  get WheelPicker() { return require('./wheelpicker'); },
 };

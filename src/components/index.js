@@ -35,6 +35,7 @@ module.exports = {
   get Text() { return require('./text'); },
   get Toast() { return require('./toast'); },
   get View() { return require('./view'); },
+  get WheelPickerDialog() { return require('./wheel-picker-dialog'); },
   // Other
   get Navigator() { return require('./navigator/Navigator'); },
   // Old
