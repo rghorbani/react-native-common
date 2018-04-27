@@ -8,11 +8,15 @@
 
 const React = require('react');
 const PropTypes = require('prop-types');
-const { ScrollView, StyleSheet, View } = require('react-native');
+const { ScrollView, StyleSheet, TextInput } = require('react-native');
 
+const View = require('../view');
+const Image = require('../images/Image');
+const Assets = require('../../assets');
 const { Constants } = require('../../helpers');
 const { BaseComponent } = require('../../commons');
 const { Modal } = require('../../screen-components');
+const { Colors, Typography } = require('../../style');
 
 class PickerModal extends BaseComponent {
   static displayName = 'IGNORE';
@@ -21,6 +25,8 @@ class PickerModal extends BaseComponent {
     ...Modal.propTypes,
     topBarProps: PropTypes.shape(Modal.TopBar.propTypes),
     scrollPosition: PropTypes.number,
+    showSearch: PropTypes.bool,
+    onSearchChange: PropTypes.func,
   };
 
   constructor(props) {
@@ -71,6 +77,25 @@ class PickerModal extends BaseComponent {
     }
   }
 
+  renderSearchInput() {
+    const {showSearch, onSearchChange} = this.props;
+    if (showSearch) {
+      return (
+        <View style={this.styles.searchInputContainer}>
+          <Image style={this.styles.searchIcon} source={Assets.icons.search}/>
+          <TextInput
+            ref={r => this.search = r}
+            style={this.styles.searchInput}
+            placeholder="Search..."
+            onChangeText={_.throttle(onSearchChange, 300)}
+            autoCorrect={false}
+            underlineColorAndroid="transparent"
+          />
+        </View>
+      );
+    }
+  }
+
   render() {
     const {visible, enableModalBlur, topBarProps, children} = this.props;
     return (
@@ -82,10 +107,12 @@ class PickerModal extends BaseComponent {
         onRequestClose={topBarProps.onCancel}
       >
         <Modal.TopBar {...topBarProps}/>
+        {this.renderSearchInput()}
         <ScrollView
           ref={r => (this.scrollView = r)}
           onLayout={this.onScrollViewLayout}
           onContentSizeChange={this.onScrollViewContentSizeChange}
+          keyboardShouldPersistTaps="always"
         >
           <View style={this.styles.modalBody}>
             {children}
@@ -98,8 +125,22 @@ class PickerModal extends BaseComponent {
 
 function createStyles() {
   return StyleSheet.create({
-    modalBody: {
-      paddingTop: 30,
+    modalBody: {},
+    searchInputContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingLeft: 16,
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      borderBottomColor: Colors.dark60,
+    },
+    searchIcon: {
+      marginRight: 12,
+    },
+    searchInput: {
+      height: 60,
+      paddingRight: 16,
+      flex: 1,
+      ...Typography.text70,
     },
   });
 }

@@ -69,6 +69,10 @@ class Picker extends TextInput {
      * The picker modal top bar props
      */
     topBarProps: PropTypes.shape(Modal.TopBar.propTypes),
+    /**
+     * show search input to filter picker items by label
+     */
+    showSearch: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -87,6 +91,7 @@ class Picker extends TextInput {
     this.toggleItemSelection = this.toggleItemSelection.bind(this);
     this.appendPropsToChildren = this.appendPropsToChildren.bind(this);
     this.onSelectedItemLayout = this.onSelectedItemLayout.bind(this);
+    this.onSearchChange = this.onSearchChange.bind(this);
     this.cancelSelect = this.cancelSelect.bind(this);
     this.handlePickerOnPress = this.handlePickerOnPress.bind(this);
 
@@ -125,6 +130,12 @@ class Picker extends TextInput {
     this.props.onChange && this.props.onChange(item);
   }
 
+  onSearchChange(searchValue) {
+    this.setState({
+      searchValue,
+    });
+  }
+
   cancelSelect() {
     this.setState({
       value: this.props.value,
@@ -137,17 +148,20 @@ class Picker extends TextInput {
   }
 
   appendPropsToChildren() {
-    const {children, mode, getItemValue} = this.props;
-    const {value} = this.state;
+    const {children, mode, getItemValue, showSearch} = this.props;
+    const {value, searchValue} = this.state;
     const childrenWithProps = React.Children.map(children, (child) => {
       const childValue = PickerPresenter.getItemValue({getItemValue, ...child.props});
-      const selectedValue = PickerPresenter.getItemValue({value, getItemValue});
-      return React.cloneElement(child, {
-        isSelected: PickerPresenter.isItemSelected(childValue, selectedValue),
-        onPress: mode === Picker.modes.MULTI ? this.toggleItemSelection : this.onDoneSelecting,
-        getItemValue: child.props.getItemValue || getItemValue,
-        onSelectedLayout: this.onSelectedItemLayout,
-      });
+      const childLabel = PickerPresenter.getItemLabel({...child.props, getLabel: child.props.getItemLabel});
+      if (!showSearch || _.isEmpty(searchValue) || _.includes(_.lowerCase(childLabel), _.lowerCase(searchValue))) {
+        const selectedValue = PickerPresenter.getItemValue({value, getItemValue});
+        return React.cloneElement(child, {
+          isSelected: PickerPresenter.isItemSelected(childValue, selectedValue),
+          onPress: mode === Picker.modes.MULTI ? this.toggleItemSelection : this.onDoneSelecting,
+          getItemValue: child.props.getItemValue || getItemValue,
+          onSelectedLayout: this.onSelectedItemLayout,
+        });
+      }
     });
 
     return childrenWithProps;
@@ -195,7 +209,7 @@ class Picker extends TextInput {
   }
 
   renderExpandableModal() {
-    const {mode, enableModalBlur, topBarProps} = this.props;
+    const {mode, enableModalBlur, topBarProps, showSearch} = this.props;
     const {showExpandableModal, selectedItemPosition} = this.state;
     return (
       <PickerModal
@@ -207,6 +221,8 @@ class Picker extends TextInput {
           onCancel: this.cancelSelect,
           onDone: mode === Picker.modes.MULTI ? () => this.onDoneSelecting(this.state.value) : undefined,
         }}
+        showSearch={showSearch}
+        onSearchChange={this.onSearchChange}
       >
         {this.appendPropsToChildren(this.props.children)}
       </PickerModal>
