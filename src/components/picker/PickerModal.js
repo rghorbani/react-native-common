@@ -8,6 +8,7 @@
 
 const React = require('react');
 const PropTypes = require('prop-types');
+const _ = require('lodash');
 const { ScrollView, StyleSheet, TextInput } = require('react-native');
 
 const View = require('../view');
@@ -62,7 +63,8 @@ class PickerModal extends BaseComponent {
   }
 
   scrollToSelected(scrollPosition = this.props.scrollPosition) {
-    if (!scrollPosition) return;
+    const isSearchFocused = _.invoke(this.search, 'isFocused');
+    if (!scrollPosition || isSearchFocused) return;
 
     const {scrollHeight, scrollContentHeight} = this.state;
     if (this.scrollView && scrollHeight && scrollContentHeight) {

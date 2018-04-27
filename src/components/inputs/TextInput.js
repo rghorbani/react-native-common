@@ -549,7 +549,7 @@ function createStyles({
       color: Colors.red30,
       textAlign: centered ? 'center' : (rtl ? 'right' : undefined),
       ...Typography.text90,
-      height: Typography.text90.lineHeight,
+      // height: Typography.text90.lineHeight,
       writingDirection: rtl ? 'rtl' : undefined,
       marginTop: 1,
     },

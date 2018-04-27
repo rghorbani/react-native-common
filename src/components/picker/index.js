@@ -17,6 +17,7 @@ const Button = require('../../components/button');
 const View = require('../../components/view');
 const { TextInput } = require('../inputs');
 const { Modal } = require('../../screen-components');
+const { Constants } = require('../../helpers');
 const { Colors } = require('../../style');
 
 const PICKER_MODES = {
@@ -125,6 +126,7 @@ class Picker extends TextInput {
   }
 
   onDoneSelecting(item) {
+    this.setState({searchValue: ''}); // clean search when done selecting
     this.onChangeText(item);
     this.toggleExpandableModal(false);
     this.props.onChange && this.props.onChange(item);
@@ -187,7 +189,6 @@ class Picker extends TextInput {
   renderExpandableInput() {
     const {style} = this.props;
     const typography = this.getTypography();
-    const minHeight = typography.lineHeight;
     const color = this.extractColorValue() || Colors.dark10;
     const label = this.getLabel();
 
@@ -198,7 +199,8 @@ class Picker extends TextInput {
           typography,
           {minHeight},
           {color},
-          style
+          style,
+          {height: Constants.isAndroid ? typography.lineHeight : undefined},
         ]}
         numberOfLines={3}
         onPress={this.handlePickerOnPress}
