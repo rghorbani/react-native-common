@@ -1,11 +1,11 @@
 {
   "name": "react-native-common",
-  "version": "1.6.4",
+  "version": "1.7.0",
   "description": "UI Toolset & Components and API Library for React Native.",
   "main": "src/index.js",
   "scripts": {
     "start": "watchman watch-del-all && react-native start",
-    "ios": "react-native run-ios --simulator=\"iPhone 8\"",
+    "ios": "react-native run-ios --simulator='iPhone 8'",
     "android": "react-native run-android",
     "pretest": "npm run lint",
     "lint": "eslint src -c .eslintrc",

@@ -40,6 +40,10 @@ class Button extends BaseComponent {
      */
     iconStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
     /**
+     * Should the icon be right to the label
+     */
+    iconOnRight: PropTypes.bool,
+    /**
      * Color of the button background
      */
     backgroundColor: PropTypes.string,
@@ -114,6 +118,7 @@ class Button extends BaseComponent {
     labelStyle: {},
     size: 'large',
     outline: false,
+    iconOnRight: false,
   };
 
   static sizes = {
@@ -295,15 +300,16 @@ class Button extends BaseComponent {
   }
 
   getIconStyle() {
-    const {size, disabled, iconStyle: propsIconStyle} = this.props;
+    const {size, disabled, iconStyle: propsIconStyle, iconOnRight} = this.props;
     const iconStyle = {
       tintColor: this.getLabelColor(),
     };
 
-    if ([Button.sizes.large, Button.sizes.medium].includes(size)) {
-      iconStyle.marginRight = 8;
+    const marginSide = [Button.sizes.large, Button.sizes.medium].includes(size) ? 8 : 4;
+    if (iconOnRight) {
+      iconStyle.marginLeft = marginSide;
     } else {
-      iconStyle.marginRight = 4;
+      iconStyle.marginRight = marginSide;
     }
 
     if (disabled && !this.isFilled) {
@@ -375,8 +381,8 @@ class Button extends BaseComponent {
       >
         <View row centerV style={[this.styles.content, contentSizeStyle]}>
           {this.props.children}
-          {this.renderIcon()}
-          {this.renderLabel()}
+          {this.props.iconOnRight ? this.renderLabel() : this.renderIcon()}
+          {this.props.iconOnRight ? this.renderIcon() : this.renderLabel()}
         </View>
       </TouchableOpacity>
     );

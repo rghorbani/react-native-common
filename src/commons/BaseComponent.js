@@ -18,7 +18,7 @@ const MARGIN_KEY_PATTERN = /margin[LTRBHV]?-[0-9]*/;
 const ALIGNMENT_KEY_PATTERN = /(left|top|right|bottom|center|centerV|centerH|spread)/;
 
 class BaseComponent extends React.Component {
-  static displayName = 'BaseComponent';
+  // static displayName = 'BaseComponent';
 
   static propTypes = {
     ..._.mapValues(Typography, () => PropTypes.bool),
@@ -52,9 +52,14 @@ class BaseComponent extends React.Component {
   }
 
   getThemeProps() {
-    const componentName = this.constructor.displayName;
-    const componentThemeProps = ThemeManager.components[componentName];
-    return {...componentThemeProps, ...this.props};
+    const componentName = this.constructor.displayName || this.constructor.name;
+    let themeProps;
+    if (_.isFunction(ThemeManager.components[componentName])) {
+      themeProps = ThemeManager.components[componentName](this.props);
+    } else {
+      themeProps = ThemeManager.components[componentName];
+    }
+    return {...themeProps, ...this.props};
   }
 
   getSnippet() {
