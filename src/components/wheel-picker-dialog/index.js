@@ -17,7 +17,7 @@ const Typography = require('../../style/Typography');
 const WheelPicker = require('../../native-components/wheelpicker');
 
 class WheelPickerDialog extends React.Component {
-  static displayName = 'WheelPickerDialog';
+  static displayName = 'IGNORE';
 
   static propTypes = {
     items: PropTypes.array,

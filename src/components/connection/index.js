@@ -177,7 +177,7 @@ function createStyles({ rtl }) {
     },
     x: {
       fontSize: Typography.text80.fontSize,
-      color: 'black',
+      color: Colors.black,
     },
   });
 }
