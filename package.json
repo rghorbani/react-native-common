@@ -1,6 +1,6 @@
 {
   "name": "react-native-common",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "UI Toolset & Components and API Library for React Native.",
   "main": "src/index.js",
   "scripts": {
