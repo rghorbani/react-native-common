@@ -1,6 +1,6 @@
 {
   "name": "react-native-common",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "description": "UI Toolset & Components and API Library for React Native.",
   "main": "src/index.js",
   "scripts": {
@@ -65,20 +65,20 @@
   "devDependencies": {
     "babel-cli": "~6.26.0",
     "babel-eslint": "~8.2.1",
-    "babel-jest": "~22.1.0",
+    "babel-jest": "~22.4.3",
     "babel-preset-react": "~6.24.1",
     "babel-preset-react-native": "~4.0.0",
     "eslint": "~4.16.0",
-    "eslint-plugin-react": "~7.5.1",
+    "eslint-plugin-react": "~7.7.0",
     "eslint-plugin-react-native": "~3.2.1",
-    "jest": "~22.1.4",
+    "jest": "~22.4.3",
     "prettier": "~1.5.3",
     "react": "16.0.0",
     "react-native": "0.51.0"
   },
   "peerDependencies": {
-    "react": "^16.0.0",
-    "react-native": "^0.51.0"
+    "react": "*",
+    "react-native": "*"
   },
   "prettier": {
     "requirePragma": true,
