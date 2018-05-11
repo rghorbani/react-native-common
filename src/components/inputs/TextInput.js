@@ -404,7 +404,7 @@ class TextInput extends BaseInput {
       typography,
       color && {color},
       // with the right flex on the tree hierarchy we might not need this
-      // {height: this.getHeight()},
+      Constants.isIOS && {height: this.getHeight()},
       style,
     ];
     const placeholderText = this.shouldFakePlaceholder() ?
