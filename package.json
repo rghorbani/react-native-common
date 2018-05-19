@@ -1,7 +1,7 @@
 {
   "name": "react-native-common",
-  "version": "1.7.5",
-  "description": "UI Toolset & Components and API Library for React Native.",
+  "version": "1.7.6",
+  "description": "UI Toolset & Components and API Library for React Native With Independent RTL support.",
   "main": "src/index.js",
   "scripts": {
     "start": "watchman watch-del-all && react-native start",
