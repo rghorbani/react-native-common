@@ -20,6 +20,8 @@ module.exports = {
   ...KeyboardAware,
   ...NavIcons,
   ...Touchables,
+  get ActionSheet() { return require('./action-sheet'); },
+  get Avatar() { return require('./avatar'); },
   get Badge() { return require('./badge'); },
   get Button() { return require('./button'); },
   get Carousel() { return require('./carousel'); },
