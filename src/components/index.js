@@ -43,7 +43,7 @@ module.exports = {
   // Old
   get DrawerLayout() { return require('./DrawerLayout'); },
   get InfiniteScrollView() { return require('./InfiniteScrollView'); },
-  get ItemsWithSeperator() { return require('./ItemsWithSeperator'); },
+  get ItemsWithSeparator() { return require('./ItemsWithSeparator'); },
   // get ListContainer() { return require('./ListContainer'); },
   get PageControl() { return require('./PageControl'); },
   get Popover() { return require('./Popover'); },

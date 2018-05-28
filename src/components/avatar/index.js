@@ -74,6 +74,10 @@ class Avatar extends BaseComponent {
      */
     labelColor: PropTypes.string,
     /**
+     * The label style
+     */
+    labelStyle: Text.propTypes.style,
+    /**
      * ribbon label to display on the avatar
      */
     ribbonLabel: PropTypes.string,
@@ -184,7 +188,7 @@ class Avatar extends BaseComponent {
   }
 
   render() {
-    const {label, labelColor: color, imageSource, backgroundColor, onPress, containerStyle, testID} = this.props;
+    const {label, labelColor: color, labelStyle, imageSource, backgroundColor, onPress, containerStyle, testID} = this.props;
     const Container = onPress ? TouchableOpacity : View;
     const hasImage = !_.isUndefined(imageSource);
 
@@ -193,7 +197,7 @@ class Avatar extends BaseComponent {
         <View
           style={[this.styles.initialsContainer, {backgroundColor}, hasImage && this.styles.initialsContainerWithInset]}
         >
-          <Text numberOfLines={1} style={[this.styles.initials, {color}]}>
+          <Text numberOfLines={1} style={[this.styles.initials, {color}, labelStyle]}>
             {label}
           </Text>
         </View>
