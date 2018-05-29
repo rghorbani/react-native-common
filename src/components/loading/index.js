@@ -36,6 +36,10 @@ class LoadingView extends React.Component {
      * caption style
      */
     captionStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+    /**
+     * container style
+     */
+    containerStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
   };
 
   static defaultProps = {
@@ -46,14 +50,18 @@ class LoadingView extends React.Component {
   };
 
   render() {
-    const {overlay, caption, captionStyle, style, ...props} = this.props;
+    const {overlay, caption, captionStyle, style, containerStyle, ...props} = this.props;
 
     if (!this.props.loading) {
       return null;
     }
 
     return (
-      <View style={[overlay ? styles.overlayContainer : styles.container, styles.containerCommon]}>
+      <View style={[
+        overlay ? styles.overlayContainer : styles.container,
+        styles.containerCommon,
+        containerStyle
+      ]}>
         <ActivityIndicator
           style={[styles.indicator, style]}
           {...props}
