@@ -395,8 +395,8 @@ class TextField extends BaseInput {
     const {
       style,
       placeholder,
-      floatingPlaceholder,
-      centered,
+      floatingPlaceholder, // eslint-disable-line no-unused-vars
+      centered, // eslint-disable-line no-unused-vars
       multiline,
       numberOfLines,
       helperText,
