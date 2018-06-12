@@ -27,6 +27,10 @@ class Modal extends BaseComponent {
      */
     enableModalBlur: PropTypes.bool,
     /**
+     * A custom view to use as a BlueView instead of the default one
+     */
+    blurView: PropTypes.element,
+    /**
      * allow dismissing a modal when clicking on its background
      */
     onBackgroundPress: PropTypes.func,
@@ -50,8 +54,9 @@ class Modal extends BaseComponent {
   }
 
   render() {
-    const {enableModalBlur, visible, ...props} = this.props;
-    const Container = enableModalBlur && Constants.isIOS ? BlurView : View;
+    const {blurView, enableModalBlur, visible, ...props} = this.props;
+    const defaultContainer = enableModalBlur && Constants.isIOS ? BlurView : View;
+    const Container = blurView ? blurView : defaultContainer;
 
     return (
       <RNModal visible={Boolean(visible)} {...props}>

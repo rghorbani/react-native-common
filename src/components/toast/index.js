@@ -69,6 +69,10 @@ class Toast extends BaseComponent {
      */
     onDismiss: PropTypes.func,
     /**
+     * number of milliseconds to automatically invoke the onDismiss callback
+     */
+    autoDismiss: PropTypes.number,
+    /**
      * show dismiss action
      */
     allowDismiss: PropTypes.bool,
@@ -121,6 +125,8 @@ class Toast extends BaseComponent {
     if (animated) {
       setupRelativeAnimation(getHeight(this.props));
     }
+
+    this.onDismiss = this.onDismiss.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -245,7 +251,7 @@ class Toast extends BaseComponent {
   }
 
   renderDismissButton() {
-    const {allowDismiss, onDismiss, color} = this.props;
+    const {allowDismiss, color} = this.props;
     const {contentAnimation} = this.state;
     if (allowDismiss) {
       return (
@@ -254,7 +260,7 @@ class Toast extends BaseComponent {
             link
             iconStyle={[this.styles.dismissIconStyle, color && {tintColor: color}]}
             iconSource={Assets.icons.x}
-            onPress={onDismiss}
+            onPress={this.onDismiss}
           />
         </Animatable.View>
       );
@@ -309,6 +315,23 @@ class Toast extends BaseComponent {
     this.setState({
       isVisible: visible,
     });
+    this.setDismissTimer();
+  }
+
+  setDismissTimer() {
+    const {autoDismiss, onDismiss} = this.props;
+    if (autoDismiss && onDismiss) {
+      this.timer = setTimeout(() => {
+        _.invoke(this.props, 'onDismiss');
+      }, autoDismiss);
+    }
+  }
+
+  onDismiss() {
+    if (this.timer) {
+      clearTimeout(this.timer);
+    }
+    _.invoke(this.props, 'onDismiss');
   }
 }
 

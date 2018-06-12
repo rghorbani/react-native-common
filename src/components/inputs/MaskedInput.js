@@ -8,11 +8,21 @@
 
 const React = require('react');
 const PropTypes = require('prop-types');
-const { Keyboard, Text, TouchableOpacity, StyleSheet, View, ViewPropTypes } = require('react-native');
+const _ = require('lodash');
+const { Keyboard, StyleSheet, ViewPropTypes } = require('react-native');
 
-const TextInput = require('./TextInput');
 const BaseInput = require('./BaseInput');
+const TextInput = require('./TextInput');
+const Text = require('../text');
+const View = require('../view');
+const { TouchableOpacity } = require('../touchables');
 
+/**
+ * @description: Mask Input to create custom looking inputs with custom formats
+ * @extends: TextInput
+ * @extendslink: docs/TagsInput
+ * @gif: https://camo.githubusercontent.com/61eedb65e968845d5eac713dcd21a69691571fb1/68747470733a2f2f6d656469612e67697068792e636f6d2f6d656469612f4b5a5a7446666f486f454b334b2f67697068792e676966
+ */
 class MaskedInput extends BaseInput {
   static displayName = 'MaskedInput';
 
@@ -30,8 +40,8 @@ class MaskedInput extends BaseInput {
 
   componentDidMount() {
     this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
-      if (this.isFocused()) {
-        this.blur();
+      if (_.invoke(this, 'isFocused')) {
+        _.invoke(this, 'blur');
       }
     });
   }
@@ -44,7 +54,7 @@ class MaskedInput extends BaseInput {
     const {renderMaskedText} = this.props;
     const {value} = this.state;
 
-    if (typeof renderMaskedText === 'function') {
+    if (_.isFunction(renderMaskedText)) {
       return renderMaskedText(value);
     }
 
@@ -52,8 +62,11 @@ class MaskedInput extends BaseInput {
   }
 
   render() {
+    const { containerStyle } = this.props;
+    const TextInputProps = TextInput.extractOwnProps(this.props, ['containerStyle']);
+
     return (
-      <View style={this.props.containerStyle}>
+      <View style={[containerStyle]}>
         <TextInput
           {...this.props}
           ref={(input) => {
@@ -64,6 +77,7 @@ class MaskedInput extends BaseInput {
           enableErrors={false}
           hideUnderline
           placeholder=""
+          {...TextInputProps}
           onChangeText={this.onChangeText}
         />
         <TouchableOpacity
