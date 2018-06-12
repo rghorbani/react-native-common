@@ -11,5 +11,6 @@ module.exports = {
   get MaskedInput() { return require('./MaskedInput'); },
   get TagsInput() { return require('./TagsInput'); },
   get TextArea() { return require('./TextArea'); },
+  get TextField() { return require('./TextField'); },
   get TextInput() { return require('./TextInput'); },
 };

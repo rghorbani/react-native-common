@@ -1,7 +1,7 @@
 {
   "name": "react-native-common",
-  "version": "1.8.2",
-  "description": "UI Toolset & Components and API Library for React Native With Independent RTL support.",
+  "version": "1.9.0",
+  "description": "UI Toolset & Components and API Library for React Native with Independent RTL support.",
   "main": "src/index.js",
   "scripts": {
     "start": "watchman watch-del-all && react-native start",

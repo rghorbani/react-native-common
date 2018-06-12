@@ -32,8 +32,16 @@ const DEFAULT_UNDERLINE_COLOR_BY_STATE = {
   error: Colors.red30,
 };
 
-class TextInput extends BaseInput {
-  static displayName = 'TextInput';
+
+/**
+ * @description: A wrapper for Text Input component with extra functionality like floating placeholder
+ * @extends: TextInput
+ * @extendslink: https://facebook.github.io/react-native/docs/textinput.html
+ * @modifiers: Typography
+ * @gif: https://media.giphy.com/media/xULW8su8Cs5Z9Fq4PS/giphy.gif, https://media.giphy.com/media/3ohc1dhDcLS9FvWLJu/giphy.gif, https://media.giphy.com/media/oNUSOxnHdMP5ZnKYsh/giphy.gif
+ */
+class TextField extends BaseInput {
+  static displayName = 'TextField';
 
   static propTypes = {
     ...RNTextInput.propTypes,
@@ -60,7 +68,7 @@ class TextInput extends BaseInput {
      */
     hideUnderline: PropTypes.bool,
     /**
-     * underline color as a string format or object of states, ex. {default: 'black', error: 'red', focus: 'blue'}
+     * underline color as a string or object of states, ex. {default: 'black', error: 'red', focus: 'blue'}
      */
     underlineColor: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     /**
@@ -135,12 +143,6 @@ class TextInput extends BaseInput {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.rtl !== this.props.rtl) {
-      this.styles = createStyles({
-        ...this.props,
-        rtl: nextProps.rtl,
-      });
-    }
     if (nextProps.value !== this.props.value) {
       this.setState(
         {
@@ -374,8 +376,6 @@ class TextInput extends BaseInput {
     return (
       <Text
         style={[
-          this.styles.input,
-          typography,
           {minHeight},
           inputStyle,
           shouldShowPlaceholder && this.styles.placeholder,
@@ -395,17 +395,19 @@ class TextInput extends BaseInput {
     const {
       style,
       placeholder,
+      floatingPlaceholder,
+      centered,
       multiline,
       numberOfLines,
       helperText,
-      ...props
+      ...others
     } = this.props;
     const inputStyle = [
       this.styles.input,
       typography,
       color && {color},
       // with the right flex on the tree hierarchy we might not need this
-      Constants.isIOS && {height: this.getHeight()},
+      // {height: this.getHeight()},
       style,
     ];
     const placeholderText = this.shouldFakePlaceholder() ?
@@ -413,7 +415,7 @@ class TextInput extends BaseInput {
 
     return (
       <RNTextInput
-        {...props}
+        {...others}
         value={value}
         placeholder={placeholderText}
         underlineColorAndroid="transparent"
@@ -443,7 +445,7 @@ class TextInput extends BaseInput {
           {expandable ? this.renderExpandableInput() : this.renderTextInput()}
           {this.renderExpandableModal()}
         </View>
-        <View row style={this.styles.errorContainer}>
+        <View row>
           <View flex>
             {this.renderError()}
           </View>
@@ -497,12 +499,12 @@ class TextInput extends BaseInput {
   }
 
   onFocus(...args) {
-    this.props.onFocus && this.props.onFocus(...args);
+    _.invoke(this.props, 'onFocus', ...args);
     this.setState({focused: true}, this.updateFloatingPlaceholderState);
   }
 
   onBlur(...args) {
-    this.props.onBlur && this.props.onBlur(...args);
+    _.invoke(this.props, 'onBlur', ...args);
     this.setState({focused: false}, this.updateFloatingPlaceholderState);
   }
 }
@@ -521,7 +523,7 @@ function createStyles({
       flexDirection: 'row',
       borderBottomWidth: hideUnderline ? 0 : 1,
       borderColor: Colors.dark70,
-      justifyContent: centered ? 'center' : (rtl ? 'flex-end' : undefined),
+      justifyContent: centered ? 'center' : undefined,
       paddingTop: floatingPlaceholder ? 25 : undefined,
       flexGrow: 1,
     },
@@ -544,23 +546,17 @@ function createStyles({
     },
     placeholder: {
       color: placeholderTextColor,
-      textAlign: rtl ? 'right' : undefined,
-      writingDirection: rtl ? 'rtl' : undefined,
     },
     placeholderCentered: {
       left: 0,
       right: 0,
       textAlign: 'center',
     },
-    errorContainer: {
-      flexDirection: rtl ? 'row-reverse' : 'row',
-    },
     errorMessage: {
       color: Colors.red30,
-      textAlign: centered ? 'center' : (rtl ? 'right' : undefined),
+      textAlign: centered ? 'center' : undefined,
       ...Typography.text90,
       // height: Typography.text90.lineHeight,
-      writingDirection: rtl ? 'rtl' : undefined,
       marginTop: 1,
     },
     expandableModalContent: {
@@ -570,8 +566,6 @@ function createStyles({
     },
     title: {
       top: 0,
-      textAlign: rtl ? 'right' : undefined,
-      writingDirection: rtl ? 'rtl' : undefined,
       ...Typography.text90,
       height: Typography.text90.lineHeight,
       marginBottom: Constants.isIOS ? 5 : 4,
@@ -584,4 +578,4 @@ function createStyles({
   });
 }
 
-module.exports = TextInput;
+module.exports = TextField;
