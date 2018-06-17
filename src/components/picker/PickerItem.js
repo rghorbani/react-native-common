@@ -147,7 +147,7 @@ function createStyles({rtl}) {
       ...Typography.text70,
       color: Colors.dark10,
       flex: 1,
-      textAlign: rtl ? 'right' : undefined,
+      textAlign: rtl ? 'right' : 'left',
     },
     labelTextDisabled: {
       color: Colors.dark60,

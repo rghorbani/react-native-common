@@ -135,7 +135,7 @@ class Carousel extends BaseComponent {
   }
 
   render() {
-    const {containerStyle} = this.props;
+    const {containerStyle, ...props} = this.props;
     return (
       <View flex style={containerStyle}>
         <ScrollView
@@ -147,6 +147,7 @@ class Carousel extends BaseComponent {
           pagingEnabled
           onScroll={this.onScroll}
           scrollEventThrottle={200}
+          {...props}
         >
           {this.renderChildren()}
         </ScrollView>

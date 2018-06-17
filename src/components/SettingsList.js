@@ -56,7 +56,7 @@ class SettingsList extends React.Component {
       if (!child) return;
 
       if (child.type.displayName === 'SettingsList.Header') {
-        if (groupNumber != -1){
+        if (groupNumber != -1) {
           result[groupNumber] = {items: itemGroup, header: headers[groupNumber], other: other};
           itemGroup = [];
           other = [];
@@ -64,12 +64,12 @@ class SettingsList extends React.Component {
         groupNumber++;
         headers[groupNumber] = child.props;
       } else if (child.type.displayName === 'SettingsList.Item') {
-        if (groupNumber == -1){
+        if (groupNumber == -1) {
           groupNumber++;
         }
         itemGroup.push(child.props);
       } else {
-        if (groupNumber == -1){
+        if (groupNumber == -1) {
           groupNumber++;
         }
         other.push(child);
