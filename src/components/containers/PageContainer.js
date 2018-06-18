@@ -9,7 +9,9 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const { View, ViewPropTypes } = require('react-native');
-const { Header, StyleSheet } = require('react-native-common');
+
+const Header = require('../header');
+const StyleSheet = require('../StyleSheet');
 
 class PageContainer extends React.Component {
   static propTypes = {
