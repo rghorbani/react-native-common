@@ -11,6 +11,7 @@ const Images = require('./images');
 const Inputs = require('./inputs');
 const KeyboardAware = require('./keyboard-aware');
 const NavIcons = require('./nav-icons');
+const RadioButtons = require('./radio-button');
 const Touchables = require('./touchables');
 
 module.exports = {
@@ -19,12 +20,14 @@ module.exports = {
   ...Inputs,
   ...KeyboardAware,
   ...NavIcons,
+  ...RadioButtons,
   ...Touchables,
   get ActionSheet() { return require('./action-sheet'); },
   get Avatar() { return require('./avatar'); },
   get Badge() { return require('./badge'); },
   get Button() { return require('./button'); },
   get Carousel() { return require('./carousel'); },
+  get Checkbox() { return require('./checkbox'); },
   get ConnectionStatusBar() { return require('./connection'); },
   get Dialog() { return require('./dialog'); },
   get Header() { return require('./header'); },
@@ -33,6 +36,7 @@ module.exports = {
   get Picker() { return require('./picker'); },
   get PureListView() { return require('./PureListView'); },
   get Stepper() { return require('./stepper'); },
+  get Switch() { return require('./switch'); },
   get TabBar() { return require('./tab-bar'); },
   get Text() { return require('./text'); },
   get Toast() { return require('./toast'); },
@@ -47,7 +51,6 @@ module.exports = {
   // get ListContainer() { return require('./ListContainer'); },
   get PageControl() { return require('./PageControl'); },
   get Popover() { return require('./Popover'); },
-  get ProgressBar() { return require('./ProgressBar'); },
   get SegmentedControl() { return require('./SegmentedControl'); },
   get SettingsList() { return require('./SettingsList'); },
   get StyleSheet() { return require('./StyleSheet'); },

@@ -5,6 +5,7 @@
  * @providesModule RNCommon
  */
 
+const animations = require('./animations');
 const commons = require('./commons');
 const components = require('./components');
 const helpers = require('./helpers');
@@ -14,6 +15,7 @@ const style = require('./style');
 
 module.exports = {
   get Assets() { return require('./assets'); },
+  ...animations,
   ...commons,
   ...components,
   ...helpers,
