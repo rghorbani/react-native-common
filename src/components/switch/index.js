@@ -124,7 +124,6 @@ class Switch extends BaseComponent {
         {...props}
         style={[this.styles.switch, value ? this.styles.switchOn : this.styles.switchOff, style]}
         onPress={this.onPress}
-        testID={testID}
       >
         {this.renderThumb()}
       </TouchableOpacity>

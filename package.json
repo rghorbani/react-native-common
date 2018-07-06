@@ -104,7 +104,9 @@
       "/node_modules/",
       "/typings/"
     ],
-    "setupFiles": ["./jest-setup.js"]
+    "setupFiles": [
+      "./jest-setup.js"
+    ]
   },
   "rnpm": {
     "android": {
