@@ -4,7 +4,6 @@ const _ = require('lodash');
 import {TouchableOpacity as RNTouchableOpacity} from 'react-native';
 
 const { BaseComponent } = require('../../commons');
-const { ThemeManager } = require('../../style');
 
 class TouchableOpacity extends BaseComponent {
   static displayName = 'TouchableOpacity';
@@ -27,8 +26,7 @@ class TouchableOpacity extends BaseComponent {
   constructor(props) {
     super(props);
 
-    const throttleTime = props.throttleTime || ThemeManager.components.TouchableOpacity.throttleTime;
-    const throttleOptions = props.throttleOptions || ThemeManager.components.TouchableOpacity.throttleOptions;
+    const {throttleTime, throttleOptions} = this.getThemeProps();
 
     this.onPress = _.throttle(this.onPress.bind(this), throttleTime, throttleOptions);
     this.onPressIn = this.onPressIn.bind(this);

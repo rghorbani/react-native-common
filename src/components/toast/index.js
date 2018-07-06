@@ -77,6 +77,10 @@ class Toast extends BaseComponent {
      */
     allowDismiss: PropTypes.bool,
     /**
+     * callback for end of component animation
+     */
+    onAnimationEnd: PropTypes.func,
+    /**
      * render a custom toast content (better use with StyleSheet.absoluteFillObject to support safe area)
      */
     renderContent: PropTypes.func,
@@ -268,7 +272,7 @@ class Toast extends BaseComponent {
   }
 
   render() {
-    const {backgroundColor, actions, enableBlur, testID, zIndex} = this.getThemeProps();
+    const {backgroundColor, actions, enableBlur, testID, zIndex, renderContent} = this.getThemeProps();
     const {animationConfig} = this.state;
     const hasOneAction = _.size(actions) === 1;
     const hasTwoActions = _.size(actions) === 2;
@@ -288,6 +292,7 @@ class Toast extends BaseComponent {
         <Animatable.View
           style={[
             this.styles.container,
+            !renderContent && {paddingHorizontal: 15},
             backgroundColor && {backgroundColor},
             hasOneAction && this.styles.containerWithOneAction,
             {zIndex},
@@ -316,20 +321,21 @@ class Toast extends BaseComponent {
       isVisible: visible,
     });
     this.setDismissTimer();
+    _.invoke(this.props, 'onAnimationEnd', visible);
   }
 
   setDismissTimer() {
     const {autoDismiss, onDismiss} = this.props;
     if (autoDismiss && onDismiss) {
-      this.timer = setTimeout(() => {
-        _.invoke(this.props, 'onDismiss');
+      const timer = setTimeout(() => {
+        this.onDismiss(timer);
       }, autoDismiss);
     }
   }
 
-  onDismiss() {
-    if (this.timer) {
-      clearTimeout(this.timer);
+  onDismiss(timer) {
+    if (timer) {
+      clearTimeout(timer);
     }
     _.invoke(this.props, 'onDismiss');
   }
@@ -340,7 +346,7 @@ function createStyles() {
     container: {
       ...StyleSheet.absoluteFillObject,
       backgroundColor: Colors.rgba(ThemeManager.primaryColor, 0.8),
-      paddingHorizontal: 15,
+      // paddingHorizontal: 15,
     },
     containerWithOneAction: {
       paddingRight: 0,

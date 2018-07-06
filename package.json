@@ -1,8 +1,9 @@
 {
   "name": "react-native-common",
-  "version": "1.11.2",
+  "version": "1.12.0",
   "description": "UI Toolset & Components and API Library for React Native with Independent RTL support.",
   "main": "src/index.js",
+  "typings": "typings/index.d.ts",
   "scripts": {
     "start": "watchman watch-del-all && react-native start",
     "ios": "react-native run-ios --simulator='iPhone 8'",
@@ -11,12 +12,15 @@
     "lint": "eslint src -c .eslintrc",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "build:ts": "rm -rf dist-ts && ./scripts/build-ts.sh",
+    "build:typings": "rm -rf ./typings && ./scripts/build-typings.sh && tsc"
   },
   "files": [
     "android/",
     "ios/",
     "src/",
+    "typings/",
     "LICENSE",
     "README.md",
     "RNCommon.podspec"
@@ -63,6 +67,8 @@
     "url-parse": "^1.2.0"
   },
   "devDependencies": {
+    "@types/prop-types": "^15.5.3",
+    "@types/react-native": "^0.55.21",
     "babel-cli": "~6.26.0",
     "babel-eslint": "~8.2.1",
     "babel-jest": "~22.4.3",
@@ -74,7 +80,9 @@
     "jest": "~22.4.3",
     "prettier": "~1.5.3",
     "react": "16.0.0",
-    "react-native": "0.51.0"
+    "react-js-to-ts": "^1.4.0",
+    "react-native": "0.51.0",
+    "typescript": "^2.9.2"
   },
   "peerDependencies": {
     "react": "*",
@@ -93,7 +101,8 @@
     "testPathIgnorePatterns": [
       "src/components/navigator",
       "/e2e/",
-      "/node_modules/"
+      "/node_modules/",
+      "/typings/"
     ],
     "setupFiles": ["./jest-setup.js"]
   },

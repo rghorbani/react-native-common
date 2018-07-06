@@ -117,10 +117,11 @@ class Switch extends BaseComponent {
   }
 
   render() {
-    const {value, style, testID} = this.getThemeProps();
+    const {value, style, ...props} = this.getThemeProps();
     return (
       <TouchableOpacity
         activeOpacity={1}
+        {...props}
         style={[this.styles.switch, value ? this.styles.switchOn : this.styles.switchOff, style]}
         onPress={this.onPress}
         testID={testID}
