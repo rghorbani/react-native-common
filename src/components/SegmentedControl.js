@@ -10,7 +10,7 @@ const React = require('react');
 const PropTypes = require('prop-types');
 const { Platform, Text, TouchableOpacity, View, ViewPropTypes } = require('react-native');
 
-const StyleSheet = require('./StyleSheet');
+import StyleSheet from './StyleSheet';
 
 class SegmentedControl extends React.Component {
   static displayName = 'PageControl';
