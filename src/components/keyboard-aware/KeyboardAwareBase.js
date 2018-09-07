@@ -7,11 +7,7 @@
 const React = require('react');
 const ReactNative = require('react-native');
 const PropTypes = require('prop-types');
-const {
-  DeviceEventEmitter,
-  Keyboard,
-  NativeModules,
-} = require('react-native');
+const { DeviceEventEmitter, Keyboard, NativeModules } = require('react-native');
 
 const ScrollViewManager = NativeModules.ScrollViewManager;
 

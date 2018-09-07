@@ -6,7 +6,10 @@
 
 'use strict';
 
-module.exports = {
-  get Touchable() { return require('./Touchable'); },
-  get TouchableOpacity() { return require('./TouchableOpacity'); },
+import Touchable from './Touchable';
+import TouchableOpacity from './TouchableOpacity';
+
+export {
+  Touchable,
+  TouchableOpacity,
 };

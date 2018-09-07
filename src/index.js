@@ -5,21 +5,10 @@
  * @providesModule RNCommon
  */
 
-const animations = require('./animations');
-const commons = require('./commons');
+const RNUILib = require('react-native-ui-lib');
 const components = require('./components');
-const helpers = require('./helpers');
-const nativeComponents = require('./native-components');
-const screenComponents = require('./screen-components');
-const style = require('./style');
 
 module.exports = {
-  get Assets() { return require('./assets'); },
-  ...animations,
-  ...commons,
+  ...RNUILib,
   ...components,
-  ...helpers,
-  ...nativeComponents,
-  ...screenComponents,
-  ...style,
 };

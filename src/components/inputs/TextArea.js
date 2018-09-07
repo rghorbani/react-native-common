@@ -6,19 +6,18 @@
 
 'use strict';
 
-const React = require('react');
-const PropTypes = require('prop-types');
-const { View, TextInput, StyleSheet } = require('react-native');
+import React from 'react';
+import PropTypes from 'prop-types';
+import {View, TextInput as RNTextInput, StyleSheet} from 'react-native';
+import BaseInput from './BaseInput';
 
-const BaseInput = require('./BaseInput');
-
-class TextArea extends BaseInput {
+export default class TextArea extends BaseInput {
   static displayName = 'TextArea';
   static propTypes = {
-    ...TextInput.propTypes,
+    ...RNTextInput.propTypes,
     ...BaseInput.propTypes,
     /**
-     * rtl component
+     * make component rtl
      */
     rtl: PropTypes.bool,
     /**
@@ -37,10 +36,10 @@ class TextArea extends BaseInput {
     const inputStyle = [this.styles.input, typography];
     return (
       <View style={this.styles.container}>
-        <TextInput
+        <RNTextInput
           {...this.props}
           value={value}
-          multiline={true}
+          multiline
           style={inputStyle}
           underlineColorAndroid="transparent"
           onChangeText={this.onChangeText}
@@ -58,13 +57,11 @@ function createStyles({rtl}) {
     },
     input: {
       flex: 1,
-      justifyContent: rtl ? 'flex-end' : 'flex-start',
-      alignItems: rtl ? 'flex-end' : 'flex-start',
-      textAlign: rtl ? 'right' : undefined,
-      writingDirection: rtl ? 'auto' : undefined,
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
       textAlignVertical: 'top',
+      textAlign: rtl ? 'right' : undefined,
+      writingDirection: rtl ? 'rtl' : undefined,
     },
   });
 }
-
-module.exports = TextArea;

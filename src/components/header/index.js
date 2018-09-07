@@ -9,13 +9,8 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const { Platform, ToolbarAndroid, StyleSheet } = require('react-native');
-
+const { BaseComponent, Constants, Colors, Shadows, Text, View } = require('react-native-ui-lib');
 const ItemWrapper = require('./ItemWrapper');
-const Text = require('../text');
-const View = require('../view');
-const { BaseComponent } = require('../../commons');
-const { Constants } = require('../../helpers');
-const { Colors, Shadows } = require('../../style');
 
 class Header extends BaseComponent {
   static displayName = 'Header';

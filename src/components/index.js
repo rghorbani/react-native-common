@@ -6,6 +6,34 @@
 
 'use strict';
 
+
+import {PageContainer} from './containers';
+import LoadingView from './loading';
+import Header from './header';
+import {KeyboardAwareBase, KeyboardAwareScrollView, KeyboardAwareListView} from './keyboard-aware';
+import {TextArea, TextInput} from './inputs';
+import {Touchable} from './touchables';
+
+export {
+  // Containers
+  PageContainer,
+  LoadingView,
+  Header,
+
+  // KeyboardAware
+  KeyboardAwareBase,
+  KeyboardAwareScrollView,
+  KeyboardAwareListView,
+
+  // Inputs
+  TextArea,
+  TextInput,
+
+  // Other
+  Touchable,
+};
+
+/*
 const Containers = require('./containers');
 const Images = require('./images');
 const Inputs = require('./inputs');
@@ -56,3 +84,4 @@ module.exports = {
   get StyleSheet() { return require('./StyleSheet'); },
   get ViewPager() { return require('./ViewPager'); },
 };
+*/

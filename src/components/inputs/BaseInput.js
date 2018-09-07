@@ -1,27 +1,14 @@
-/**
- * Copyright 2016 Reza (github.com/rghorbani)
- *
- * @flow
- */
+import _ from 'lodash';
+import PropTypes from 'prop-types';
+import 'react';
+import {TextInput as RNTextInput, Animated, ViewPropTypes} from 'react-native';
+import {BaseComponent, Colors, Typography} from 'react-native-ui-lib';
 
-'use strict';
-
-const PropTypes = require('prop-types');
-const { Animated, TextInput, ViewPropTypes } = require('react-native');
-
-const { BaseComponent } = require('../../commons');
-import {Colors, Typography} from '../../style';
-
-class BaseInput extends BaseComponent {
+export default class BaseInput extends BaseComponent {
   static displayName = 'BaseInput';
-
   static propTypes = {
-    ...TextInput.propTypes,
+    ...RNTextInput.propTypes,
     ...BaseComponent.propTypes,
-    /**
-     * rtl component
-     */
-    rtl: PropTypes.bool,
     /**
      * text color
      */
@@ -43,6 +30,12 @@ class BaseInput extends BaseComponent {
   constructor(props) {
     super(props);
 
+    this.onChangeText = this.onChangeText.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.onFocus = this.onFocus.bind(this);
+    this.onBlur = this.onBlur.bind(this);
+    this.focus = this.focus.bind(this);
+
     const typography = this.getTypography();
     this.state = {
       inputWidth: typography.fontSize * 2,
@@ -50,12 +43,6 @@ class BaseInput extends BaseComponent {
       floatingPlaceholderState: new Animated.Value(props.value ? 1 : 0),
       showExpandableModal: !false,
     };
-
-    this.onChangeText = this.onChangeText.bind(this);
-    this.onChange = this.onChange.bind(this);
-    this.onFocus = this.onFocus.bind(this);
-    this.onBlur = this.onBlur.bind(this);
-    this.focus = this.focus.bind(this);
   }
 
   getTypography() {
@@ -80,21 +67,21 @@ class BaseInput extends BaseComponent {
   }
 
   onFocus(...args) {
-    this.props.onFocus && this.props.onFocus(...args);
+    _.invoke(this.props, 'onFocus', ...args);
     this.setState({focused: true});
   }
 
   onBlur(...args) {
-    this.props.onBlur && this.props.onBlur(...args);
+    _.invoke(this.props, 'onBlur', ...args);
     this.setState({focused: false});
   }
 
-  onChange(text) {
-    this.props.onChange && this.props.onChange(text);
+  onChange(event) {
+    _.invoke(this.props, 'onChange', event);
   }
 
   onChangeText(text) {
-    this.props.onChangeText && this.props.onChangeText(text);
+    _.invoke(this.props, 'onChangeText', text);
 
     this.setState({
       value: text,
@@ -117,5 +104,3 @@ class BaseInput extends BaseComponent {
     return this.input.isFocused();
   }
 }
-
-module.exports = BaseInput;

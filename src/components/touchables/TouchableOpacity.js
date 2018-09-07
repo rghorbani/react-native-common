@@ -3,7 +3,7 @@ const PropTypes = require('prop-types');
 const _ = require('lodash');
 import {TouchableOpacity as RNTouchableOpacity} from 'react-native';
 
-const { BaseComponent } = require('../../commons');
+const { BaseComponent } = require('react-native-ui-lib');
 
 class TouchableOpacity extends BaseComponent {
   static displayName = 'TouchableOpacity';

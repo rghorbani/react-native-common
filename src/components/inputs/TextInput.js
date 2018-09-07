@@ -6,19 +6,13 @@
 
 'use strict';
 
-const React = require('react');
-const PropTypes = require('prop-types');
-const _ = require('lodash');
-const RNTextInput = require('react-native').TextInput;
-const { Animated, StyleSheet } = require('react-native');
-
-const BaseInput = require('./BaseInput');
-const TextArea = require('./TextArea');
-const Text = require('../text');
-const View = require('../view');
-const { Constants } = require('../../helpers');
-const { Modal } = require('../../screen-components');
-const { Colors, Typography } = require('../../style');
+import React from 'react';
+import PropTypes from 'prop-types';
+import {TextInput as RNTextInput, StyleSheet, Animated, TouchableOpacity} from 'react-native';
+import _ from 'lodash';
+import {Colors, Constants, Modal, Image, Text, Typography, View} from 'react-native-ui-lib';
+import BaseInput from './BaseInput';
+import TextArea from './TextArea';
 
 
 const DEFAULT_COLOR_BY_STATE = {
@@ -31,10 +25,10 @@ const DEFAULT_UNDERLINE_COLOR_BY_STATE = {
   focus: Colors.blue30,
   error: Colors.red30,
 };
+const LABEL_TYPOGRAPHY = Typography.text80;
 
-class TextInput extends BaseInput {
+export default class TextInput extends BaseInput {
   static displayName = 'TextInput';
-
   static propTypes = {
     ...RNTextInput.propTypes,
     ...BaseInput.propTypes,
@@ -60,9 +54,13 @@ class TextInput extends BaseInput {
      */
     hideUnderline: PropTypes.bool,
     /**
-     * underline color as a string format or object of states, ex. {default: 'black', error: 'red', focus: 'blue'}
+     * underline color as a string or object of states, ex. {default: 'black', error: 'red', focus: 'blue'}
      */
     underlineColor: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+    /**
+     * the color of all text when the input is disabled (if undefined will not apply color)
+     */
+    disabledColor: PropTypes.string,
     /**
      * should text input be align to center
      */
@@ -79,6 +77,10 @@ class TextInput extends BaseInput {
      * should the input expand to another text area modal
      */
     expandable: PropTypes.bool,
+    /**
+     * Render custom expandable input (requires expandable to be true)
+     */
+    renderExpandableInput: PropTypes.func,
     /**
      * allow custom rendering of expandable content when clicking on the input (useful for pickers)
      * accept props and state as params, ex. (props, state) => {...}
@@ -98,9 +100,25 @@ class TextInput extends BaseInput {
      */
     titleColor: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     /**
+     * Additional styles for the title (not including 'color')
+     */
+    titleStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+    /**
      * should the input display a character counter (only when passing 'maxLength')
      */
     showCharacterCounter: PropTypes.bool,
+    /**
+     * should float the placeholer when focused (instead of when typing)
+     */
+    floatOnFocus: PropTypes.bool,
+    /**
+     * should the errors be displayed at the top
+     */
+    useTopErrors: PropTypes.bool,
+    /**
+     * Icon asset source for showing on the right side, appropriate for dropdown icon and such
+     */
+    rightIconSource: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
     /**
      * Use to identify the component in tests
      */
@@ -115,19 +133,12 @@ class TextInput extends BaseInput {
   constructor(props) {
     super(props);
 
-    this.onChangeText = this.onChangeText.bind(this);
-    this.onFocus = this.onFocus.bind(this);
-    this.onBlur = this.onBlur.bind(this);
-    this.onDoneEditingExpandableInput = this.onDoneEditingExpandableInput.bind(this);
     this.updateFloatingPlaceholderState = this.updateFloatingPlaceholderState.bind(this);
     this.toggleExpandableModal = this.toggleExpandableModal.bind(this);
-    this.shouldShowHelperText = this.shouldShowHelperText.bind(this);
 
     this.state = {
       value: props.value,
-      floatingPlaceholderState: new Animated.Value(
-        this.hasText(props.value) || this.shouldShowHelperText() ? 1 : 0,
-      ),
+      floatingPlaceholderState: new Animated.Value(this.shouldFloatPlacholder(props.value) ? 1 : 0),
       showExpandableModal: false,
     };
 
@@ -135,26 +146,16 @@ class TextInput extends BaseInput {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.rtl !== this.props.rtl) {
-      this.styles = createStyles({
-        ...this.props,
-        rtl: nextProps.rtl,
-      });
-    }
     if (nextProps.value !== this.props.value) {
-      this.setState(
-        {
-          value: nextProps.value,
-        },
-        this.updateFloatingPlaceholderState,
-      );
+      this.setState({value: nextProps.value}, this.updateFloatingPlaceholderState);
     }
   }
 
   componentDidMount() {
-    this.getHeight();
+    // this.getHeight();
   }
 
+  /** Actions */
   generatePropsWarnings(props) {
     if (props.maxLength === 0) {
       console.warn('Setting maxLength to zero will block typing in this input');
@@ -168,10 +169,53 @@ class TextInput extends BaseInput {
     this.styles = createStyles(this.props);
   }
 
+  toggleExpandableModal(value) {
+    this.setState({showExpandableModal: value});
+  }
+
+  updateFloatingPlaceholderState(withoutAnimation) {
+    if (withoutAnimation) {
+      this.state.floatingPlaceholderState.setValue(this.shouldFloatPlacholder() ? 1 : 0);
+    } else {
+      Animated.spring(this.state.floatingPlaceholderState, {
+        toValue: this.shouldFloatPlacholder() ? 1 : 0,
+        duration: 150,
+      }).start();
+    }
+  }
+
+  getPlaceholderText() {
+    const {placeholder, helperText} = this.props;
+    const text = this.shouldFakePlaceholder() ?
+      (this.shouldShowHelperText() ? helperText : ' ') :
+      (this.shouldShowTopError() && this.shouldShowHelperText() ? helperText : placeholder);
+    return text;
+  }
+
+  // getHeight() {
+  //   const {multiline, numberOfLines} = this.props;
+  //   const typography = this.getTypography();
+  //   if (!multiline) {
+  //     return typography.lineHeight;
+  //   }
+  //   // numberOfLines support for both platforms
+  //   if (multiline && numberOfLines) {
+  //     return typography.lineHeight * numberOfLines;
+  //   }
+  // }
+
+  isDisabled() {
+    return this.props.editable === false;
+  }
+
   getStateColor(colorProp, isUnderline) {
     const {focused} = this.state;
-    const {error} = this.props;
+    const {error, disabledColor} = this.props;
     const colorByState = _.cloneDeep(isUnderline ? DEFAULT_UNDERLINE_COLOR_BY_STATE : DEFAULT_COLOR_BY_STATE);
+
+    if (this.isDisabled() && disabledColor) {
+      return disabledColor;
+    }
 
     if (colorProp) {
       if (_.isString(colorProp)) {
@@ -195,13 +239,16 @@ class TextInput extends BaseInput {
 
   getCharCount() {
     const {value} = this.state;
-    return _.size(value);
+    if (value) {
+      return value.length;
+    }
+    return 0;
   }
 
   isCounterLimit() {
     const {maxLength} = this.props;
     const counter = this.getCharCount();
-    return counter === 0 ? false : maxLength === counter;
+    return counter === 0 ? false : maxLength <= counter;
   }
 
   hasText(value) {
@@ -214,29 +261,32 @@ class TextInput extends BaseInput {
     return focused && helperText;
   }
 
+  shouldFloatOnFocus() {
+    const {focused} = this.state;
+    const {floatOnFocus} = this.props;
+    return focused && floatOnFocus;
+  }
+
+  shouldFloatPlacholder(text) {
+    return this.hasText(text) || this.shouldShowHelperText() || this.shouldFloatOnFocus();
+  }
+
   shouldFakePlaceholder() {
     const {floatingPlaceholder, centered} = this.props;
-    return Boolean(floatingPlaceholder && !centered);
+    return Boolean(floatingPlaceholder && !centered && !this.shouldShowTopError());
   }
 
-  getHeight() {
-    const {multiline} = this.props;
-    if (!multiline) {
-      const typography = this.getTypography();
-      return typography.lineHeight;
-    }
-    return this.getLinesHeightLimit();
+  shouldShowError() {
+    const {enableErrors, error} = this.props;
+    return enableErrors && error;
   }
 
-  // numberOfLines support for both platforms
-  getLinesHeightLimit() {
-    const {multiline, numberOfLines} = this.props;
-    if (multiline && numberOfLines) {
-      const typography = this.getTypography();
-      return typography.lineHeight * numberOfLines;
-    }
+  shouldShowTopError() {
+    const {useTopErrors} = this.props;
+    return this.shouldShowError() && useTopErrors;
   }
 
+  /** Renders */
   renderPlaceholder() {
     const {floatingPlaceholderState} = this.state;
     const {
@@ -248,7 +298,8 @@ class TextInput extends BaseInput {
       multiline,
     } = this.props;
     const typography = this.getTypography();
-    const floatingTypography = Typography.text90;
+    const placeholderColor = this.getStateColor(placeholderTextColor);
+
 
     if (this.shouldFakePlaceholder()) {
       return (
@@ -265,18 +316,19 @@ class TextInput extends BaseInput {
               }),
               fontSize: floatingPlaceholderState.interpolate({
                 inputRange: [0, 1],
-                outputRange: [typography.fontSize, floatingTypography.fontSize],
+                outputRange: [typography.fontSize, LABEL_TYPOGRAPHY.fontSize],
               }),
               color: floatingPlaceholderState.interpolate({
                 inputRange: [0, 1],
-                outputRange: [placeholderTextColor, this.getStateColor(floatingPlaceholderColor)],
+                outputRange: [placeholderColor, this.getStateColor(floatingPlaceholderColor)],
               }),
-              lineHeight: this.hasText() || this.shouldShowHelperText()
-                ? floatingTypography.lineHeight
+              lineHeight: this.shouldFloatPlacholder()
+                ? LABEL_TYPOGRAPHY.lineHeight
                 : typography.lineHeight,
             },
           ]}
           onPress={() => expandable && this.toggleExpandableModal(true)}
+          suppressHighlighting
         >
           {placeholder}
         </Animated.Text>
@@ -285,13 +337,13 @@ class TextInput extends BaseInput {
   }
 
   renderTitle() {
-    const {floatingPlaceholder, title, titleColor} = this.props;
+    const {floatingPlaceholder, title, titleColor, titleStyle} = this.props;
     const color = this.getStateColor(titleColor);
 
     if (!floatingPlaceholder && title) {
       return (
         <Text
-          style={[{color}, this.styles.title]}
+          style={[{color}, this.styles.topLabel, this.styles.label, titleStyle]}
         >
           {title}
         </Text>
@@ -301,13 +353,16 @@ class TextInput extends BaseInput {
 
   renderCharCounter() {
     const {focused} = this.state;
-    const {maxLength, showCharacterCounter} = this.props;
+    const {maxLength, showCharacterCounter, disabledColor} = this.props;
+
     if (maxLength && showCharacterCounter) {
       const counter = this.getCharCount();
-      const color = this.isCounterLimit() && focused ? DEFAULT_COLOR_BY_STATE.error : DEFAULT_COLOR_BY_STATE.default;
+      const textColor = this.isCounterLimit() && focused ? DEFAULT_COLOR_BY_STATE.error : DEFAULT_COLOR_BY_STATE.default;
+      const color = (this.isDisabled() && disabledColor) ? disabledColor : textColor;
+
       return (
         <Text
-          style={[{color}, this.styles.charCounter]}
+          style={[{color}, this.styles.bottomLabel, this.styles.label]}
         >
           {counter} / {maxLength}
         </Text>
@@ -315,11 +370,13 @@ class TextInput extends BaseInput {
     }
   }
 
-  renderError() {
-    const {enableErrors, error} = this.props;
-    if (enableErrors) {
+  renderError(visible) {
+    const {enableErrors, error, useTopErrors} = this.props;
+    const positionStyle = useTopErrors ? this.styles.topLabel : this.styles.bottomLabel;
+
+    if (visible && enableErrors) {
       return (
-        <Text style={this.styles.errorMessage}>
+        <Text style={[this.styles.errorMessage, this.styles.label, positionStyle]}>
           {error}
         </Text>
       );
@@ -358,68 +415,85 @@ class TextInput extends BaseInput {
   }
 
   renderExpandableInput() {
-    const {style, floatingPlaceholder, placeholder} = this.props;
+    const {style, floatingPlaceholder, placeholder, hideUnderline, renderExpandableInput, rightIconSource} = this.props;
     const {value} = this.state;
     const typography = this.getTypography();
-    const color = this.props.color || this.extractColorValue();
+    const color = this.getStateColor(this.props.color || this.extractColorValue());
     const minHeight = typography.lineHeight;
     const shouldShowPlaceholder = _.isEmpty(value) && !floatingPlaceholder;
     const inputStyle = [
       this.styles.input,
+      hideUnderline && this.styles.inputWithoutUnderline,
       typography,
       color && {color},
       style,
     ];
 
+    if (_.isFunction(renderExpandableInput)) {
+      return renderExpandableInput(this.getThemeProps());
+    }
+
     return (
-      <Text
-        style={[
-          this.styles.input,
-          typography,
-          {minHeight},
-          inputStyle,
-          shouldShowPlaceholder && this.styles.placeholder,
-        ]}
-        numberOfLines={3}
-        onPress={() => this.toggleExpandableModal(true)}
+      <TouchableOpacity
+        style={this.styles.expandableInput}
+        activeOpacity={1}
+        onPress={() => !this.isDisabled() && this.toggleExpandableModal(true)}
       >
-        {shouldShowPlaceholder ? placeholder : value}
-      </Text>
+        <Text
+          style={[
+            {minHeight},
+            inputStyle,
+            shouldShowPlaceholder && this.styles.placeholder,
+          ]}
+          numberOfLines={3}
+        >
+          {shouldShowPlaceholder ? placeholder : value}
+        </Text>
+        {rightIconSource && <Image pointerEvents="none" source={rightIconSource} />}
+      </TouchableOpacity>
     );
   }
 
   renderTextInput() {
-    const {value} = this.state;
-    const color = this.props.color || this.extractColorValue();
+    const {value} = this.state; // value set on state for floatingPlaceholder functionality
+    const color = this.getStateColor(this.props.color || this.extractColorValue());
     const typography = this.getTypography();
     const {
       style,
       placeholder,
+      placeholderTextColor,
+      floatingPlaceholder,
+      centered,
       multiline,
+      hideUnderline,
       numberOfLines,
       helperText,
-      ...props
+      ...others
     } = this.props;
     const inputStyle = [
       this.styles.input,
+      hideUnderline && this.styles.inputWithoutUnderline,
       typography,
       color && {color},
       // with the right flex on the tree hierarchy we might not need this
-      Constants.isIOS && {height: this.getHeight()},
+      // {height: this.getHeight()},
       style,
     ];
-    const placeholderText = this.shouldFakePlaceholder() ?
-      (this.shouldShowHelperText() ? helperText : undefined) : placeholder;
+    // HACK: passing whitespace instead of undefined. Issue fixed in RN56
+    const placeholderText = this.getPlaceholderText();
+    const placeholderColor = this.getStateColor(placeholderTextColor);
 
     return (
       <RNTextInput
-        {...props}
+        {...others}
         value={value}
         placeholder={placeholderText}
+        placeholderTextColor={placeholderColor}
         underlineColorAndroid="transparent"
         style={inputStyle}
         multiline={multiline}
         numberOfLines={numberOfLines}
+        onKeyPress={this.onKeyPress}
         onChangeText={this.onChangeText}
         onChange={this.onChange}
         onFocus={this.onFocus}
@@ -431,21 +505,34 @@ class TextInput extends BaseInput {
     );
   }
 
+  getTopPaddings() {
+    const {floatingPlaceholder} = this.props;
+    return floatingPlaceholder ? (this.shouldShowTopError() ? undefined : 25) : undefined;
+  }
+
   render() {
-    const {expandable, containerStyle, underlineColor} = this.props;
+    const {expandable, containerStyle, underlineColor, useTopErrors, hideUnderline} = this.props;
     const underlineStateColor = this.getStateColor(underlineColor, true);
 
     return (
       <View style={[this.styles.container, containerStyle]} collapsable={false}>
-        {this.renderTitle()}
-        <View style={[this.styles.innerContainer, {borderColor: underlineStateColor}]}>
+        <View>
+          {this.shouldShowTopError() ? this.renderError(useTopErrors) : this.renderTitle()}
+        </View>
+        <View
+          style={[
+            this.styles.innerContainer,
+            hideUnderline && this.styles.innerContainerWithoutUnderline,
+            {borderColor: underlineStateColor},
+            {paddingTop: this.getTopPaddings()}]}
+        >
           {this.renderPlaceholder()}
           {expandable ? this.renderExpandableInput() : this.renderTextInput()}
           {this.renderExpandableModal()}
         </View>
-        <View row style={this.styles.errorContainer}>
-          <View flex>
-            {this.renderError()}
+        <View row>
+          <View flex left>
+            {this.renderError(!useTopErrors)}
           </View>
           {this.renderCharCounter()}
         </View>
@@ -453,56 +540,44 @@ class TextInput extends BaseInput {
     );
   }
 
-  toggleExpandableModal(value) {
-    this.setState({showExpandableModal: value});
-  }
-
-  updateFloatingPlaceholderState(withoutAnimation) {
-    if (withoutAnimation) {
-      this.state.floatingPlaceholderState.setValue(this.hasText() || this.shouldShowHelperText() ? 1 : 0);
-    } else {
-      Animated.spring(this.state.floatingPlaceholderState, {
-        toValue: this.hasText() || this.shouldShowHelperText() ? 1 : 0,
-        duration: 150,
-      }).start();
-    }
-  }
-
-  onDoneEditingExpandableInput() {
+  /** Events */
+  onDoneEditingExpandableInput = () => {
     const expandableInputValue = _.get(this.expandableInput, 'state.value');
-    this.setState({
-      value: expandableInputValue,
-    });
+    this.setState({value: expandableInputValue});
     this.state.floatingPlaceholderState.setValue(expandableInputValue ? 1 : 0);
     _.invoke(this.props, 'onChangeText', expandableInputValue);
     this.toggleExpandableModal(false);
   }
 
-  onChangeText(text) {
+  onKeyPress = (event) => {
+    this.lastKey = event.nativeEvent.key;
+    _.invoke(this.props, 'onKeyPress', event);
+  }
+
+  onChangeText = (text) => {
+    // when character count exceeds maxLength text will be empty string.
+    // HACK: To avoid setting state value to '' we check the source of that deletion
+    if (text === '' && this.lastKey && this.lastKey !== 'Backspace') {
+      return;
+    }
+
     const {transformer} = this.props;
     let transformedText = text;
-
     if (_.isFunction(transformer)) {
       transformedText = transformer(text);
     }
 
     _.invoke(this.props, 'onChangeText', transformedText);
-
-    this.setState(
-      {
-        value: transformedText,
-      },
-      this.updateFloatingPlaceholderState,
-    );
+    this.setState({value: transformedText}, this.updateFloatingPlaceholderState);
   }
 
-  onFocus(...args) {
-    this.props.onFocus && this.props.onFocus(...args);
+  onFocus = (...args) => {
+    _.invoke(this.props, 'onFocus', ...args);
     this.setState({focused: true}, this.updateFloatingPlaceholderState);
   }
 
-  onBlur(...args) {
-    this.props.onBlur && this.props.onBlur(...args);
+  onBlur = (...args) => {
+    _.invoke(this.props, 'onBlur', ...args);
     this.setState({focused: false}, this.updateFloatingPlaceholderState);
   }
 }
@@ -510,78 +585,67 @@ class TextInput extends BaseInput {
 function createStyles({
   rtl,
   placeholderTextColor,
-  hideUnderline,
   centered,
-  floatingPlaceholder,
 }) {
   return StyleSheet.create({
     container: {
     },
     innerContainer: {
       flexDirection: 'row',
-      borderBottomWidth: hideUnderline ? 0 : 1,
+      borderBottomWidth: 1,
       borderColor: Colors.dark70,
-      justifyContent: centered ? 'center' : (rtl ? 'flex-end' : undefined),
-      paddingTop: floatingPlaceholder ? 25 : undefined,
+      justifyContent: centered ? 'center' : undefined,
       flexGrow: 1,
     },
-    focusedUnderline: {
-      borderColor: Colors.blue30,
-    },
-    errorUnderline: {
-      borderColor: Colors.red30,
+    innerContainerWithoutUnderline: {
+      borderBottomWidth: 0,
     },
     input: {
       flexGrow: 1,
-      marginBottom: hideUnderline ? undefined : (Constants.isIOS ? 10 : 5),
+      marginBottom: Constants.isIOS ? 10 : 5,
       padding: 0,
       textAlign: centered ? 'center' : (rtl ? 'right' : undefined),
       writingDirection: rtl ? 'rtl' : undefined,
       backgroundColor: 'transparent',
+    },
+    expandableInput: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      flexGrow: 1,
+    },
+    inputWithoutUnderline: {
+      marginBottom: undefined,
     },
     floatingPlaceholder: {
       position: 'absolute',
     },
     placeholder: {
       color: placeholderTextColor,
-      textAlign: rtl ? 'right' : undefined,
-      writingDirection: rtl ? 'rtl' : undefined,
     },
     placeholderCentered: {
       left: 0,
       right: 0,
       textAlign: 'center',
     },
-    errorContainer: {
-      flexDirection: rtl ? 'row-reverse' : 'row',
-    },
     errorMessage: {
       color: Colors.red30,
       textAlign: centered ? 'center' : (rtl ? 'right' : undefined),
-      ...Typography.text90,
-      // height: Typography.text90.lineHeight,
       writingDirection: rtl ? 'rtl' : undefined,
-      marginTop: 1,
     },
     expandableModalContent: {
       flex: 1,
       paddingTop: 15,
       paddingHorizontal: 20,
     },
-    title: {
-      top: 0,
-      textAlign: rtl ? 'right' : undefined,
-      writingDirection: rtl ? 'rtl' : undefined,
-      ...Typography.text90,
-      height: Typography.text90.lineHeight,
-      marginBottom: Constants.isIOS ? 5 : 4,
+    topLabel: {
+      marginBottom: Constants.isIOS ? 6 : 7,
     },
-    charCounter: {
-      ...Typography.text90,
-      height: Typography.text90.lineHeight,
+    bottomLabel: {
       marginTop: 1,
+    },
+    label: {
+      ...LABEL_TYPOGRAPHY,
+      height: LABEL_TYPOGRAPHY.lineHeight,
     },
   });
 }
-
-module.exports = TextInput;

@@ -9,11 +9,9 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const { Dimensions, Image, TouchableOpacity } = require('react-native');
+const { BaseComponent, Text, View } = require('react-native-ui-lib');
 
 const StyleSheet = require('../StyleSheet');
-const Text = require('../text');
-const View = require('../view');
-const { BaseComponent } = require('../../commons');
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const IOS_ITEM_TEXT_SIZE = SCREEN_WIDTH < 375 ? 10 : 13;

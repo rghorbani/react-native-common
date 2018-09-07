@@ -9,11 +9,7 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const { ActivityIndicator, StyleSheet } = require('react-native');
-
-const Text = require('../text');
-const View = require('../view');
-const { Constants } = require('../../helpers');
-const { Colors, ThemeManager } = require('../../style');
+const { Constants, Colors, Text, ThemeManager, View } = require('react-native-ui-lib');
 
 class LoadingView extends React.Component {
   static displayName = 'LoadingView';
