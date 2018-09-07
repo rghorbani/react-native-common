@@ -11,6 +11,12 @@ import {PageContainer} from './containers';
 import LoadingView from './loading';
 import Header from './header';
 import {KeyboardAwareBase, KeyboardAwareScrollView, KeyboardAwareListView} from './keyboard-aware';
+import KeyboardSpacer from './KeyboardSpacer';
+import PageControl from './PageControl';
+import PureListView from './PureListView';
+import SegmentedControl from './SegmentedControl';
+import SettingsList from './SettingsList';
+import StyleSheet from './StyleSheet';
 import {TextArea, TextInput} from './inputs';
 import {Touchable} from './touchables';
 
@@ -30,6 +36,12 @@ export {
   TextInput,
 
   // Other
+  KeyboardSpacer,
+  PageControl,
+  PureListView,
+  SegmentedControl,
+  SettingsList,
+  StyleSheet,
   Touchable,
 };
 
