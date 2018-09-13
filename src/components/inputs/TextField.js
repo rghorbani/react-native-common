@@ -1,24 +1,14 @@
-/**
- * Copyright 2016 Reza (github.com/rghorbani)
- *
- * @flow
- */
-
-'use strict';
-
-const React = require('react');
-const PropTypes = require('prop-types');
-const _ = require('lodash');
-const RNTextInput = require('react-native').TextInput;
-const { Animated, StyleSheet } = require('react-native');
-
-const BaseInput = require('./BaseInput');
-const TextArea = require('./TextArea');
-const Text = require('../text');
-const View = require('../view');
-const { Constants } = require('../../helpers');
-const { Modal } = require('../../screen-components');
-const { Colors, Typography } = require('../../style');
+import React from 'react';
+import PropTypes from 'prop-types';
+import {TextInput as RNTextInput, StyleSheet, Animated} from 'react-native';
+import _ from 'lodash';
+import BaseInput from './BaseInput';
+import Text from '../text';
+import {Colors, Typography} from '../../style';
+import {Constants} from '../../helpers';
+import {Modal} from '../../screensComponents';
+import TextArea from './TextArea';
+import View from '../view';
 
 
 const DEFAULT_COLOR_BY_STATE = {
@@ -33,23 +23,11 @@ const DEFAULT_UNDERLINE_COLOR_BY_STATE = {
 };
 
 
-/**
- * @description: A wrapper for Text Input component with extra functionality like floating placeholder
- * @extends: TextInput
- * @extendslink: https://facebook.github.io/react-native/docs/textinput.html
- * @modifiers: Typography
- * @gif: https://media.giphy.com/media/xULW8su8Cs5Z9Fq4PS/giphy.gif, https://media.giphy.com/media/3ohc1dhDcLS9FvWLJu/giphy.gif, https://media.giphy.com/media/oNUSOxnHdMP5ZnKYsh/giphy.gif
- */
-class TextField extends BaseInput {
+export default class TextField extends BaseInput {
   static displayName = 'TextField';
-
   static propTypes = {
     ...RNTextInput.propTypes,
     ...BaseInput.propTypes,
-    /**
-     * make component rtl
-     */
-    rtl: PropTypes.bool,
     /**
      * should placeholder have floating behavior
      */
@@ -105,6 +83,10 @@ class TextField extends BaseInput {
      * The title's color as a string or object of states, ex. {default: 'black', error: 'red', focus: 'blue'}
      */
     titleColor: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+    /**
+     * Additional styles for the title (not including 'color')
+     */
+    titleStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
     /**
      * should the input display a character counter (only when passing 'maxLength')
      */
@@ -287,13 +269,13 @@ class TextField extends BaseInput {
   }
 
   renderTitle() {
-    const {floatingPlaceholder, title, titleColor} = this.props;
+    const {floatingPlaceholder, title, titleColor, titleStyle} = this.props;
     const color = this.getStateColor(titleColor);
 
     if (!floatingPlaceholder && title) {
       return (
         <Text
-          style={[{color}, this.styles.title]}
+          style={[{color}, this.styles.title, titleStyle]}
         >
           {title}
         </Text>
@@ -392,16 +374,18 @@ class TextField extends BaseInput {
     const {value} = this.state;
     const color = this.props.color || this.extractColorValue();
     const typography = this.getTypography();
+    /* eslint-disable no-unused-vars */
     const {
       style,
       placeholder,
-      floatingPlaceholder, // eslint-disable-line no-unused-vars
-      centered, // eslint-disable-line no-unused-vars
+      floatingPlaceholder,
+      centered,
       multiline,
       numberOfLines,
       helperText,
       ...others
     } = this.props;
+    /* eslint-enable no-unused-vars */
     const inputStyle = [
       this.styles.input,
       typography,
@@ -540,6 +524,8 @@ function createStyles({
       textAlign: centered ? 'center' : (rtl ? 'right' : undefined),
       writingDirection: rtl ? 'rtl' : undefined,
       backgroundColor: 'transparent',
+
+      // backgroundColor: 'red'
     },
     floatingPlaceholder: {
       position: 'absolute',
@@ -554,7 +540,8 @@ function createStyles({
     },
     errorMessage: {
       color: Colors.red30,
-      textAlign: centered ? 'center' : undefined,
+      textAlign: centered ? 'center' : (rtl ? 'right' : undefined),
+      writingDirection: rtl ? 'rtl' : undefined,
       ...Typography.text90,
       // height: Typography.text90.lineHeight,
       marginTop: 1,
@@ -577,5 +564,3 @@ function createStyles({
     },
   });
 }
-
-module.exports = TextField;

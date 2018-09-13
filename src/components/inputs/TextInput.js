@@ -327,6 +327,7 @@ export default class TextInput extends BaseInput {
                 : typography.lineHeight,
             },
           ]}
+          numberOfLines={1}
           onPress={() => expandable && this.toggleExpandableModal(true)}
           suppressHighlighting
         >
@@ -458,6 +459,7 @@ export default class TextInput extends BaseInput {
     const {value} = this.state; // value set on state for floatingPlaceholder functionality
     const color = this.getStateColor(this.props.color || this.extractColorValue());
     const typography = this.getTypography();
+    /* eslint-disable no-unused-vars */
     const {
       style,
       placeholder,
@@ -470,6 +472,7 @@ export default class TextInput extends BaseInput {
       helperText,
       ...others
     } = this.props;
+    /* eslint-enable no-unused-vars */
     const inputStyle = [
       this.styles.input,
       hideUnderline && this.styles.inputWithoutUnderline,
@@ -618,6 +621,7 @@ function createStyles({
     },
     floatingPlaceholder: {
       position: 'absolute',
+      width: '100%',
     },
     placeholder: {
       color: placeholderTextColor,

@@ -7,6 +7,7 @@
 'use strict';
 
 
+import Navigator from './navigator/Navigator';
 import {PageContainer} from './containers';
 import LoadingView from './loading';
 import Header from './header';
@@ -17,11 +18,12 @@ import PureListView from './PureListView';
 import SegmentedControl from './SegmentedControl';
 import SettingsList from './SettingsList';
 import StyleSheet from './StyleSheet';
-import {TextArea, TextInput} from './inputs';
+import {TextArea, TextField, TextInput} from './inputs';
 import {Touchable} from './touchables';
 
 export {
   // Containers
+  Navigator,
   PageContainer,
   LoadingView,
   Header,
@@ -33,6 +35,7 @@ export {
 
   // Inputs
   TextArea,
+  TextField,
   TextInput,
 
   // Other

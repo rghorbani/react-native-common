@@ -7,13 +7,11 @@
 'use strict';
 
 import TextArea from './TextArea';
-// import TextField from './TextField';
+import TextField from './TextField';
 import TextInput from './TextInput';
-// import MaskedInput from './MaskedInput';
 
 export {
   TextArea,
-  // TextField,
+  TextField,
   TextInput,
-  // MaskedInput,
 };

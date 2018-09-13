@@ -1,13 +1,5 @@
-/**
- * Copyright 2016 Reza (github.com/rghorbani)
- *
- * @flow
- */
-
-'use strict';
-
-const TextField = require('../TextField');
-const { Colors } = require('../../../style');
+import TextField from '../TextField';
+import {Colors} from 'react-native-ui-lib';
 
 describe('TextField', () => {
   // beforeEach(() => {});
