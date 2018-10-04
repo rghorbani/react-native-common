@@ -2,13 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {TextInput as RNTextInput, StyleSheet, Animated} from 'react-native';
 import _ from 'lodash';
+import {Colors, Constants, Modal, Text, Typography, View} from 'react-native-ui-lib';
 import BaseInput from './BaseInput';
-import Text from '../text';
-import {Colors, Typography} from '../../style';
-import {Constants} from '../../helpers';
-import {Modal} from '../../screensComponents';
 import TextArea from './TextArea';
-import View from '../view';
 
 
 const DEFAULT_COLOR_BY_STATE = {
