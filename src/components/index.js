@@ -27,11 +27,6 @@ export {
   LoadingView,
   Header,
 
-  // KeyboardAware
-  KeyboardAwareBase,
-  KeyboardAwareScrollView,
-  KeyboardAwareListView,
-
   // Inputs
   TextArea,
   TextField,

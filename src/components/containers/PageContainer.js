@@ -11,7 +11,7 @@ const PropTypes = require('prop-types');
 const { View, ViewPropTypes } = require('react-native');
 
 const Header = require('../header');
-import StyleSheet from '../StyleSheet';
+import StyleSheet from '../other/StyleSheet';
 
 class PageContainer extends React.Component {
   static propTypes = {
