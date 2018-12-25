@@ -11,13 +11,12 @@ import Navigator from './navigator/Navigator';
 import {PageContainer} from './containers';
 import LoadingView from './loading';
 import Header from './header';
-import {KeyboardAwareBase, KeyboardAwareScrollView, KeyboardAwareListView} from './keyboard-aware';
-import KeyboardSpacer from './KeyboardSpacer';
-import PageControl from './PageControl';
-import PureListView from './PureListView';
-import SegmentedControl from './SegmentedControl';
+import KeyboardSpacer from './other/KeyboardSpacer';
+import PageControl from './other/PageControl';
+import PureListView from './other/PureListView';
+import SegmentedControl from './other/SegmentedControl';
 import SettingsList from './SettingsList';
-import StyleSheet from './StyleSheet';
+import StyleSheet from './other/StyleSheet';
 import {TextArea, TextField, TextInput} from './inputs';
 import {Touchable} from './touchables';
 

@@ -27,6 +27,14 @@ const DEFAULT_UNDERLINE_COLOR_BY_STATE = {
 };
 const LABEL_TYPOGRAPHY = Typography.text80;
 
+/**
+ * @description: A wrapper for Text Input component with extra functionality like floating placeholder
+ * @extends: TextInput
+ * @extendslink: https://facebook.github.io/react-native/docs/textinput.html
+ * @modifiers: Typography
+ * @gif: https://media.giphy.com/media/xULW8su8Cs5Z9Fq4PS/giphy.gif, https://media.giphy.com/media/3ohc1dhDcLS9FvWLJu/giphy.gif, https://media.giphy.com/media/oNUSOxnHdMP5ZnKYsh/giphy.gif
+ * @example: https://github.com/wix/react-native-ui-lib/blob/master/demo/src/screens/componentScreens/InputsScreen.js
+ */
 export default class TextInput extends BaseInput {
   static displayName = 'TextInput';
   static propTypes = {
@@ -87,6 +95,10 @@ export default class TextInput extends BaseInput {
      * use toggleExpandableModal(false) method to toggle off the expandable content
      */
     renderExpandable: PropTypes.func,
+    /**
+     * The picker modal top bar props
+     */
+    topBarProps: PropTypes.shape(Modal.TopBar.propTypes),
     /**
      * transform function executed on value and return transformed value
      */
@@ -385,7 +397,7 @@ export default class TextInput extends BaseInput {
   }
 
   renderExpandableModal() {
-    const {renderExpandable} = this.props;
+    const {renderExpandable, topBarProps} = this.props;
     const {showExpandableModal} = this.state;
 
     if (_.isFunction(renderExpandable) && showExpandableModal) {
@@ -399,6 +411,7 @@ export default class TextInput extends BaseInput {
         onRequestClose={() => this.toggleExpandableModal(false)}
       >
         <Modal.TopBar
+          {...topBarProps}
           onCancel={() => this.toggleExpandableModal(false)}
           onDone={this.onDoneEditingExpandableInput}
         />
@@ -459,7 +472,6 @@ export default class TextInput extends BaseInput {
     const {value} = this.state; // value set on state for floatingPlaceholder functionality
     const color = this.getStateColor(this.props.color || this.extractColorValue());
     const typography = this.getTypography();
-    /* eslint-disable no-unused-vars */
     const {
       style,
       placeholder,
@@ -472,7 +484,6 @@ export default class TextInput extends BaseInput {
       helperText,
       ...others
     } = this.props;
-    /* eslint-enable no-unused-vars */
     const inputStyle = [
       this.styles.input,
       hideUnderline && this.styles.inputWithoutUnderline,
@@ -534,7 +545,7 @@ export default class TextInput extends BaseInput {
           {this.renderExpandableModal()}
         </View>
         <View row>
-          <View flex left>
+          <View flex>
             {this.renderError(!useTopErrors)}
           </View>
           {this.renderCharCounter()}

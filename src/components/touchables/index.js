@@ -7,9 +7,7 @@
 'use strict';
 
 import Touchable from './Touchable';
-import TouchableOpacity from './TouchableOpacity';
 
 export {
   Touchable,
-  TouchableOpacity,
 };

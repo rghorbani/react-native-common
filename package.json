@@ -59,14 +59,13 @@
     "immutable": "~3.8.2",
     "lodash": "^4.17.11",
     "prop-types": "~15.6.2",
-    "react-native-ui-lib": "~3.6.1",
+    "react-native-keyboard-aware-scrollview": "^2.0.0",
+    "react-native-ui-lib": "~3.9.1",
     "react-timer-mixin": "~0.13.4",
     "rebound": "~0.1.0",
     "url-parse": "^1.4.3"
   },
   "devDependencies": {
-    "@types/prop-types": "^15.5.3",
-    "@types/react-native": "^0.55.21",
     "babel-cli": "~6.26.0",
     "babel-eslint": "~8.2.1",
     "babel-jest": "~22.4.3",
@@ -79,9 +78,7 @@
     "metro-react-native-babel-preset": "^0.48.1",
     "prettier": "~1.5.3",
     "react": "16.6.0-alpha.8af6728",
-    "react-js-to-ts": "^1.4.0",
     "react-native": "0.57.3",
-    "typescript": "^2.9.2"
   },
   "peerDependencies": {
     "react": "*",
