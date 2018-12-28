@@ -19,6 +19,14 @@ const DEFAULT_UNDERLINE_COLOR_BY_STATE = {
 };
 
 
+/**
+ * @description: A wrapper for Text Input component with extra functionality like floating placeholder
+ * @extends: TextInput
+ * @extendslink: https://facebook.github.io/react-native/docs/textinput.html
+ * @modifiers: Typography
+ * @gif: https://media.giphy.com/media/xULW8su8Cs5Z9Fq4PS/giphy.gif, https://media.giphy.com/media/3ohc1dhDcLS9FvWLJu/giphy.gif, https://media.giphy.com/media/oNUSOxnHdMP5ZnKYsh/giphy.gif
+ * @example: https://github.com/wix/react-native-ui-lib/blob/master/demo/src/screens/componentScreens/InputsScreen.js
+ */
 export default class TextField extends BaseInput {
   static displayName = 'TextField';
   static propTypes = {
@@ -67,6 +75,10 @@ export default class TextField extends BaseInput {
      * use toggleExpandableModal(false) method to toggle off the expandable content
      */
     renderExpandable: PropTypes.func,
+    /**
+     * The picker modal top bar props
+     */
+    topBarProps: PropTypes.shape(Modal.TopBar.propTypes),
     /**
      * transform function executed on value and return transformed value
      */
@@ -307,7 +319,7 @@ export default class TextField extends BaseInput {
   }
 
   renderExpandableModal() {
-    const {renderExpandable} = this.props;
+    const {renderExpandable, topBarProps} = this.props;
     const {showExpandableModal} = this.state;
 
     if (_.isFunction(renderExpandable) && showExpandableModal) {
@@ -321,6 +333,7 @@ export default class TextField extends BaseInput {
         onRequestClose={() => this.toggleExpandableModal(false)}
       >
         <Modal.TopBar
+          {...topBarProps}
           onCancel={() => this.toggleExpandableModal(false)}
           onDone={this.onDoneEditingExpandableInput}
         />
@@ -370,7 +383,6 @@ export default class TextField extends BaseInput {
     const {value} = this.state;
     const color = this.props.color || this.extractColorValue();
     const typography = this.getTypography();
-    /* eslint-disable no-unused-vars */
     const {
       style,
       placeholder,
@@ -381,7 +393,6 @@ export default class TextField extends BaseInput {
       helperText,
       ...others
     } = this.props;
-    /* eslint-enable no-unused-vars */
     const inputStyle = [
       this.styles.input,
       typography,
@@ -490,7 +501,6 @@ export default class TextField extends BaseInput {
 }
 
 function createStyles({
-  rtl,
   placeholderTextColor,
   hideUnderline,
   centered,
@@ -517,8 +527,7 @@ function createStyles({
       flexGrow: 1,
       marginBottom: hideUnderline ? undefined : (Constants.isIOS ? 10 : 5),
       padding: 0,
-      textAlign: centered ? 'center' : (rtl ? 'right' : undefined),
-      writingDirection: rtl ? 'rtl' : undefined,
+      textAlign: centered ? 'center' : undefined,
       backgroundColor: 'transparent',
 
       // backgroundColor: 'red'
@@ -536,8 +545,7 @@ function createStyles({
     },
     errorMessage: {
       color: Colors.red30,
-      textAlign: centered ? 'center' : (rtl ? 'right' : undefined),
-      writingDirection: rtl ? 'rtl' : undefined,
+      textAlign: centered ? 'center' : 'left',
       ...Typography.text90,
       // height: Typography.text90.lineHeight,
       marginTop: 1,
@@ -552,6 +560,7 @@ function createStyles({
       ...Typography.text90,
       height: Typography.text90.lineHeight,
       marginBottom: Constants.isIOS ? 5 : 4,
+      textAlign: 'left',
     },
     charCounter: {
       ...Typography.text90,
