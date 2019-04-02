@@ -9,7 +9,14 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const { Platform, ToolbarAndroid, StyleSheet } = require('react-native');
-const { BaseComponent, Constants, Colors, Shadows, Text, View } = require('react-native-ui-lib');
+const {
+  BaseComponent,
+  Constants,
+  Colors,
+  Shadows,
+  Text,
+  View,
+} = require('react-native-ui-lib');
 const ItemWrapper = require('./ItemWrapper');
 
 class Header extends BaseComponent {
@@ -44,15 +51,24 @@ class Header extends BaseComponent {
     /**
      * leftItems
      */
-    leftItems: PropTypes.oneOfType([PropTypes.shape(ItemWrapper.propTypes), PropTypes.arrayOf(PropTypes.shape(ItemWrapper.propTypes))]),
+    leftItems: PropTypes.oneOfType([
+      PropTypes.shape(ItemWrapper.propTypes),
+      PropTypes.arrayOf(PropTypes.shape(ItemWrapper.propTypes)),
+    ]),
     /**
      * rightItems
      */
-    rightItems: PropTypes.oneOfType([PropTypes.shape(ItemWrapper.propTypes), PropTypes.arrayOf(PropTypes.shape(ItemWrapper.propTypes))]),
+    rightItems: PropTypes.oneOfType([
+      PropTypes.shape(ItemWrapper.propTypes),
+      PropTypes.arrayOf(PropTypes.shape(ItemWrapper.propTypes)),
+    ]),
     /**
      * extraItems
      */
-    extraItems: PropTypes.oneOfType([PropTypes.shape(ItemWrapper.propTypes), PropTypes.arrayOf(PropTypes.shape(ItemWrapper.propTypes))]),
+    extraItems: PropTypes.oneOfType([
+      PropTypes.shape(ItemWrapper.propTypes),
+      PropTypes.arrayOf(PropTypes.shape(ItemWrapper.propTypes)),
+    ]),
     /**
      * color of items
      */
@@ -60,7 +76,11 @@ class Header extends BaseComponent {
     /**
      * style the action bar
      */
-    style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+    style: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.number,
+      PropTypes.array,
+    ]),
     /**
      * use safe area
      */
@@ -76,7 +96,7 @@ class Header extends BaseComponent {
     useSafeArea: true,
     backgroundColor: Colors.white,
     titleColor: Colors.yellow,
-    itemsColor: Colors.black
+    itemsColor: Colors.black,
   };
 
   constructor(props) {
@@ -89,7 +109,11 @@ class Header extends BaseComponent {
 
   generateStyles() {
     let statusBarHeight = Constants.statusBarHeight;
-    if (Platform.OS === 'android' && Platform.Version && Platform.Version < 21) {
+    if (
+      Platform.OS === 'android' &&
+      Platform.Version &&
+      Platform.Version < 21
+    ) {
       statusBarHeight = 0;
     }
 
@@ -128,7 +152,7 @@ class Header extends BaseComponent {
       actions.push({
         icon: layout !== 'title' ? icon : undefined,
         title: title,
-        show: 'always'
+        show: 'always',
       });
     }
     if (rightItems) {
@@ -139,15 +163,15 @@ class Header extends BaseComponent {
       actions.push({
         icon: layout !== 'title' ? icon : undefined,
         title: title,
-        show: 'always'
+        show: 'always',
       });
     }
     if (extraItems) {
       actions = actions.concat(
         extraItems.map(item => ({
           title: item.title,
-          show: 'never'
-        }))
+          show: 'never',
+        })),
       );
     }
 
@@ -161,7 +185,11 @@ class Header extends BaseComponent {
     } else {
       content = (
         <View collapsable={false} style={{ flex: 1, justifyContent: 'center' }}>
-          <Text text70 numberOfLines={1} style={[this.styles.title, { color: titleColor }, titleStyle]}>
+          <Text
+            text70
+            numberOfLines={1}
+            style={[this.styles.title, { color: titleColor }, titleStyle]}
+          >
             {this.props.title}
           </Text>
         </View>
@@ -169,12 +197,7 @@ class Header extends BaseComponent {
     }
 
     return (
-      <View
-        style={[
-          this.styles.toolbarContainer,
-          style
-        ]}
-      >
+      <View style={[this.styles.toolbarContainer, style]}>
         <ToolbarAndroid
           {...props}
           navIcon={leftItems && leftItems.icon}
@@ -189,7 +212,7 @@ class Header extends BaseComponent {
           {content}
         </ToolbarAndroid>
         {/*
-        */}
+         */}
       </View>
     );
   }
@@ -218,7 +241,11 @@ class Header extends BaseComponent {
 
     const content =
       React.Children.count(this.props.children) === 0 ? (
-        <Text text70 numberOfLines={1} style={[this.styles.title, { color: titleColor }, titleStyle]}>
+        <Text
+          text70
+          numberOfLines={1}
+          style={[this.styles.title, { color: titleColor }, titleStyle]}
+        >
           {this.props.title}
         </Text>
       ) : (
@@ -226,15 +253,12 @@ class Header extends BaseComponent {
       );
 
     let wrapper = (
-      <View
-        style={[
-          this.styles.container,
-          style,
-        ]}
-      >
+      <View style={[this.styles.container, style]}>
         <View style={this.styles.leftItems}>
           {leftItems.map((leftItem, index) => {
-            return <ItemWrapper key={index} color={itemsColor} item={leftItem} />;
+            return (
+              <ItemWrapper key={index} color={itemsColor} item={leftItem} />
+            );
           })}
         </View>
         <View
@@ -247,18 +271,16 @@ class Header extends BaseComponent {
         </View>
         <View style={this.styles.rightItems}>
           {rightItems.map((rightItem, index) => {
-            return <ItemWrapper key={index} color={itemsColor} item={rightItem} />;
+            return (
+              <ItemWrapper key={index} color={itemsColor} item={rightItem} />
+            );
           })}
         </View>
       </View>
     );
 
     if (Constants.isIOS && useSafeArea) {
-      wrapper = (
-        <View useSafeArea={useSafeArea}>
-          {wrapper}
-        </View>
-      );
+      wrapper = <View useSafeArea={useSafeArea}>{wrapper}</View>;
     }
     return wrapper;
   }
@@ -311,8 +333,7 @@ function createStyles({
       alignItems: 'center',
       justifyContent: 'flex-end',
     },
-    title: {
-    },
+    title: {},
   });
 }
 

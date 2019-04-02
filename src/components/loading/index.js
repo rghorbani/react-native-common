@@ -9,7 +9,13 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const { ActivityIndicator, StyleSheet } = require('react-native');
-const { Constants, Colors, Text, ThemeManager, View } = require('react-native-ui-lib');
+const {
+  Constants,
+  Colors,
+  Text,
+  ThemeManager,
+  View,
+} = require('react-native-ui-lib');
 
 class LoadingView extends React.Component {
   static displayName = 'LoadingView';
@@ -17,8 +23,8 @@ class LoadingView extends React.Component {
   static propTypes = {
     ...ActivityIndicator.propTypes,
     /**
-    * Show the screen as an absolute overlay
-    */
+     * Show the screen as an absolute overlay
+     */
     overlay: PropTypes.bool,
     /**
      * is loading
@@ -31,11 +37,19 @@ class LoadingView extends React.Component {
     /**
      * caption style
      */
-    captionStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+    captionStyle: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.number,
+      PropTypes.array,
+    ]),
     /**
      * container style
      */
-    containerStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+    containerStyle: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.number,
+      PropTypes.array,
+    ]),
   };
 
   static defaultProps = {
@@ -46,23 +60,33 @@ class LoadingView extends React.Component {
   };
 
   render() {
-    const {overlay, caption, captionStyle, style, containerStyle, ...props} = this.props;
+    const {
+      overlay,
+      caption,
+      captionStyle,
+      style,
+      containerStyle,
+      ...props
+    } = this.props;
 
     if (!this.props.loading) {
       return null;
     }
 
     return (
-      <View style={[
-        overlay ? styles.overlayContainer : styles.container,
-        styles.containerCommon,
-        containerStyle
-      ]}>
-        <ActivityIndicator
-          style={[styles.indicator, style]}
-          {...props}
-        />
-        {caption && <Text text70 style={[styles.caption, captionStyle]}>{caption}</Text>}
+      <View
+        style={[
+          overlay ? styles.overlayContainer : styles.container,
+          styles.containerCommon,
+          containerStyle,
+        ]}
+      >
+        <ActivityIndicator style={[styles.indicator, style]} {...props} />
+        {caption && (
+          <Text text70 style={[styles.caption, captionStyle]}>
+            {caption}
+          </Text>
+        )}
       </View>
     );
   }
@@ -83,7 +107,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   indicator: {
-    transform: [{scale: 1.5}],
+    transform: [{ scale: 1.5 }],
   },
   caption: {
     marginTop: 15,

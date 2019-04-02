@@ -1,3 +1,3 @@
-const {NativeModules} = require('react-native');
+const { NativeModules } = require('react-native');
 
-NativeModules.StatusBarManager = {getHeight: jest.fn()};
+NativeModules.StatusBarManager = { getHeight: jest.fn() };

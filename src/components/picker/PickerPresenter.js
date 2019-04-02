@@ -21,15 +21,19 @@ export function isItemSelected(childValue, selectedValue) {
 
 export function getItemValue(props) {
   if (_.isArray(props.value)) {
-    return props.getItemValue ?
-      _.map(props.value, item => props.getItemValue(item)) :
-      _.map(props.value, 'value');
+    return props.getItemValue
+      ? _.map(props.value, item => props.getItemValue(item))
+      : _.map(props.value, 'value');
   } else if (!_.isObject(props.value)) {
     return props.value;
   }
-  return _.invoke(props, 'getItemValue', props.value) || _.get(props.value, 'value');
+  return (
+    _.invoke(props, 'getItemValue', props.value) || _.get(props.value, 'value')
+  );
 }
 
 export function getItemLabel(props) {
-  return _.invoke(props, 'getLabel', props.value) || _.get(props.value, 'label');
+  return (
+    _.invoke(props, 'getLabel', props.value) || _.get(props.value, 'label')
+  );
 }

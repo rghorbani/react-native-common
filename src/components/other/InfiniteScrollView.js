@@ -8,10 +8,7 @@
 
 const React = require('react');
 
-const {
-  ScrollView,
-  View,
-} = require('react-native');
+const { ScrollView, View } = require('react-native');
 
 class InfiniteScrollView extends React.Component {
   constructor(props) {
@@ -41,17 +38,20 @@ class InfiniteScrollView extends React.Component {
     let range = this.pagesRange(nextState);
     return (
       nextState.size !== this.state.size ||
-      range.to !== this._renderedRange.to || range.from !== this._renderedRange.from ||
+      range.to !== this._renderedRange.to ||
+      range.from !== this._renderedRange.from ||
       this.state.index !== index
     );
   }
 
   componentDidUpdate() {
-    let scrollTo = {animated: false};
+    let scrollTo = { animated: false };
     if (this.props.horizontal) {
-      scrollTo.x = (this.state.index - this._renderedRange.from) * this.state.size.width;
+      scrollTo.x =
+        (this.state.index - this._renderedRange.from) * this.state.size.width;
     } else {
-      scrollTo.y = (this.state.index - this._renderedRange.from) * this.state.size.height;
+      scrollTo.y =
+        (this.state.index - this._renderedRange.from) * this.state.size.height;
     }
     this._scrollView.scrollTo(scrollTo);
   }
@@ -76,10 +76,13 @@ class InfiniteScrollView extends React.Component {
         showsHorizontalScrollIndicator={false}
         automaticallyAdjustContentInsets={false}
         {...this.props}
-        ref={(scrollView) => { this._scrollView = scrollView; }}
-        onLayout={(e) => this.onLayout(e)}
+        ref={scrollView => {
+          this._scrollView = scrollView;
+        }}
+        onLayout={e => this.onLayout(e)}
         pagingEnabled={true}
-        onMomentumScrollEnd={(e) => this.onMomentumScrollEnd(e)}>
+        onMomentumScrollEnd={e => this.onMomentumScrollEnd(e)}
+      >
         {pages}
       </ScrollView>
     );
@@ -89,7 +92,7 @@ class InfiniteScrollView extends React.Component {
     this.setState({
       size: {
         width: event.nativeEvent.layout.width,
-        height: event.nativeEvent.layout.height
+        height: event.nativeEvent.layout.height,
       },
     });
 
@@ -97,10 +100,18 @@ class InfiniteScrollView extends React.Component {
   }
 
   onMomentumScrollEnd(event: any) {
-    let scrollIndex = Math.round(this.props.horizontal ? event.nativeEvent.contentOffset.x / this.state.size.width : event.nativeEvent.contentOffset.y / this.state.size.height);
+    let scrollIndex = Math.round(
+      this.props.horizontal
+        ? event.nativeEvent.contentOffset.x / this.state.size.width
+        : event.nativeEvent.contentOffset.y / this.state.size.height,
+    );
 
     let currentIndex = this.state.index;
-    let index = this.state.index + scrollIndex - Math.min(this.offscreenPages, this.state.index - this.state.fromIndex) - Math.max(0, this.offscreenPages + this.state.index - this.state.toIndex);
+    let index =
+      this.state.index +
+      scrollIndex -
+      Math.min(this.offscreenPages, this.state.index - this.state.fromIndex) -
+      Math.max(0, this.offscreenPages + this.state.index - this.state.toIndex);
 
     if (index !== currentIndex && this.props.onPageIndexChange) {
       this.props.onPageIndexChange(index);
@@ -113,7 +124,10 @@ class InfiniteScrollView extends React.Component {
 
   pagesRange(state) {
     let range = {};
-    range.from = Math.max(this.state.index - this.offscreenPages, state.fromIndex);
+    range.from = Math.max(
+      this.state.index - this.offscreenPages,
+      state.fromIndex,
+    );
     range.to = Math.min(range.from + 2 * this.offscreenPages, state.toIndex);
     range.from = Math.min(range.from, range.to - 2 * this.offscreenPages);
     return range;
@@ -130,7 +144,10 @@ class InfiniteScrollView extends React.Component {
 
   renderPage(index) {
     return (
-      <View style={{width: this.state.size.width, height: this.state.size.height}} key={index}>
+      <View
+        style={{ width: this.state.size.width, height: this.state.size.height }}
+        key={index}
+      >
         {this.props.renderPage(index)}
       </View>
     );
@@ -164,7 +181,10 @@ class InfiniteScrollView extends React.Component {
     }
     let index = 0;
     if (props.index % 1 === 0) {
-      index = Math.min(Math.max(props.index, this.fromIndex(props)), this.toIndex(props));
+      index = Math.min(
+        Math.max(props.index, this.fromIndex(props)),
+        this.toIndex(props),
+      );
     } else {
       index = Math.max(0, this.fromIndex(props));
     }

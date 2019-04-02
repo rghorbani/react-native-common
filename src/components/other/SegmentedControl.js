@@ -8,7 +8,13 @@
 
 const React = require('react');
 const PropTypes = require('prop-types');
-const { Platform, Text, TouchableOpacity, View, ViewPropTypes } = require('react-native');
+const {
+  Platform,
+  Text,
+  TouchableOpacity,
+  View,
+  ViewPropTypes,
+} = require('react-native');
 
 import StyleSheet from './StyleSheet';
 
@@ -26,35 +32,29 @@ class SegmentedControl extends React.Component {
   };
 
   render() {
-    let segments = this.props.values.map(
-      (value, index) => (
-        <Segment
-          key={value}
-          value={value}
-          titleStyle={this.props.titleStyle}
-          segmentStyle={this.props.segmentStyle}
-          isSelected={index === this.props.selectedIndex}
-          selectionColor={this.props.selectionColor || 'white'}
-          onPress={() => this.props.onChange(index)}
-        />
-      )
-    );
-    return (
-      <View style={[styles.container, this.props.style]}>
-        {segments}
-      </View>
-    );
+    let segments = this.props.values.map((value, index) => (
+      <Segment
+        key={value}
+        value={value}
+        titleStyle={this.props.titleStyle}
+        segmentStyle={this.props.segmentStyle}
+        isSelected={index === this.props.selectedIndex}
+        selectionColor={this.props.selectionColor || 'white'}
+        onPress={() => this.props.onChange(index)}
+      />
+    ));
+    return <View style={[styles.container, this.props.style]}>{segments}</View>;
   }
 }
 
 class Segment extends React.Component {
   props: {
-    value: string;
-    isSelected: boolean;
-    selectionColor: string;
-    segmentStyle?: any;
-    titleStyle?: any;
-    onPress: () => void;
+    value: string,
+    isSelected: boolean,
+    selectionColor: string,
+    segmentStyle?: any,
+    titleStyle?: any,
+    onPress: () => void,
   };
 
   render() {
@@ -78,7 +78,8 @@ class Segment extends React.Component {
         accessibilityTraits={accessibilityTraits}
         activeOpacity={0.8}
         onPress={this.props.onPress}
-        style={[styles.button, selectedButtonStyle, this.props.segmentStyle]}>
+        style={[styles.button, selectedButtonStyle, this.props.segmentStyle]}
+      >
         <Text style={[styles.label, deselectedLabelStyle, styles.titleStyle]}>
           {title}
         </Text>

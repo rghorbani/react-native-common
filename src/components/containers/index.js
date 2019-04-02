@@ -7,6 +7,8 @@
 'use strict';
 
 module.exports = {
-  get PageContainer() { return require('./PageContainer'); },
+  get PageContainer() {
+    return require('./PageContainer');
+  },
   // get ListContainer() { return require('./ListContainer'); },
 };

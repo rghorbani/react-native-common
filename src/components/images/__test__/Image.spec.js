@@ -17,13 +17,13 @@ describe('Image', () => {
 
   describe('getImageSource', () => {
     it('should return source prop, if no transformer was sent', () => {
-      const uut = new Image({source: 1});
+      const uut = new Image({ source: 1 });
       expect(uut.getImageSource()).toBe(1);
     });
 
     it('should return transformed source prop, according to sourceTransform prop', () => {
       const sourceTransformer = jest.fn(() => 2);
-      const uut = new Image({source: 1, sourceTransformer});
+      const uut = new Image({ source: 1, sourceTransformer });
       expect(uut.getImageSource()).toBe(2);
     });
 
@@ -35,15 +35,17 @@ describe('Image', () => {
           },
         },
       });
-      const uut = new Image({source: 1});
+      const uut = new Image({ source: 1 });
       expect(uut.getImageSource()).toBe(3);
     });
 
     it('should return transformed source prop, according to sourceTransform prop and other given props', () => {
-      const sourceTransformer = jest.fn(({size, source}) => (size === 'small' ? source : 3));
-      let uut = new Image({source: 1, size: 'small', sourceTransformer});
+      const sourceTransformer = jest.fn(({ size, source }) =>
+        size === 'small' ? source : 3,
+      );
+      let uut = new Image({ source: 1, size: 'small', sourceTransformer });
       expect(uut.getImageSource()).toBe(1);
-      uut = new Image({source: 1, size: 'large', sourceTransformer});
+      uut = new Image({ source: 1, size: 'large', sourceTransformer });
       expect(uut.getImageSource()).toBe(3);
     });
 
@@ -56,21 +58,21 @@ describe('Image', () => {
         test: 'test.png',
       });
 
-      let uut = new Image({assetGroup: 'icons', assetName: 'test'});
+      let uut = new Image({ assetGroup: 'icons', assetName: 'test' });
       expect(uut.getImageSource()).toBe('test.png');
 
-      uut = new Image({assetGroup: 'icons.general', assetName: 'test'});
+      uut = new Image({ assetGroup: 'icons.general', assetName: 'test' });
       expect(uut.getImageSource()).toBe('test.png');
     });
 
     it('should handle when source sent with uri=null', () => {
-      const uut = new Image({source: {uri: null}});
-      expect(uut.getImageSource()).toEqual({uri: undefined});
+      const uut = new Image({ source: { uri: null } });
+      expect(uut.getImageSource()).toEqual({ uri: undefined });
     });
 
     it('should handle when source sent with uri is empty string', () => {
-      const uut = new Image({source: {uri: ''}});
-      expect(uut.getImageSource()).toEqual({uri: undefined});
+      const uut = new Image({ source: { uri: '' } });
+      expect(uut.getImageSource()).toEqual({ uri: undefined });
     });
   });
 });

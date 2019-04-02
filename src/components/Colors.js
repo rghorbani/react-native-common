@@ -48,7 +48,7 @@ function colorForAmount(amount: ?number): string {
 }
 
 function colorWithHSL(count: number, index: number): string {
-  const hue = Math.round(360 * index / (count + 1));
+  const hue = Math.round((360 * index) / (count + 1));
   return `hsl(${hue}, 74%, 65%)`;
 }
 

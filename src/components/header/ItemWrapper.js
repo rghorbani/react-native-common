@@ -25,11 +25,19 @@ class ItemWrapper extends BaseComponent {
      */
     item: PropTypes.shape({
       title: PropTypes.string,
-      icon: PropTypes.oneOfType([PropTypes.element, PropTypes.string, PropTypes.number]),
+      icon: PropTypes.oneOfType([
+        PropTypes.element,
+        PropTypes.string,
+        PropTypes.number,
+      ]),
       iconSource: PropTypes.any,
       layout: PropTypes.oneOf(['default', 'both', 'icon', 'title']),
       onPress: PropTypes.func,
-      style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+      style: PropTypes.oneOfType([
+        PropTypes.object,
+        PropTypes.number,
+        PropTypes.array,
+      ]),
     }),
     /**
      * item color
@@ -60,7 +68,9 @@ class ItemWrapper extends BaseComponent {
 
     if (layout !== 'icon' && title) {
       content = (
-        <Text text90 style={[this.styles.itemText, { color }, style]}>{title.toUpperCase()}</Text>
+        <Text text90 style={[this.styles.itemText, { color }, style]}>
+          {title.toUpperCase()}
+        </Text>
       );
     } else if (layout === 'both' && title && icon) {
       if (React.isValidElement(icon)) {
@@ -74,7 +84,10 @@ class ItemWrapper extends BaseComponent {
       content = (
         <View style={this.styles.itemGroup}>
           {content}
-          <Text text90 style={[this.styles.itemText, {color, paddingLeft: 5}]}>
+          <Text
+            text90
+            style={[this.styles.itemText, { color, paddingLeft: 5 }]}
+          >
             {title.toUpperCase()}
           </Text>
         </View>
@@ -106,7 +119,7 @@ class ItemWrapper extends BaseComponent {
 function createStyles() {
   return StyleSheet.create({
     itemWrapper: {
-      padding: 5
+      padding: 5,
     },
     itemGroup: {
       flexDirection: 'row',

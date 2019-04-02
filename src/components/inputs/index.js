@@ -10,8 +10,4 @@ import TextArea from './TextArea';
 import TextField from './TextField';
 import TextInput from './TextInput';
 
-export {
-  TextArea,
-  TextField,
-  TextInput,
-};
+export { TextArea, TextField, TextInput };

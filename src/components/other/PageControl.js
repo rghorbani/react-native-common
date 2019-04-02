@@ -30,9 +30,7 @@ class PageControl extends React.Component {
     }
     return (
       <View style={[styles.container, this.props.style]}>
-        <View style={styles.innerContainer}>
-          {images}
-        </View>
+        <View style={styles.innerContainer}>{images}</View>
       </View>
     );
   }
@@ -50,9 +48,13 @@ class Circle extends React.Component {
   render() {
     let extraStyle = {};
     if (this.props.isSelected) {
-      extraStyle = this.props.fullColor ? {backgroundColor: this.props.fullColor} : styles.full;
+      extraStyle = this.props.fullColor
+        ? { backgroundColor: this.props.fullColor }
+        : styles.full;
     } else {
-      extraStyle = this.props.emptyColor ? {backgroundColor: this.props.emptyColor} : styles.empty;
+      extraStyle = this.props.emptyColor
+        ? { backgroundColor: this.props.emptyColor }
+        : styles.empty;
     }
     if (this.props.size) {
       extraStyle = {
@@ -91,7 +93,7 @@ const styles = StyleSheet.create({
 });
 
 module.exports = PageControl;
-module.exports.__cards__ = (define) => {
+module.exports.__cards__ = define => {
   define('Simple 2', () => <PageControl count={2} selectedIndex={0} />);
   define('Simple 5', () => <PageControl count={5} selectedIndex={2} />);
 };

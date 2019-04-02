@@ -32,7 +32,16 @@ class PageContainer extends React.Component {
   }
 
   render() {
-    let {rtl, leftItems, rightItems, children, headerStyle, style, contentStyle, ...props} = this.props;
+    let {
+      rtl,
+      leftItems,
+      rightItems,
+      children,
+      headerStyle,
+      style,
+      contentStyle,
+      ...props
+    } = this.props;
 
     if (rtl) {
       let tmp = leftItems;
@@ -53,9 +62,7 @@ class PageContainer extends React.Component {
             {this.props.headerChildren}
           </Header>
         </View>
-        <View style={[styles.content, contentStyle]}>
-          {children}
-        </View>
+        <View style={[styles.content, contentStyle]}>{children}</View>
       </View>
     );
   }

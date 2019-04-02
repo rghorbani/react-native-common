@@ -31,7 +31,7 @@ describe('ConnectionStatusBar', () => {
       ConnectionStatusBar.registerGlobalOnConnectionLost(callback);
       _.set(uut, 'state.isConnected', true);
 
-      uut.onConnectionChange({type: 'none'});
+      uut.onConnectionChange({ type: 'none' });
 
       expect(callback).toHaveBeenCalled();
     });
@@ -41,7 +41,7 @@ describe('ConnectionStatusBar', () => {
       ConnectionStatusBar.registerGlobalOnConnectionLost(callback);
       _.set(uut, 'state.isConnected', false);
 
-      uut.onConnectionChange({type: 'wifi'});
+      uut.onConnectionChange({ type: 'wifi' });
 
       expect(callback).not.toHaveBeenCalled();
     });

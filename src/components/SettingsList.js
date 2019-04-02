@@ -42,7 +42,7 @@ class SettingsList extends React.Component {
     borderColor: 'black',
     defaultItemSize: 50,
     underlayColor: 'transparent',
-    defaultTitleStyle: {fontSize: 16},
+    defaultTitleStyle: { fontSize: 16 },
   };
 
   _getGroups() {
@@ -51,13 +51,17 @@ class SettingsList extends React.Component {
     let itemGroup = [];
     let result = [];
     let other = [];
-    React.Children.forEach(this.props.children, (child) => {
+    React.Children.forEach(this.props.children, child => {
       // Allow for null, optional fields
       if (!child) return;
 
       if (child.type.displayName === 'SettingsList.Header') {
         if (groupNumber != -1) {
-          result[groupNumber] = {items: itemGroup, header: headers[groupNumber], other: other};
+          result[groupNumber] = {
+            items: itemGroup,
+            header: headers[groupNumber],
+            other: other,
+          };
           itemGroup = [];
           other = [];
         }
@@ -75,7 +79,11 @@ class SettingsList extends React.Component {
         other.push(child);
       }
     });
-    result[groupNumber] = {items: itemGroup, header: headers[groupNumber], other: other};
+    result[groupNumber] = {
+      items: itemGroup,
+      header: headers[groupNumber],
+      other: other,
+    };
     return result;
   }
 
@@ -94,10 +102,22 @@ class SettingsList extends React.Component {
       return (
         <View key={'group_' + index}>
           {group.other}
-          <Text style={[{margin: 5}, group.header.headerStyle]} numberOfLines={1} ellipsizeMode="tail">{group.header.headerText}</Text>
-          <View style={{borderTopWidth: 2 / PixelRatio.get(), borderBottomWidth: 2 / PixelRatio.get(), borderColor: this.props.borderColor}}>
+          <Text
+            style={[{ margin: 5 }, group.header.headerStyle]}
+            numberOfLines={1}
+            ellipsizeMode="tail"
+          >
+            {group.header.headerText}
+          </Text>
+          <View
+            style={{
+              borderTopWidth: 2 / PixelRatio.get(),
+              borderBottomWidth: 2 / PixelRatio.get(),
+              borderColor: this.props.borderColor,
+            }}
+          >
             {group.items.map((item, index) => {
-              return this._itemView(item,index, group.items.length);
+              return this._itemView(item, index, group.items.length);
             })}
           </View>
         </View>
@@ -106,9 +126,15 @@ class SettingsList extends React.Component {
       return (
         <View key={'group_' + index}>
           {group.other}
-          <View style={{borderTopWidth: 1, borderBottomWidth: 1, borderColor: this.props.borderColor}}>
+          <View
+            style={{
+              borderTopWidth: 1,
+              borderBottomWidth: 1,
+              borderColor: this.props.borderColor,
+            }}
+          >
             {group.items.map((item, index) => {
-              return this._itemView(item,index, group.items.length);
+              return this._itemView(item, index, group.items.length);
             })}
           </View>
         </View>
@@ -117,87 +143,158 @@ class SettingsList extends React.Component {
   }
 
   _itemEditableBlock(item, index, position) {
-
-    return ([
-        <Text
-            key={'itemTitle_' + index}
-            style={[
-              item.titleStyle ? item.titleStyle : this.props.defaultTitleStyle,
-              position === 'Bottom' ? null : (item.rtl ? styles.titleTextRTL : styles.titleText)
-            ]}>
-            {item.title}
-        </Text>,
-        item.isEditable ?
+    return [
+      <Text
+        key={'itemTitle_' + index}
+        style={[
+          item.titleStyle ? item.titleStyle : this.props.defaultTitleStyle,
+          position === 'Bottom'
+            ? null
+            : item.rtl
+            ? styles.titleTextRTL
+            : styles.titleText,
+        ]}
+      >
+        {item.title}
+      </Text>,
+      item.isEditable ? (
         <TextInput
-              key={item.id}
-              style={item.editableTextStyle ? item.editableTextStyle : (item.rtl ? item.editableTextRTL : item.editableText)}
-              placeholder = {item.placeholder}
-              onChangeText={(text) => item.onTextChange(text)}
-              value={item.value} />
-        : null
-    ]);
+          key={item.id}
+          style={
+            item.editableTextStyle
+              ? item.editableTextStyle
+              : item.rtl
+              ? item.editableTextRTL
+              : item.editableText
+          }
+          placeholder={item.placeholder}
+          onChangeText={text => item.onTextChange(text)}
+          value={item.value}
+        />
+      ) : null,
+    ];
   }
 
   _itemTitleBlock(item, index, position) {
-    return ([
+    return [
       <Text
-          key={'itemTitle_' + index}
-          style={[
-            item.titleStyle ? item.titleStyle : this.props.defaultTitleStyle,
-            position === 'Bottom' ? null : (item.rtl ? styles.titleTextRTL : styles.titleText)
-          ]}>
-          {item.title}
+        key={'itemTitle_' + index}
+        style={[
+          item.titleStyle ? item.titleStyle : this.props.defaultTitleStyle,
+          position === 'Bottom'
+            ? null
+            : item.rtl
+            ? styles.titleTextRTL
+            : styles.titleText,
+        ]}
+      >
+        {item.title}
       </Text>,
-      item.titleInfo ?
+      item.titleInfo ? (
         <Text
-            key={'itemTitleInfo_' + index}
-            style={[
-              item.rightSideStyle ? item.rightSideStyle
-              :
-                position === 'Bottom' ? null : (item.rtl ? styles.rightSideRTL : styles.rightSide),
-                {color: '#B1B1B1'},
-              item.titleInfoStyle
-            ]}>
-            {item.titleInfo}
+          key={'itemTitleInfo_' + index}
+          style={[
+            item.rightSideStyle
+              ? item.rightSideStyle
+              : position === 'Bottom'
+              ? null
+              : item.rtl
+              ? styles.rightSideRTL
+              : styles.rightSide,
+            { color: '#B1B1B1' },
+            item.titleInfoStyle,
+          ]}
+        >
+          {item.titleInfo}
         </Text>
-        : null
-    ]);
+      ) : null,
+    ];
   }
 
   _itemView(item, index, max) {
     let border;
     if (item.borderHide) {
       switch (item.borderHide) {
-        case 'Top': border = {borderBottomWidth: 1, borderColor: this.props.borderColor}; break;
-        case 'Bottom': border = {borderTopWidth: 1, borderColor: this.props.borderColor}; break;
+        case 'Top':
+          border = {
+            borderBottomWidth: 1,
+            borderColor: this.props.borderColor,
+          };
+          break;
+        case 'Bottom':
+          border = { borderTopWidth: 1, borderColor: this.props.borderColor };
+          break;
       }
     } else {
-      border = (index === max - 1) ? {borderWidth: 0} : {borderBottomWidth: 1, borderColor: this.props.borderColor};
+      border =
+        index === max - 1
+          ? { borderWidth: 0 }
+          : { borderBottomWidth: 1, borderColor: this.props.borderColor };
     }
 
-    let titleInfoPosition = item.titleInfoPosition ? item.titleInfoPosition : this.props.defaultTitleInfoPosition;
+    let titleInfoPosition = item.titleInfoPosition
+      ? item.titleInfoPosition
+      : this.props.defaultTitleInfoPosition;
 
     return (
-      <TouchableHighlight accessible={false} key={'item_' + index} underlayColor={item.underlayColor ? item.underlayColor : this.props.underlayColor} onPress={item.onPress} onLongPress={item.onLongPress}>
-        <View style={item.itemBoxStyle ? item.itemBoxStyle : [item.rtl ? styles.itemBoxRTL : styles.itemBox, {backgroundColor: item.backgroundColor ? item.backgroundColor : this.props.backgroundColor}]}>
+      <TouchableHighlight
+        accessible={false}
+        key={'item_' + index}
+        underlayColor={
+          item.underlayColor ? item.underlayColor : this.props.underlayColor
+        }
+        onPress={item.onPress}
+        onLongPress={item.onLongPress}
+      >
+        <View
+          style={
+            item.itemBoxStyle
+              ? item.itemBoxStyle
+              : [
+                  item.rtl ? styles.itemBoxRTL : styles.itemBox,
+                  {
+                    backgroundColor: item.backgroundColor
+                      ? item.backgroundColor
+                      : this.props.backgroundColor,
+                  },
+                ]
+          }
+        >
           {item.icon}
-          {item.isAuth ?
-            <View style={item.titleBoxStyle ? item.titleBoxStyle : [item.rtl ? styles.titleBoxRTL : styles.titleBox, border]}>
-              <View style={{paddingLeft: 5, flexDirection: 'column', flex: 1}}>
-                <View style={{borderBottomWidth: 1, borderColor: this.props.borderColor}}>
+          {item.isAuth ? (
+            <View
+              style={
+                item.titleBoxStyle
+                  ? item.titleBoxStyle
+                  : [item.rtl ? styles.titleBoxRTL : styles.titleBox, border]
+              }
+            >
+              <View
+                style={{ paddingLeft: 5, flexDirection: 'column', flex: 1 }}
+              >
+                <View
+                  style={{
+                    borderBottomWidth: 1,
+                    borderColor: this.props.borderColor,
+                  }}
+                >
                   <TextInput
-                    ref={(input) => this.UserNameInputBlock = input}
+                    ref={input => (this.UserNameInputBlock = input)}
                     onSubmitEditing={() => this.PasswordInputBlock.focus()}
-                    style={{flex: 1, height: 30, borderBottomWidth: 1 / PixelRatio.get()}}
-                    placeholder = "username"
+                    style={{
+                      flex: 1,
+                      height: 30,
+                      borderBottomWidth: 1 / PixelRatio.get(),
+                    }}
+                    placeholder="username"
                     {...item.authPropsUser}
                   />
                 </View>
                 <View>
                   <TextInput
-                    ref={(input) => this.PasswordInputBlock = input}
-                    style={{flex: 1, height: 30}}
-                    placeholder = "password"
+                    ref={input => (this.PasswordInputBlock = input)}
+                    style={{ flex: 1, height: 30 }}
+                    placeholder="password"
                     secureTextEntry={true}
                     returnKeyType={'go'}
                     {...item.authPropsPW}
@@ -206,25 +303,52 @@ class SettingsList extends React.Component {
                 </View>
               </View>
             </View>
-          :
-          <View style={item.titleBoxStyle ? item.titleBoxStyle : [item.rtl ? styles.titleBoxRTL : styles.titleBox, border, {minHeight:item.itemWidth ? item.itemWidth : this.props.defaultItemSize}]}>
-            {titleInfoPosition === 'Bottom' ?
-                <View style={{flexDirection: 'column', flex: 1, justifyContent: 'center'}}>
-                    {item.isEditable ? this._itemEditableBlock(item, index, 'Bottom') : this._itemTitleBlock(item, index, 'Bottom')}
+          ) : (
+            <View
+              style={
+                item.titleBoxStyle
+                  ? item.titleBoxStyle
+                  : [
+                      item.rtl ? styles.titleBoxRTL : styles.titleBox,
+                      border,
+                      {
+                        minHeight: item.itemWidth
+                          ? item.itemWidth
+                          : this.props.defaultItemSize,
+                      },
+                    ]
+              }
+            >
+              {titleInfoPosition === 'Bottom' ? (
+                <View
+                  style={{
+                    flexDirection: 'column',
+                    flex: 1,
+                    justifyContent: 'center',
+                  }}
+                >
+                  {item.isEditable
+                    ? this._itemEditableBlock(item, index, 'Bottom')
+                    : this._itemTitleBlock(item, index, 'Bottom')}
                 </View>
-              : item.isEditable ? this._itemEditableBlock(item, index) : this._itemTitleBlock(item, index)}
+              ) : item.isEditable ? (
+                this._itemEditableBlock(item, index)
+              ) : (
+                this._itemTitleBlock(item, index)
+              )}
 
-            {item.rightSideContent ? item.rightSideContent : null}
-            {item.hasSwitch ?
-              <Switch
-                {...item.switchProps}
-                style={item.rtl ? styles.rightSideRTL : styles.rightSide}
-                onValueChange={(value) => item.switchOnValueChange(value)}
-                value={item.switchState}/>
-                : null}
-            {this.itemArrowIcon(item)}
-          </View>
-        }
+              {item.rightSideContent ? item.rightSideContent : null}
+              {item.hasSwitch ? (
+                <Switch
+                  {...item.switchProps}
+                  style={item.rtl ? styles.rightSideRTL : styles.rightSide}
+                  onValueChange={value => item.switchOnValueChange(value)}
+                  value={item.switchState}
+                />
+              ) : null}
+              {this.itemArrowIcon(item)}
+            </View>
+          )}
         </View>
       </TouchableHighlight>
     );
@@ -232,11 +356,20 @@ class SettingsList extends React.Component {
 
   itemArrowIcon(item) {
     if (item.arrowIcon) {
-        return item.arrowIcon;
+      return item.arrowIcon;
     }
 
     if (item.hasNavArrow) {
-        return <Image style={[item.rtl ? styles.rightSideRTL : styles.rightSide, item.rtl ? styles.arrowRTL : styles.arrow, item.arrowStyle]} source={ARROW_ICON} />;
+      return (
+        <Image
+          style={[
+            item.rtl ? styles.rightSideRTL : styles.rightSide,
+            item.rtl ? styles.arrowRTL : styles.arrow,
+            item.arrowStyle,
+          ]}
+          source={ARROW_ICON}
+        />
+      );
     }
 
     return null;
@@ -288,7 +421,7 @@ class Item extends React.Component {
     /**
      * Item Box Style
      */
-    itemBoxStyle : ViewPropTypes.style,
+    itemBoxStyle: ViewPropTypes.style,
     /**
      * Title Box Style
      */
@@ -371,7 +504,7 @@ class Item extends React.Component {
 
   static defaultProps = {
     rtl: false,
-    hasNavArrow: true
+    hasNavArrow: true,
   };
   /**
    * not directly rendered
@@ -430,10 +563,9 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     marginLeft: 15,
   },
-  arrow: {
-  },
+  arrow: {},
   arrowRTL: {
-    transform: [{ rotate: '180deg'}],
+    transform: [{ rotate: '180deg' }],
   },
 });
 

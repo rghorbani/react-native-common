@@ -8,7 +8,13 @@
 
 const React = require('react');
 const PropTypes = require('prop-types');
-const { ActivityIndicator, Animated, Image, StyleSheet, View } = require('react-native');
+const {
+  ActivityIndicator,
+  Animated,
+  Image,
+  StyleSheet,
+  View,
+} = require('react-native');
 const { BaseComponent } = require('../../commons');
 
 class AnimatedImage extends BaseComponent {
@@ -58,7 +64,11 @@ class AnimatedImage extends BaseComponent {
 
   onLoad() {
     this.setState({ isLoading: false }, () => {
-      const animationParams = {toValue: 1, duration: this.props.animationDuration, useNativeDriver: false};
+      const animationParams = {
+        toValue: 1,
+        duration: this.props.animationDuration,
+        useNativeDriver: false,
+      };
       Animated.timing(this.state.opacity, animationParams).start();
     });
 
@@ -66,22 +76,19 @@ class AnimatedImage extends BaseComponent {
   }
 
   render() {
-    const {testId, containerStyle, imageStyle, loader, ...props} = this.props;
+    const { testId, containerStyle, imageStyle, loader, ...props } = this.props;
     return (
       <View testID={testId} style={containerStyle}>
         <Animated.Image
-          style={[{opacity: this.state.opacity}, imageStyle]}
+          style={[{ opacity: this.state.opacity }, imageStyle]}
           {...props}
           onLoad={() => this.onLoad()}
         />
-        {
-          (this.state.isLoading && loader) &&
-            <View style={styles.loadingContainer}>
-              <View style={styles.loadingInner}>
-                {loader}
-              </View>
-            </View>
-        }
+        {this.state.isLoading && loader && (
+          <View style={styles.loadingContainer}>
+            <View style={styles.loadingInner}>{loader}</View>
+          </View>
+        )}
       </View>
     );
   }

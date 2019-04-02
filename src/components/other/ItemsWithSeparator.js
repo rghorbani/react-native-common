@@ -22,25 +22,18 @@ class ItemsWithSeparator extends React.Component {
   render() {
     let children = [];
     let length = React.Children.count(this.props.children);
-    React.Children.forEach(
-      this.props.children,
-      (child, ii) => {
-        children.push(child);
-        if (ii !== length - 1) {
-          children.push(
-            <View
-              key={'separator-' + ii}
-              style={[styles.separator, this.props.separatorStyle]}
-            />
-          );
-        }
+    React.Children.forEach(this.props.children, (child, ii) => {
+      children.push(child);
+      if (ii !== length - 1) {
+        children.push(
+          <View
+            key={'separator-' + ii}
+            style={[styles.separator, this.props.separatorStyle]}
+          />,
+        );
       }
-    );
-    return (
-      <View style={this.props.style}>
-        {children}
-      </View>
-    );
+    });
+    return <View style={this.props.style}>{children}</View>;
   }
 }
 

@@ -9,32 +9,34 @@
 const Picker = require('../index');
 
 const countries = [
-  {label: 'Israel', value: 'IL' },
-  {label: 'United States', value: 'US' },
-  {label: 'Germany', value: 'DE' },
-  {label: 'Italy', value: 'IT' },
-  {label: 'Spain', value: 'ES ' },
+  { label: 'Israel', value: 'IL' },
+  { label: 'United States', value: 'US' },
+  { label: 'Germany', value: 'DE' },
+  { label: 'Italy', value: 'IT' },
+  { label: 'Spain', value: 'ES ' },
 ];
 
 describe('Picker', () => {
   describe('getLabel', () => {
     it('should get label of a simple item', () => {
-      let uut = new Picker({value: countries[2]});
+      let uut = new Picker({ value: countries[2] });
       expect(uut.getLabel()).toEqual(countries[2].label);
-      uut = new Picker({value: countries[3]});
+      uut = new Picker({ value: countries[3] });
       expect(uut.getLabel()).toEqual(countries[3].label);
     });
 
     it('should get label out of an array of items', () => {
-      const uut = new Picker({value: [countries[2], countries[4]]});
-      expect(uut.getLabel()).toEqual(`${countries[2].label}, ${countries[4].label}`);
+      const uut = new Picker({ value: [countries[2], countries[4]] });
+      expect(uut.getLabel()).toEqual(
+        `${countries[2].label}, ${countries[4].label}`,
+      );
     });
   });
 
   describe('handlePickerOnPress', () => {
     it('should get label out of an array of items', () => {
       const onPress = jest.fn(() => {});
-      const uut = new Picker({value: countries[0], onPress});
+      const uut = new Picker({ value: countries[0], onPress });
       uut.toggleExpandableModal = jest.fn(uut.toggleExpandableModal);
 
       uut.handlePickerOnPress();

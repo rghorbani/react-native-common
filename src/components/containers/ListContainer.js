@@ -8,27 +8,22 @@
 
 const React = require('react');
 const PropTypes = require('prop-types');
-const {
-  Platform,
-  Image,
-  TouchableOpacity,
-  View,
-} = require('react-native');
+const { Platform, Image, TouchableOpacity, View } = require('react-native');
 
 const Header = require('./Header');
 const StyleSheet = require('./StyleSheet');
 
-import type {Item as HeaderItem} from 'Header';
+import type { Item as HeaderItem } from 'Header';
 
 type Props = {
-  title: string;
-  leftItem?: HeaderItem;
-  rightItem?: HeaderItem;
-  extraItems?: Array<HeaderItem>;
-  selectedSectionColor: string;
-  backgroundImage: number;
-  backgroundColor: string;
-  children?: any;
+  title: string,
+  leftItem?: HeaderItem,
+  rightItem?: HeaderItem,
+  extraItems?: Array<HeaderItem>,
+  selectedSectionColor: string,
+  backgroundImage: number,
+  backgroundColor: string,
+  children?: any,
 };
 
 class ListContainer extends React.Component {
@@ -73,9 +68,7 @@ class ListContainer extends React.Component {
             extraItems={this.props.extraItems}
           />
         </View>
-        <View style={styles.content}>
-          {this.props.children}
-        </View>
+        <View style={styles.content}>{this.props.children}</View>
         {this.renderButton()}
       </View>
     );
@@ -91,12 +84,8 @@ class ListContainer extends React.Component {
     }
 
     return (
-      <TouchableOpacity
-        style={styles.addButton}
-        onPress={this.props.onPress}>
-        <Image
-          source={require('./img/add.png')}
-        />
+      <TouchableOpacity style={styles.addButton} onPress={this.props.onPress}>
+        <Image source={require('./img/add.png')} />
       </TouchableOpacity>
     );
   }
@@ -118,7 +107,7 @@ const styles = StyleSheet.create({
       borderRightWidth: 1,
       marginRight: -1,
       borderRightColor: 'transparent',
-    }
+    },
   },
   addButton: {
     position: 'absolute',

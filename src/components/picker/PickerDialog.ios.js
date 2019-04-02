@@ -16,7 +16,7 @@ const View = require('../view');
 const Text = require('../text');
 const WheelPicker = require('../../native-components/wheelpicker');
 const { BaseComponent } = require('../../commons');
-const {Colors} = require('../../style');
+const { Colors } = require('../../style');
 
 class PickerDialog extends BaseComponent {
   static propTypes = {
@@ -31,7 +31,7 @@ class PickerDialog extends BaseComponent {
   state = {};
 
   renderHeader() {
-    const {onDone, onCancel, topBarProps} = this.props;
+    const { onDone, onCancel, topBarProps } = this.props;
 
     return (
       <View style={styles.header}>
@@ -46,7 +46,12 @@ class PickerDialog extends BaseComponent {
   }
 
   renderPicker() {
-    const {children, onValueChange, selectedValue, renderNativePicker} = this.props;
+    const {
+      children,
+      onValueChange,
+      selectedValue,
+      renderNativePicker,
+    } = this.props;
     if (_.isFunction(renderNativePicker)) {
       return renderNativePicker(this.props);
     }
@@ -60,7 +65,14 @@ class PickerDialog extends BaseComponent {
   render() {
     const dialogProps = Dialog.extractOwnProps(this.props);
     return (
-      <Dialog {...dialogProps} visible height={250} width="100%" bottom animationConfig={{duration: 300}}>
+      <Dialog
+        {...dialogProps}
+        visible
+        height={250}
+        width="100%"
+        bottom
+        animationConfig={{ duration: 300 }}
+      >
         <View flex bg-white>
           {this.renderHeader()}
           <View centerV flex>

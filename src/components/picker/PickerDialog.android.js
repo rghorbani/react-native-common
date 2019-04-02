@@ -30,7 +30,7 @@ class PickerDialog extends BaseComponent {
   state = {};
 
   renderHeader() {
-    const {topBarProps} = this.props;
+    const { topBarProps } = this.props;
     const title = _.get(topBarProps, 'title');
     const titleStyle = _.get(topBarProps, 'titleStyle');
 
@@ -46,7 +46,7 @@ class PickerDialog extends BaseComponent {
   }
 
   renderFooter() {
-    const {onDone, onCancel, topBarProps} = this.props;
+    const { onDone, onCancel, topBarProps } = this.props;
     const doneLabel = _.get(topBarProps, 'doneLabel', 'OK');
     const cancelLabel = _.get(topBarProps, 'cancelLabel', 'CANCEL');
 
@@ -63,7 +63,12 @@ class PickerDialog extends BaseComponent {
   }
 
   renderPicker() {
-    const {children, onValueChange, selectedValue, renderNativePicker} = this.props;
+    const {
+      children,
+      onValueChange,
+      selectedValue,
+      renderNativePicker,
+    } = this.props;
     if (_.isFunction(renderNativePicker)) {
       return renderNativePicker(this.props);
     }

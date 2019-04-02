@@ -25,7 +25,12 @@ const Assets = require('../../assets');
 const { TouchableOpacity } = require('../touchables');
 const { BaseComponent } = require('../../commons');
 const { Constants } = require('../../helpers');
-const { BorderRadiuses, Colors, ThemeManager, Typography } = require('../../style');
+const {
+  BorderRadiuses,
+  Colors,
+  ThemeManager,
+  Typography,
+} = require('../../style');
 
 // todo: support backspace to remove tags
 // todo: support updating tags externally
@@ -157,8 +162,8 @@ class TagsInput extends BaseComponent {
   }
 
   addTag() {
-    const {onCreateTag, disableTagAdding} = this.props;
-    const {value, tags} = this.state;
+    const { onCreateTag, disableTagAdding } = this.props;
+    const { value, tags } = this.state;
     if (disableTagAdding) return;
     if (_.isEmpty(value.trim())) return;
 
@@ -168,12 +173,17 @@ class TagsInput extends BaseComponent {
       value: '',
       tags: newTags,
     });
-    this.props.onChangeTags && this.props.onChangeTags(newTags, TagsInput.onChangeTagsActions.ADDED, newTag);
+    this.props.onChangeTags &&
+      this.props.onChangeTags(
+        newTags,
+        TagsInput.onChangeTagsActions.ADDED,
+        newTag,
+      );
     this.input.clear();
   }
 
   removeMarkedTag() {
-    const {tags, tagIndexToRemove} = this.state;
+    const { tags, tagIndexToRemove } = this.state;
     if (!_.isUndefined(tagIndexToRemove)) {
       const removedTag = tags[tagIndexToRemove];
       tags.splice(tagIndexToRemove, 1);
@@ -181,22 +191,27 @@ class TagsInput extends BaseComponent {
         tags,
         tagIndexToRemove: undefined,
       });
-      this.props.onChangeTags && this.props.onChangeTags(tags, TagsInput.onChangeTagsActions.REMOVED, removedTag);
+      this.props.onChangeTags &&
+        this.props.onChangeTags(
+          tags,
+          TagsInput.onChangeTagsActions.REMOVED,
+          removedTag,
+        );
     }
   }
 
   markTagIndex(tagIndex) {
-    this.setState({tagIndexToRemove: tagIndex});
+    this.setState({ tagIndexToRemove: tagIndex });
   }
 
   onChangeText(value) {
-    this.setState({value, tagIndexToRemove: undefined});
+    this.setState({ value, tagIndexToRemove: undefined });
     this.props.onChangeText && this.props.onChangeText(value);
   }
 
   onTagPress(index) {
-    const {onTagPress} = this.props;
-    const {tagIndexToRemove} = this.state;
+    const { onTagPress } = this.props;
+    const { tagIndexToRemove } = this.state;
 
     // custom press handler
     if (onTagPress) {
@@ -213,7 +228,7 @@ class TagsInput extends BaseComponent {
   }
 
   isLastTagMarked() {
-    const {tags, tagIndexToRemove} = this.state;
+    const { tags, tagIndexToRemove } = this.state;
     const tagsCount = _.size(tags);
     const isLastTagMarked = tagIndexToRemove === tagsCount - 1;
     return isLastTagMarked;
@@ -226,7 +241,7 @@ class TagsInput extends BaseComponent {
       return;
     }
 
-    const {value, tags, tagIndexToRemove} = this.state;
+    const { value, tags, tagIndexToRemove } = this.state;
     const tagsCount = _.size(tags);
     const keyCode = _.get(event, 'nativeEvent.key');
     const hasNoValue = _.isEmpty(value);
@@ -245,7 +260,7 @@ class TagsInput extends BaseComponent {
   }
 
   getLabel(item) {
-    const {getLabel} = this.props;
+    const { getLabel } = this.props;
     if (getLabel) {
       return getLabel(item);
     }
@@ -260,8 +275,9 @@ class TagsInput extends BaseComponent {
     const typography = this.extractTypographyValue();
     return (
       <View style={this.styles.removeContainer}>
-        {shouldMarkTag &&
-          <Image style={this.styles.removeIcon} source={Assets.icons.x} />}
+        {shouldMarkTag && (
+          <Image style={this.styles.removeIcon} source={Assets.icons.x} />
+        )}
         <Text style={[this.styles.tagLabel, typography]}>
           {shouldMarkTag ? this.props.removeLabel : this.getLabel(tag)}
         </Text>
@@ -270,8 +286,8 @@ class TagsInput extends BaseComponent {
   }
 
   renderTag(tag, index) {
-    const {tagStyle, renderTag} = this.props;
-    const {tagIndexToRemove} = this.state;
+    const { tagStyle, renderTag } = this.props;
+    const { tagIndexToRemove } = this.state;
     const shouldMarkTag = tagIndexToRemove === index;
     if (typeof renderTag === 'function') {
       return renderTag(tag, index, shouldMarkTag, this.getLabel(tag));
@@ -279,7 +295,11 @@ class TagsInput extends BaseComponent {
     return (
       <View
         key={index}
-        style={[this.styles.tag, tagStyle, shouldMarkTag && this.styles.tagMarked]}
+        style={[
+          this.styles.tag,
+          tagStyle,
+          shouldMarkTag && this.styles.tagMarked,
+        ]}
       >
         {this.renderLabel(tag, shouldMarkTag)}
       </View>
@@ -299,13 +319,13 @@ class TagsInput extends BaseComponent {
   }
 
   renderTextInput() {
-    const {inputStyle, ...props} = this.props;
-    const {value} = this.state;
+    const { inputStyle, ...props } = this.props;
+    const { value } = this.state;
     const isLastTagMarked = this.isLastTagMarked();
     return (
       <View style={this.styles.inputWrapper}>
         <TextInput
-          ref={r => this.input = r}
+          ref={r => (this.input = r)}
           text80
           blurOnSubmit={false}
           {...props}
@@ -317,7 +337,7 @@ class TagsInput extends BaseComponent {
           hideUnderline
           selectionColor={isLastTagMarked ? 'transparent' : undefined}
           style={inputStyle}
-          containerStyle={{flexGrow: 0}}
+          containerStyle={{ flexGrow: 0 }}
           collapsable={false}
         />
       </View>
@@ -325,13 +345,17 @@ class TagsInput extends BaseComponent {
   }
 
   render() {
-    const {disableTagRemoval} = this.props;
-    const tagRenderFn = disableTagRemoval ? this.renderTag : this.renderTagWrapper;
+    const { disableTagRemoval } = this.props;
+    const tagRenderFn = disableTagRemoval
+      ? this.renderTag
+      : this.renderTagWrapper;
 
-    const {containerStyle, hideUnderline} = this.props;
-    const {tags} = this.state;
+    const { containerStyle, hideUnderline } = this.props;
+    const { tags } = this.state;
     return (
-      <View style={[!hideUnderline && this.styles.withUnderline, containerStyle]}>
+      <View
+        style={[!hideUnderline && this.styles.withUnderline, containerStyle]}
+      >
         <View style={this.styles.tagsList}>
           {_.map(tags, tagRenderFn)}
           {this.renderTextInput()}

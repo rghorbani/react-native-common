@@ -7,7 +7,7 @@
 'use strict';
 
 const _ = require('lodash');
-const {Constants} = require('../helpers');
+const { Constants } = require('../helpers');
 
 class Spacings {
   s1 = Constants.isIOS ? 3 : 4;

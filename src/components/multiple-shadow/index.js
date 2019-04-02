@@ -47,8 +47,8 @@ class MultipleShadow extends BaseComponent {
   }
 
   getShadowStyles() {
-    const {shadowType} = this.props;
-    let {topShadow, bottomShadow} = this.props;
+    const { shadowType } = this.props;
+    let { topShadow, bottomShadow } = this.props;
 
     if (!topShadow && Shadows[shadowType]) {
       topShadow = Shadows[shadowType].top;
@@ -58,15 +58,31 @@ class MultipleShadow extends BaseComponent {
       bottomShadow = Shadows[shadowType].bottom;
     }
 
-    return {topShadow, bottomShadow};
+    return { topShadow, bottomShadow };
   }
 
   render() {
-    const {style, shadowColor, ...others} = this.props;
-    const {topShadow, bottomShadow} = this.getShadowStyles();
+    const { style, shadowColor, ...others } = this.props;
+    const { topShadow, bottomShadow } = this.getShadowStyles();
     return (
-      <View {...others} style={[this.styles.wrapper, {...topShadow}, shadowColor && {shadowColor}, style]}>
-        <View {...others} style={[this.styles.wrapper, {...bottomShadow}, shadowColor && {shadowColor}, style]}>
+      <View
+        {...others}
+        style={[
+          this.styles.wrapper,
+          { ...topShadow },
+          shadowColor && { shadowColor },
+          style,
+        ]}
+      >
+        <View
+          {...others}
+          style={[
+            this.styles.wrapper,
+            { ...bottomShadow },
+            shadowColor && { shadowColor },
+            style,
+          ]}
+        >
           {this.props.children}
         </View>
       </View>

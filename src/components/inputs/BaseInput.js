@@ -1,8 +1,12 @@
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import 'react';
-import {TextInput as RNTextInput, Animated, ViewPropTypes} from 'react-native';
-import {BaseComponent, Colors, Typography} from 'react-native-ui-lib';
+import {
+  TextInput as RNTextInput,
+  Animated,
+  ViewPropTypes,
+} from 'react-native';
+import { BaseComponent, Colors, Typography } from 'react-native-ui-lib';
 
 export default class BaseInput extends BaseComponent {
   static displayName = 'BaseInput';
@@ -50,8 +54,8 @@ export default class BaseInput extends BaseComponent {
   }
 
   getUnderlineStyle() {
-    const {focused} = this.state;
-    const {error} = this.props;
+    const { focused } = this.state;
+    const { error } = this.props;
     if (error) {
       return this.styles.errorUnderline;
     } else if (focused) {
@@ -62,18 +66,18 @@ export default class BaseInput extends BaseComponent {
   }
 
   hasText() {
-    const {value} = this.state;
+    const { value } = this.state;
     return value && value.length > 0;
   }
 
   onFocus(...args) {
     _.invoke(this.props, 'onFocus', ...args);
-    this.setState({focused: true});
+    this.setState({ focused: true });
   }
 
   onBlur(...args) {
     _.invoke(this.props, 'onBlur', ...args);
-    this.setState({focused: false});
+    this.setState({ focused: false });
   }
 
   onChange(event) {

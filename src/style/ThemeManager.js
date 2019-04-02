@@ -10,7 +10,6 @@ const _ = require('lodash');
 const Colors = require('./Colors');
 
 class ThemeManager {
-
   theme = {
     primaryColor: Colors.blue30,
     CTA: {
@@ -24,7 +23,7 @@ class ThemeManager {
     components: {
       TouchableOpacity: {
         throttleTime: 0,
-        throttleOptions: {leading: true, trailing: false},
+        throttleOptions: { leading: true, trailing: false },
       },
     },
   };
@@ -38,7 +37,8 @@ class ThemeManager {
   }
 
   setItem(key, value) {
-    if (key === 'components') throw new Error('Overriding the "components" key is not possible.');
+    if (key === 'components')
+      throw new Error('Overriding the "components" key is not possible.');
     this.theme[key] = value;
   }
 

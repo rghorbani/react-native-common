@@ -29,9 +29,12 @@ class Picker extends BaseComponent {
   }
 
   extractPickerItems(props) {
-    const {children, useNativePicker} = props;
+    const { children, useNativePicker } = props;
     if (useNativePicker) {
-      const items = React.Children.map(children, child => ({value: child.props.value, label: child.props.label}));
+      const items = React.Children.map(children, child => ({
+        value: child.props.value,
+        label: child.props.label,
+      }));
       return items;
     }
   }
@@ -44,7 +47,7 @@ class Picker extends BaseComponent {
   }
 
   onDone() {
-    const {selectedValue} = this.state;
+    const { selectedValue } = this.state;
     _.invoke(this.props, 'onChange', selectedValue);
     this.input.toggleExpandableModal(false);
   }
@@ -56,19 +59,19 @@ class Picker extends BaseComponent {
   }
 
   getLabel() {
-    const {value, getLabel} = this.props;
+    const { value, getLabel } = this.props;
 
     if (_.isFunction(getLabel)) {
       return getLabel(value);
     }
 
-    const {items} = this.state;
-    const selectedItem = _.find(items, {value});
+    const { items } = this.state;
+    const selectedItem = _.find(items, { value });
     return _.get(selectedItem, 'label');
   }
 
   renderPickerDialog() {
-    const {selectedValue} = this.state;
+    const { selectedValue } = this.state;
     return (
       <PickerDialog
         {...this.getThemeProps()}

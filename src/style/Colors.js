@@ -70,7 +70,9 @@ class Colors {
 
 function validateRGB(value) {
   if (isNaN(value) || value > 255 || value < 0) {
-    throw new Error(`${value} is invalid rgb code, please use number between 0-255`);
+    throw new Error(
+      `${value} is invalid rgb code, please use number between 0-255`,
+    );
   }
 
   return value;

@@ -46,11 +46,13 @@ class Image extends BaseComponent {
   constructor(props) {
     super(props);
 
-    this.sourceTransformer = props.sourceTransformer || _.get(ThemeManager.components, 'Image.sourceTransformer');
+    this.sourceTransformer =
+      props.sourceTransformer ||
+      _.get(ThemeManager.components, 'Image.sourceTransformer');
   }
 
   getImageSource() {
-    const {assetName, assetGroup} = this.props;
+    const { assetName, assetGroup } = this.props;
     if (!_.isUndefined(assetName)) {
       return _.get(Assets, `${assetGroup}.${assetName}`);
     }
@@ -59,9 +61,9 @@ class Image extends BaseComponent {
       return this.sourceTransformer(this.props);
     }
 
-    const {source} = this.props;
+    const { source } = this.props;
     if (_.get(source, 'uri') === null || _.get(source, 'uri') === '') {
-      return {...source, uri: undefined};
+      return { ...source, uri: undefined };
     }
 
     return source;

@@ -1,4 +1,3 @@
-
 /**
  * Copyright 2016 Reza (github.com/rghorbani).
  *
@@ -8,12 +7,7 @@
 'use strict';
 
 const React = require('react');
-const {
-  ActivityIndicator,
-  Text,
-  View,
-  StyleSheet,
-} = require('react-native');
+const { ActivityIndicator, Text, View, StyleSheet } = require('react-native');
 
 class LoadingView extends React.Component {
   static displayName = 'LoadingView';
@@ -32,11 +26,14 @@ class LoadingView extends React.Component {
     if (this.props.type === 'primary') {
       return (
         <View style={[styles.container, styles.primary]}>
-          <ActivityIndicator
-            style={styles.indicator}
-            color="#FFFFFF"
-          />
-          <Text style={[styles.caption, styles.primaryTitle, this.props.captionStyle]}>
+          <ActivityIndicator style={styles.indicator} color="#FFFFFF" />
+          <Text
+            style={[
+              styles.caption,
+              styles.primaryTitle,
+              this.props.captionStyle,
+            ]}
+          >
             {this.props.caption}
           </Text>
         </View>
@@ -45,10 +42,7 @@ class LoadingView extends React.Component {
 
     return (
       <View style={styles.container}>
-        <ActivityIndicator
-          style={styles.indicator}
-          color="black"
-        />
+        <ActivityIndicator style={styles.indicator} color="black" />
         <Text style={[styles.caption, this.props.captionStyle]}>
           {this.props.caption}
         </Text>
@@ -66,7 +60,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   indicator: {
-    transform: [{scale: 1.2}],
+    transform: [{ scale: 1.2 }],
   },
   primary: {
     backgroundColor: 'rgba(0, 0, 0, 0.6)',

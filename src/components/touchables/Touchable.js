@@ -7,7 +7,11 @@
 'use strict';
 
 const React = require('react');
-const { Platform, TouchableHighlight, TouchableNativeFeedback } = require('react-native');
+const {
+  Platform,
+  TouchableHighlight,
+  TouchableNativeFeedback,
+} = require('react-native');
 
 function RNCTouchableIOS(props: Object): ReactElement {
   return (
@@ -19,8 +23,7 @@ function RNCTouchableIOS(props: Object): ReactElement {
   );
 }
 
-const RNCTouchable = Platform.OS === 'android'
-  ? TouchableNativeFeedback
-  : RNCTouchableIOS;
+const RNCTouchable =
+  Platform.OS === 'android' ? TouchableNativeFeedback : RNCTouchableIOS;
 
 module.exports = RNCTouchable;

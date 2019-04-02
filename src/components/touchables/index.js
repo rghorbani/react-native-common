@@ -8,6 +8,4 @@
 
 import Touchable from './Touchable';
 
-export {
-  Touchable,
-};
+export { Touchable };

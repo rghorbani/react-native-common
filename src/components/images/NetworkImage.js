@@ -40,7 +40,7 @@ class NetworkImage extends BaseComponent {
   }
 
   render() {
-    const {fallbackSource, source, ...props} = this.props;
+    const { fallbackSource, source, ...props } = this.props;
     return (
       <AnimatedImage
         {...props}

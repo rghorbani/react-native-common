@@ -36,7 +36,11 @@ class PickerItem extends BaseComponent {
      * The item value with the following format - {value: ..., label: ...},
      * for custom shape use getItemLabel, getItemValue props
      */
-    value: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.number]),
+    value: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.string,
+      PropTypes.number,
+    ]),
     /**
      * Function to return the label out of the item value prop when value is custom shaped.
      */
@@ -78,19 +82,24 @@ class PickerItem extends BaseComponent {
   }
 
   getLabel() {
-    const {value, label} = this.props;
+    const { value, label } = this.props;
     if (_.isObject(value)) {
-      return _.invoke(this.props, 'getItemLabel', value) || _.get(value, 'label');
+      return (
+        _.invoke(this.props, 'getItemLabel', value) || _.get(value, 'label')
+      );
     }
     return label;
   }
 
   renderSelectedIndicator() {
-    const {isSelected, disabled} = this.props;
+    const { isSelected, disabled } = this.props;
     if (isSelected) {
       return (
         <Image
-          style={[this.styles.checkIcon, disabled && this.styles.checkIconDisabled]}
+          style={[
+            this.styles.checkIcon,
+            disabled && this.styles.checkIconDisabled,
+          ]}
           source={Assets.icons.check}
         />
       );
@@ -98,12 +107,15 @@ class PickerItem extends BaseComponent {
   }
 
   renderItem() {
-    const {disabled} = this.props;
+    const { disabled } = this.props;
     return (
       <View flex row spread centerV style={this.styles.container}>
         <Text
           numberOfLines={1}
-          style={[this.styles.labelText, disabled && this.styles.labelTextDisabled]}
+          style={[
+            this.styles.labelText,
+            disabled && this.styles.labelTextDisabled,
+          ]}
         >
           {this.getLabel()}
         </Text>
@@ -117,13 +129,21 @@ class PickerItem extends BaseComponent {
   }
 
   render() {
-    const {renderItem, label, value, disabled, onPress, isSelected, testID} = this.props;
+    const {
+      renderItem,
+      label,
+      value,
+      disabled,
+      onPress,
+      isSelected,
+      testID,
+    } = this.props;
 
     return (
       <TouchableOpacity
         activeOpacity={0.5}
         // todo: deprecate the check for object
-        onPress={() => onPress(_.isObject(value) ? value : {value, label})}
+        onPress={() => onPress(_.isObject(value) ? value : { value, label })}
         onLayout={isSelected ? this.onSelectedLayout : undefined}
         disabled={disabled}
         testID={testID}
@@ -134,7 +154,7 @@ class PickerItem extends BaseComponent {
   }
 }
 
-function createStyles({rtl}) {
+function createStyles({ rtl }) {
   return StyleSheet.create({
     container: {
       height: 56.5,

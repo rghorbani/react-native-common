@@ -80,7 +80,10 @@ class ConnectionStatusBar extends BaseComponent {
   }
 
   componentDidMount() {
-    this.netInfoListener = NetInfo.addEventListener('connectionChange', this.onConnectionChange);
+    this.netInfoListener = NetInfo.addEventListener(
+      'connectionChange',
+      this.onConnectionChange,
+    );
   }
 
   componentWillUnmount() {
@@ -96,7 +99,8 @@ class ConnectionStatusBar extends BaseComponent {
         isConnected,
         isCancelled: false,
       });
-      this.props.onConnectionChange && this.props.onConnectionChange(isConnected, false);
+      this.props.onConnectionChange &&
+        this.props.onConnectionChange(isConnected, false);
 
       if (!isConnected) {
         setTimeout(() => {
@@ -113,8 +117,9 @@ class ConnectionStatusBar extends BaseComponent {
   async getInitialConnectionState() {
     const state = await NetInfo.getConnectionInfo();
     const isConnected = this.isStateConnected(state);
-    this.setState({isConnected});
-    this.props.onConnectionChange && this.props.onConnectionChange(isConnected, true);
+    this.setState({ isConnected });
+    this.props.onConnectionChange &&
+      this.props.onConnectionChange(isConnected, true);
   }
 
   isStateConnected(state) {
@@ -129,12 +134,20 @@ class ConnectionStatusBar extends BaseComponent {
     }
 
     return (
-      <View useSafeArea style={[this.styles.absoluteContainer, this.props.containerStyle]}>
+      <View
+        useSafeArea
+        style={[this.styles.absoluteContainer, this.props.containerStyle]}
+      >
         <View style={this.styles.container}>
           <View style={this.styles.innerContainer}>
-            <Text style={[this.styles.text, this.props.labelStyle]}>{this.props.label}</Text>
+            <Text style={[this.styles.text, this.props.labelStyle]}>
+              {this.props.label}
+            </Text>
             {this.props.allowDismiss && (
-              <TouchableOpacity style={this.styles.xContainer} onPress={() => this.setState({isCancelled: true})}>
+              <TouchableOpacity
+                style={this.styles.xContainer}
+                onPress={() => this.setState({ isCancelled: true })}
+              >
                 <Text style={this.styles.x}>✕</Text>
               </TouchableOpacity>
             )}
@@ -146,7 +159,9 @@ class ConnectionStatusBar extends BaseComponent {
 }
 
 function createStyles({ rtl }) {
-  const typography = Constants.isSmallScreen ? Typography.text90 : Typography.text80;
+  const typography = Constants.isSmallScreen
+    ? Typography.text90
+    : Typography.text80;
   return StyleSheet.create({
     absoluteContainer: {
       backgroundColor: Colors.dark30,

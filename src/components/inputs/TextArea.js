@@ -8,7 +8,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import {View, TextInput as RNTextInput, StyleSheet} from 'react-native';
+import { View, TextInput as RNTextInput, StyleSheet } from 'react-native';
 import BaseInput from './BaseInput';
 
 export default class TextArea extends BaseInput {
@@ -31,7 +31,7 @@ export default class TextArea extends BaseInput {
   }
 
   render() {
-    const {value} = this.state;
+    const { value } = this.state;
     const typography = this.getTypography();
     const inputStyle = [this.styles.input, typography];
     return (
@@ -43,14 +43,16 @@ export default class TextArea extends BaseInput {
           style={inputStyle}
           underlineColorAndroid="transparent"
           onChangeText={this.onChangeText}
-          ref={(input) => { this.input = input; }}
+          ref={input => {
+            this.input = input;
+          }}
         />
       </View>
     );
   }
 }
 
-function createStyles({rtl}) {
+function createStyles({ rtl }) {
   return StyleSheet.create({
     container: {
       flex: 1,
