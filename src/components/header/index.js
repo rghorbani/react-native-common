@@ -8,7 +8,7 @@
 
 const React = require('react');
 const PropTypes = require('prop-types');
-const { Platform, ToolbarAndroid, StyleSheet } = require('react-native');
+const { Platform, StyleSheet } = require('react-native');
 const {
   BaseComponent,
   Constants,
@@ -23,11 +23,6 @@ class Header extends BaseComponent {
   static displayName = 'Header';
 
   static propTypes = {
-    ...ToolbarAndroid.propTypes,
-    /**
-     * Using native toolbar (Only android)
-     */
-    useNative: PropTypes.bool,
     /**
      * header height
      */
@@ -92,7 +87,6 @@ class Header extends BaseComponent {
   };
 
   static defaultProps = {
-    useNative: false,
     useSafeArea: true,
     backgroundColor: Colors.white,
     titleColor: Colors.yellow,
@@ -101,10 +95,6 @@ class Header extends BaseComponent {
 
   constructor(props) {
     super(props);
-
-    this.state = {
-      useNative: Platform.OS === 'ios' ? false : props.useNative,
-    };
   }
 
   generateStyles() {
@@ -132,91 +122,6 @@ class Header extends BaseComponent {
     });
   }
 
-  renderNative() {
-    let {
-      titleColor,
-      titleStyle,
-      leftItems,
-      rightItems,
-      extraItems,
-      style,
-      ...props
-    } = this.props;
-
-    let actions = [];
-    if (leftItems) {
-      if (Array.isArray(leftItems)) {
-        leftItems = leftItems[0];
-      }
-      const { title, icon, layout } = leftItems;
-      actions.push({
-        icon: layout !== 'title' ? icon : undefined,
-        title: title,
-        show: 'always',
-      });
-    }
-    if (rightItems) {
-      if (Array.isArray(rightItems)) {
-        rightItems = rightItems[0];
-      }
-      const { title, icon, layout } = rightItems;
-      actions.push({
-        icon: layout !== 'title' ? icon : undefined,
-        title: title,
-        show: 'always',
-      });
-    }
-    if (extraItems) {
-      actions = actions.concat(
-        extraItems.map(item => ({
-          title: item.title,
-          show: 'never',
-        })),
-      );
-    }
-
-    let content;
-    if (React.Children.count(this.props.children) > 0) {
-      content = (
-        <View collapsable={false} style={{ flex: 1 }}>
-          {this.props.children}
-        </View>
-      );
-    } else {
-      content = (
-        <View collapsable={false} style={{ flex: 1, justifyContent: 'center' }}>
-          <Text
-            text70
-            numberOfLines={1}
-            style={[this.styles.title, { color: titleColor }, titleStyle]}
-          >
-            {this.props.title}
-          </Text>
-        </View>
-      );
-    }
-
-    return (
-      <View style={[this.styles.toolbarContainer, style]}>
-        <ToolbarAndroid
-          {...props}
-          navIcon={leftItems && leftItems.icon}
-          onIconClicked={leftItems && leftItems.onPress}
-          title={this.props.title}
-          titleColor={titleColor}
-          subtitleColor={titleColor}
-          actions={actions}
-          onActionSelected={this.handleActionSelected.bind(this)}
-          style={this.styles.toolbar}
-        >
-          {content}
-        </ToolbarAndroid>
-        {/*
-         */}
-      </View>
-    );
-  }
-
   render() {
     let {
       titleColor,
@@ -233,10 +138,6 @@ class Header extends BaseComponent {
     }
     if (!Array.isArray(rightItems)) {
       rightItems = [rightItems];
-    }
-
-    if (Platform.OS === 'android' && this.state.useNative) {
-      return this.renderNative();
     }
 
     const content =
